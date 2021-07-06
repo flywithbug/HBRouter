@@ -1,0 +1,21 @@
+{
+  "name": "HBRouter",
+  "version": "0.0.1",
+  "summary": "app",
+  "description": "app",
+  "homepage": "http://gitlab.hellobike.cn/Torrent/HBRouter.git",
+  "license": "MIT",
+  "authors": {
+    "flywithbug": "chengerfeng08824@hellobike.com"
+  },
+  "source": {
+    "git": "http://gitlab.hellobike.cn/Torrent/HBRouter.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "static_framework": true,
+  "frameworks": "UIKit",
+  "source_files": "HBRouter/Classes/**/*.{h,m}"
+}
