@@ -7,126 +7,121 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000AAE29CCEAA757B7671690 /* Pods_HBRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C640ACDEE5815B3BD9ACC56D /* Pods_HBRouter.framework */; };
-		B487A24F269446F4007DDF21 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B487A24E269446F4007DDF21 /* AppDelegate.m */; };
-		B487A255269446F4007DDF21 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B487A254269446F4007DDF21 /* ViewController.m */; };
-		B487A25A269446F6007DDF21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B487A259269446F6007DDF21 /* Assets.xcassets */; };
-		B487A25D269446F6007DDF21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B487A25B269446F6007DDF21 /* LaunchScreen.storyboard */; };
-		B487A260269446F6007DDF21 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B487A25F269446F6007DDF21 /* main.m */; };
+		B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487A28726946B36007DDF21 /* AppDelegate.swift */; };
+		B487A28C26946B36007DDF21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487A28B26946B36007DDF21 /* ViewController.swift */; };
+		B487A29126946B39007DDF21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B487A29026946B39007DDF21 /* Assets.xcassets */; };
+		B487A29426946B39007DDF21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B487A29226946B39007DDF21 /* LaunchScreen.storyboard */; };
+		F96244AB934B9CDB6AF9BCD6 /* Pods_Example_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789120AA5A94DFF58B6786A7 /* Pods_Example_swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		32A7C2AD3DB01FF1829ED729 /* Pods-HBRouter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBRouter.debug.xcconfig"; path = "Target Support Files/Pods-HBRouter/Pods-HBRouter.debug.xcconfig"; sourceTree = "<group>"; };
-		59B7D83DA6E63EA908E553A4 /* Pods-HBRouter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBRouter.release.xcconfig"; path = "Target Support Files/Pods-HBRouter/Pods-HBRouter.release.xcconfig"; sourceTree = "<group>"; };
-		B487A24A269446F4007DDF21 /* HBRouter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HBRouter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B487A24D269446F4007DDF21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		B487A24E269446F4007DDF21 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B487A253269446F4007DDF21 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B487A254269446F4007DDF21 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B487A259269446F6007DDF21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B487A25C269446F6007DDF21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B487A25E269446F6007DDF21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B487A25F269446F6007DDF21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C640ACDEE5815B3BD9ACC56D /* Pods_HBRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HBRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		73A1A10840E333FDB5E55AE8 /* Pods-Example_swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_swift.debug.xcconfig"; path = "Target Support Files/Pods-Example_swift/Pods-Example_swift.debug.xcconfig"; sourceTree = "<group>"; };
+		789120AA5A94DFF58B6786A7 /* Pods_Example_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B487A28426946B36007DDF21 /* Example_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B487A28726946B36007DDF21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B487A28B26946B36007DDF21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B487A29026946B39007DDF21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B487A29326946B39007DDF21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B487A29526946B39007DDF21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9FEBEEA4A116996F5FA1D4E /* Pods-Example_swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_swift.release.xcconfig"; path = "Target Support Files/Pods-Example_swift/Pods-Example_swift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B487A247269446F4007DDF21 /* Frameworks */ = {
+		B487A28126946B36007DDF21 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000AAE29CCEAA757B7671690 /* Pods_HBRouter.framework in Frameworks */,
+				F96244AB934B9CDB6AF9BCD6 /* Pods_Example_swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7148648BDFB93715EDE2556D /* Pods */ = {
+		3757019C889CA97C0BE65AE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				32A7C2AD3DB01FF1829ED729 /* Pods-HBRouter.debug.xcconfig */,
-				59B7D83DA6E63EA908E553A4 /* Pods-HBRouter.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		8342E6D286D7E89C6E28A510 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C640ACDEE5815B3BD9ACC56D /* Pods_HBRouter.framework */,
+				789120AA5A94DFF58B6786A7 /* Pods_Example_swift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B487A241269446F4007DDF21 = {
+		5879A6BC58248BFC64F32DD5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B487A24C269446F4007DDF21 /* HBRouter */,
-				B487A24B269446F4007DDF21 /* Products */,
-				7148648BDFB93715EDE2556D /* Pods */,
-				8342E6D286D7E89C6E28A510 /* Frameworks */,
+				73A1A10840E333FDB5E55AE8 /* Pods-Example_swift.debug.xcconfig */,
+				D9FEBEEA4A116996F5FA1D4E /* Pods-Example_swift.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B487A27B26946B36007DDF21 = {
+			isa = PBXGroup;
+			children = (
+				B487A28626946B36007DDF21 /* Example_swift */,
+				B487A28526946B36007DDF21 /* Products */,
+				5879A6BC58248BFC64F32DD5 /* Pods */,
+				3757019C889CA97C0BE65AE5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		B487A24B269446F4007DDF21 /* Products */ = {
+		B487A28526946B36007DDF21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B487A24A269446F4007DDF21 /* HBRouter.app */,
+				B487A28426946B36007DDF21 /* Example_swift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B487A24C269446F4007DDF21 /* HBRouter */ = {
+		B487A28626946B36007DDF21 /* Example_swift */ = {
 			isa = PBXGroup;
 			children = (
-				B487A24D269446F4007DDF21 /* AppDelegate.h */,
-				B487A24E269446F4007DDF21 /* AppDelegate.m */,
-				B487A253269446F4007DDF21 /* ViewController.h */,
-				B487A254269446F4007DDF21 /* ViewController.m */,
-				B487A259269446F6007DDF21 /* Assets.xcassets */,
-				B487A25B269446F6007DDF21 /* LaunchScreen.storyboard */,
-				B487A25E269446F6007DDF21 /* Info.plist */,
-				B487A25F269446F6007DDF21 /* main.m */,
+				B487A28726946B36007DDF21 /* AppDelegate.swift */,
+				B487A28B26946B36007DDF21 /* ViewController.swift */,
+				B487A29026946B39007DDF21 /* Assets.xcassets */,
+				B487A29226946B39007DDF21 /* LaunchScreen.storyboard */,
+				B487A29526946B39007DDF21 /* Info.plist */,
 			);
-			path = HBRouter;
+			path = Example_swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B487A249269446F4007DDF21 /* HBRouter */ = {
+		B487A28326946B36007DDF21 /* Example_swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B487A263269446F6007DDF21 /* Build configuration list for PBXNativeTarget "HBRouter" */;
+			buildConfigurationList = B487A29826946B39007DDF21 /* Build configuration list for PBXNativeTarget "Example_swift" */;
 			buildPhases = (
-				9AEACF163946942880BB81D8 /* [CP] Check Pods Manifest.lock */,
-				B487A246269446F4007DDF21 /* Sources */,
-				B487A247269446F4007DDF21 /* Frameworks */,
-				B487A248269446F4007DDF21 /* Resources */,
+				17B10C2ACC9F1F503608C668 /* [CP] Check Pods Manifest.lock */,
+				B487A28026946B36007DDF21 /* Sources */,
+				B487A28126946B36007DDF21 /* Frameworks */,
+				B487A28226946B36007DDF21 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = HBRouter;
-			productName = HBRouter;
-			productReference = B487A24A269446F4007DDF21 /* HBRouter.app */;
+			name = Example_swift;
+			productName = Example_swift;
+			productReference = B487A28426946B36007DDF21 /* Example_swift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B487A242269446F4007DDF21 /* Project object */ = {
+		B487A27C26946B36007DDF21 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
-					B487A249269446F4007DDF21 = {
+					B487A28326946B36007DDF21 = {
 						CreatedOnToolsVersion = 12.3;
 					};
 				};
 			};
-			buildConfigurationList = B487A245269446F4007DDF21 /* Build configuration list for PBXProject "HBRouter" */;
+			buildConfigurationList = B487A27F26946B36007DDF21 /* Build configuration list for PBXProject "Example_swift" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -134,30 +129,30 @@
 				en,
 				Base,
 			);
-			mainGroup = B487A241269446F4007DDF21;
-			productRefGroup = B487A24B269446F4007DDF21 /* Products */;
+			mainGroup = B487A27B26946B36007DDF21;
+			productRefGroup = B487A28526946B36007DDF21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B487A249269446F4007DDF21 /* HBRouter */,
+				B487A28326946B36007DDF21 /* Example_swift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B487A248269446F4007DDF21 /* Resources */ = {
+		B487A28226946B36007DDF21 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B487A25D269446F6007DDF21 /* LaunchScreen.storyboard in Resources */,
-				B487A25A269446F6007DDF21 /* Assets.xcassets in Resources */,
+				B487A29426946B39007DDF21 /* LaunchScreen.storyboard in Resources */,
+				B487A29126946B39007DDF21 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9AEACF163946942880BB81D8 /* [CP] Check Pods Manifest.lock */ = {
+		17B10C2ACC9F1F503608C668 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -172,7 +167,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-HBRouter-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Example_swift-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -182,23 +177,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B487A246269446F4007DDF21 /* Sources */ = {
+		B487A28026946B36007DDF21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B487A255269446F4007DDF21 /* ViewController.m in Sources */,
-				B487A24F269446F4007DDF21 /* AppDelegate.m in Sources */,
-				B487A260269446F6007DDF21 /* main.m in Sources */,
+				B487A28C26946B36007DDF21 /* ViewController.swift in Sources */,
+				B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B487A25B269446F6007DDF21 /* LaunchScreen.storyboard */ = {
+		B487A29226946B39007DDF21 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B487A25C269446F6007DDF21 /* Base */,
+				B487A29326946B39007DDF21 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -206,7 +200,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		B487A261269446F6007DDF21 /* Debug */ = {
+		B487A29626946B39007DDF21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -262,10 +256,12 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		B487A262269446F6007DDF21 /* Release */ = {
+		B487A29726946B39007DDF21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -314,72 +310,76 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		B487A264269446F6007DDF21 /* Debug */ = {
+		B487A29926946B39007DDF21 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 32A7C2AD3DB01FF1829ED729 /* Pods-HBRouter.debug.xcconfig */;
+			baseConfigurationReference = 73A1A10840E333FDB5E55AE8 /* Pods-Example_swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R9482QB963;
-				INFOPLIST_FILE = HBRouter/Info.plist;
+				INFOPLIST_FILE = Example_swift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flywithbug.HBRouter;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flywithbug.Example-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		B487A265269446F6007DDF21 /* Release */ = {
+		B487A29A26946B39007DDF21 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59B7D83DA6E63EA908E553A4 /* Pods-HBRouter.release.xcconfig */;
+			baseConfigurationReference = D9FEBEEA4A116996F5FA1D4E /* Pods-Example_swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R9482QB963;
-				INFOPLIST_FILE = HBRouter/Info.plist;
+				INFOPLIST_FILE = Example_swift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flywithbug.HBRouter;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flywithbug.Example-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B487A245269446F4007DDF21 /* Build configuration list for PBXProject "HBRouter" */ = {
+		B487A27F26946B36007DDF21 /* Build configuration list for PBXProject "Example_swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B487A261269446F6007DDF21 /* Debug */,
-				B487A262269446F6007DDF21 /* Release */,
+				B487A29626946B39007DDF21 /* Debug */,
+				B487A29726946B39007DDF21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B487A263269446F6007DDF21 /* Build configuration list for PBXNativeTarget "HBRouter" */ = {
+		B487A29826946B39007DDF21 /* Build configuration list for PBXNativeTarget "Example_swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B487A264269446F6007DDF21 /* Debug */,
-				B487A265269446F6007DDF21 /* Release */,
+				B487A29926946B39007DDF21 /* Debug */,
+				B487A29A26946B39007DDF21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B487A242269446F4007DDF21 /* Project object */;
+	rootObject = B487A27C26946B36007DDF21 /* Project object */;
 }

@@ -22,17 +22,24 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = 'http://gitlab.hellobike.cn/Torrent/HBRouter.git'
-  s.license          = 'MIT'
+  s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = { 'flywithbug' => 'chengerfeng08824@hellobike.com' }
   s.source           = { :git => 'http://gitlab.hellobike.cn/Torrent/HBRouter.git', :tag => s.version }
 
   s.ios.deployment_target = '9.0'
   s.static_framework = true
 
-  s.frameworks = 'UIKit'
+#  s.frameworks       = 'UIKit', 'Foundation'
+#  s.requires_arc     = true
 
-  s.source_files = 'HBRouter/Classes/**/*.{h,m}'
+  s.swift_version    = "5.0"
+
+  s.subspec 'HBRouter' do |ss|
+    ss.source_files = ['iOS/HBRouter/Classes/**/*']
+  end
   
-
+  
+  
+  s.ios.deployment_target = "9.0"
 
 end
