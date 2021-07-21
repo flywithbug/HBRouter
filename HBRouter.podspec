@@ -29,13 +29,11 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   s.static_framework = true
 
-#  s.frameworks       = 'UIKit', 'Foundation'
-#  s.requires_arc     = true
+  s.frameworks       = 'UIKit', 'Foundation'
 
   s.swift_version    = "5.0"
-
   s.subspec 'HBRouter' do |ss|
-    ss.source_files = ['iOS/HBRouter/Classes/**/*']
+    ss.source_files = ['iOS/HBRouter/**/*']
   end
   
   

@@ -7,6 +7,11 @@
 
 import Foundation
 
+public enum HBTargetType {
+     case undefined
+     case controller //路由
+     case bridge //功能调用
+}
 
 
 public enum  HBRouterOptions : Int{

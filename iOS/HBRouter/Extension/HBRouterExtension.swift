@@ -5,7 +5,7 @@
 //  Created by flywithbug on 2021/7/6.
 //
 
-import UIKit
+import Foundation
 
 
 extension  NSObject {
