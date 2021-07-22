@@ -8,7 +8,6 @@
 import Foundation
 
 
-//
 public typealias routerScheme = String
 public typealias routerHost = String
 public typealias routerPath = String
@@ -16,21 +15,16 @@ public typealias routerTarget = String
 public typealias routerBundle = String
 
 
-
-//public typealias ViewControllerFactory = (_ url: URLConvertible, _ values: [String: Any], _ context: Any?) -> UIViewController?
-
-
 //跳转控制
 //自定义跳转方法
-public typealias  ViewControllerFactory = (_ router: HBRouterAction) -> UIViewController?
-
+public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
 
 
 open class HBNavigator {
     
     var lock:NSLock = NSLock.init()
     
-    private var viewControllerFactories = [routerScheme: ViewControllerFactory]()
+    private var handlerFactories = [routerScheme: handlerFactory]()
 
     //路由表注册
     public var routerMapping = [routerScheme: [String:HBRouterTarget]]()
@@ -45,7 +39,7 @@ open class HBNavigator {
     open func registerRouterMapping( mapping:[routerScheme:[routerPath:routerTarget]],
                                      bundle:routerBundle = "" ,
                                      host:routerHost = "hellobike.com",
-                                     _ factory: ViewControllerFactory? = nil){
+                                     _ factory: handlerFactory? = nil){
         lock.lock()
         defer {
             lock.unlock()
@@ -64,29 +58,41 @@ open class HBNavigator {
                 rMap[item.key] = target
             }
             routerMapping[map.key] = rMap
-            
             if let factory = factory {
-                #if DEBUG
-                if let val = viewControllerFactories[map.key] {
-                    assert(false, "该scheme：\(map.key)，factory:\(String(describing: factory)),已被注册为\(String(describing: val))，请检查注册表")
-                }
-                #else
-                #endif
-                viewControllerFactories[map.key] = factory
+                registeHander(map.key, factory: factory)
             }
         }
     }
     
+    public func registeHander(_ schemes:[routerScheme],factory: @escaping handlerFactory){
+        for item in schemes{
+            registeHander(item, factory: factory)
+        }
+    }
+    
+    public func registeHander(_ scheme:routerScheme,factory: @escaping handlerFactory){
+        #if DEBUG
+        if let val = handlerFactories[scheme] {
+            assert(false, "该scheme：\(scheme)，factory:\(String(describing: factory)),已被注册为\(String(describing: val))，请检查注册表")
+        }
+        #else
+        #endif
+        handlerFactories[scheme] = factory
+    }
     
     
     //跳转控制器
-    public func openRouterAction(_ action:HBRouterAction) -> UIViewController?{
+    @discardableResult
+    public func openRouterAction(_ action:HBRouterAction)  -> Any?{
+        if let scheme = action.scheme, let handlefactory = handlerFactories[scheme] {
+            return handlefactory(action)
+        }
         
-        
-        
-        
-        return nil;
+        return nil
     }
+    
+    
+    
     
     public func openRouteString(_ routePath:String){
         

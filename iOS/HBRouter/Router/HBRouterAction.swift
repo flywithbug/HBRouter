@@ -19,7 +19,7 @@ open class HBRouterAction {
     //转场或者调用完成
     public var completeBlock:((Bool)->Void)? = nil
     //回调
-    public var callBackBlock:((Any)->Void)? = nil
+    public var callBackBlock:((Any?)->Void)? = nil
     
     public private(set) var url:URL?
 
@@ -57,8 +57,12 @@ open class HBRouterAction {
 
 extension HBRouterAction{
     
-    public func setCompleteBlock(_ block: ((Bool) -> Void)? = nil) {
+    public func setCompleteBlock(_ block: @escaping ((Bool) -> Void)){
         self.completeBlock = block
+    }
+    
+    public func setCallBackBlock(_ block: @escaping ((Any?) -> Void)){
+        self.callBackBlock = block
     }
     
     

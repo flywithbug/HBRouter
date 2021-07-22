@@ -8,9 +8,14 @@
 import Foundation
 
 
-open class HBRouter  {
+open class HBRouter:HBNavigator  {
     
-    
-    
+    private static let shareInstance = HBRouter()
+    private override init() {
+        super.init()
+    }
+    public static func router() -> HBRouter{
+        return shareInstance
+    }
     
 }
