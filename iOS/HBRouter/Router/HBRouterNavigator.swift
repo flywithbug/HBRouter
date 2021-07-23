@@ -12,9 +12,16 @@ import Foundation
 //public let HBRouterDefaultHost = "router.com"
 //public let HBRouterDefaultScheme = "hb"
 
+
+//不附带参数
+//scheme://host.com/path  && scheme://host.com
+public typealias routerURLPattern = String
+
 public typealias routerScheme = String
 public typealias routerHost = String
 public typealias routerPath = String
+
+//目标类
 public typealias routerTarget = String
 public typealias routerBundle = String
 
@@ -24,7 +31,7 @@ public typealias routerBundle = String
 public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
 
 
-open class HBNavigator {
+@objcMembers open class HBNavigator:NSObject {
     
     //
     public var defaultRouterHost:String!
@@ -32,7 +39,7 @@ open class HBNavigator {
     
     var lock:NSLock = NSLock.init()
     
-    private var handlerFactories = [routerScheme: handlerFactory]()
+    private var handlerFactories = [routerURLPattern: handlerFactory]()
 
     //路由表注册
     public var routerTargetMapping = [routerScheme: [String:HBRouterTarget]]()
@@ -52,8 +59,8 @@ open class HBNavigator {
                                   scheme:routerScheme,
                                   bundle:routerBundle,
                                   host:routerHost = "",
-                                  _ factory: handlerFactory? = nil,targetType:HBTargetType = .undefined){
-        registerRouterMapping(mapping: [scheme:mapping], bundle: bundle, host: host, factory,targetType: targetType)
+                                  targetType:HBTargetType = .undefined){
+        registerRouterMapping(mapping: [scheme:mapping], bundle: bundle, host: host,targetType: targetType)
     }
     
     /// 注册路由表
@@ -65,7 +72,7 @@ open class HBNavigator {
     open func registerRouterMapping( mapping:[routerScheme:[routerPath:routerTarget]],
                                      bundle:routerBundle = "" ,
                                      host:routerHost? = nil,
-                                     _ factory: handlerFactory? = nil,targetType:HBTargetType = .undefined){
+                                     targetType:HBTargetType = .undefined){
         lock.lock()
         defer {
             lock.unlock()
@@ -74,9 +81,6 @@ open class HBNavigator {
         #if DEBUG
         if defaultRouterHost  == nil {
             assert(false, "默认 host 未设置")
-        }
-        if defaultRouterScheme == nil {
-            assert(false, "默认 scheme 未设置")
         }
         #else
         #endif
@@ -100,51 +104,63 @@ open class HBNavigator {
                 rMap[item.key] = target
             }
             routerTargetMapping[map.key] = rMap
-            if let factory = factory {
-                registeHander(map.key, factory: factory)
-            }
+            
         }
     }
     
-    public func registeHander(_ schemes:[routerScheme],factory: @escaping handlerFactory){
-        for item in schemes{
-            registeHander(item, factory: factory)
+    public func registeHander(_ urlPatterns:[routerURLPattern],factory: @escaping handlerFactory){
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        for urlPattern in urlPatterns{
+            #if DEBUG
+            if let val = handlerFactories[urlPattern] {
+                assert(false, "该scheme：\(urlPattern)，factory:\(String(describing: factory)),已被注册为\(String(describing: val))，请检查注册表")
+            }
+            #else
+            #endif
+            handlerFactories[urlPattern] = factory
         }
     }
-    public func registeHander(_ scheme:routerScheme,factory: @escaping handlerFactory){
-        #if DEBUG
-        if let val = handlerFactories[scheme] {
-            assert(false, "该scheme：\(scheme)，factory:\(String(describing: factory)),已被注册为\(String(describing: val))，请检查注册表")
-        }
-        #else
-        #endif
-        handlerFactories[scheme] = factory
+    
+    public func registerHander(_ urlPattern:routerURLPattern,factory: @escaping handlerFactory){
+        registeHander([urlPattern], factory: factory)
     }
     
     
     //跳转控制器
     @discardableResult
     public func openRouterAction(_ action:HBRouterAction)  -> Any?{
+        action.target = matchTarget(action)
         if let val = hanldeFactory(action),val.success {
             return val.target
         }
-        
-        
         if let val = openController(action),val.success {
             return val
         }
         
-        
         return openController(action)
     }
+    
+    
+    
     
     
     /// 检索注册自定义方法
     /// - Parameter action: 路由action
     /// - Returns: 返回调用对象, 若返回空则表示调用失败
     private func hanldeFactory(_ action:HBRouterAction) -> (target:Any?, success:Bool)? {
-        if let scheme = action.scheme, let handle = handlerFactories[scheme] {
-            //处理成功
+        if let scheme = action.scheme, let host = action.host,let path = action.path, let handle = handlerFactories["\(scheme)://\(host)/\(path)"] {
+            return (handle(action),true)
+        }
+        if let scheme = action.scheme, let host = action.host, let handle = handlerFactories["\(scheme)://\(host)"] {
+            return (handle(action),true)
+        }
+        if let scheme = action.scheme, let handle = handlerFactories["\(scheme)://"]{
+            return (handle(action),true)
+        }
+        if let scheme = action.scheme, let handle = handlerFactories[scheme]{
             return (handle(action),true)
         }
         
@@ -152,8 +168,7 @@ open class HBNavigator {
     }
     
     
-    private func openController(_ action:HBRouterAction)  -> (target:Any?, success:Bool)?{
-        
+    public func openController(_ action:HBRouterAction)  -> (target:Any?, success:Bool)?{
         
         
         
@@ -173,6 +188,37 @@ open class HBNavigator {
 
 extension HBNavigator {
     
+    
+    @discardableResult
+    func matchTargetController(_ action:HBRouterAction,
+                               navigationController:UINavigationController) -> UIViewController? {
+        
+//        guard  let targetClass = action.target?.targetClass as? UIViewController.Type else {
+//            return nil
+//        }
+        
+//        let viewController =   navigationController.viewControllers.match { (vc) -> Bool in
+//            return vc.isKind(of: targetClass)
+//        }
+        
+        
+        
+        
+        return nil
+    }
+    
+    @discardableResult
+    func matchTarget(_ action:HBRouterAction) -> HBRouterTarget? {
+        guard let scheme = action.scheme,let path = action.path else {
+            assert(false, "scheme or  path is nil")
+            return nil
+        }
+        if let target = routerTargetMapping[scheme]?[path]{
+            return target
+        }
+        
+        return nil
+    }
     
     
     

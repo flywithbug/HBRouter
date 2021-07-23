@@ -8,7 +8,7 @@
 import Foundation
 
 
-open class HBRouter:HBNavigator  {
+@objcMembers open class HBRouter:HBNavigator  {
     
     private static let shareInstance = HBRouter()
     private override init() {

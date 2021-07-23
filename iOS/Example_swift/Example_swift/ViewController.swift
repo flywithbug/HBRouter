@@ -14,34 +14,8 @@ class ViewController: UIViewController {
     
     
     lazy var dataSource:[HBRouterAction] = {
-        var dataSource:[HBRouterAction] = []
-        var action = HBRouterAction.init(urlString: "bridge://hellobike/routerActionTest")
-        action.setCallBackBlock { (value) in
-            print("\(value ?? "---")","a")
-        }
-        dataSource.append(action)
         
-        action = HBRouterAction.init(urlString: "bridge://hellobike/routerActionTest1")
-        action.setCallBackBlock { (value) in
-            print("\(value ?? "---")", "b")
-        }
-        dataSource.append(action)
-        
-        
-        action = HBRouterAction.init(urlString: "hb://router.com/home")
-        action.setCallBackBlock { (value) in
-            print("\(value ?? "---")", "b")
-        }
-        dataSource.append(action)
-        
-        
-        
-        
-        
-        
-        
-        
-        return dataSource
+        return RouterUsage.dataSource()
     }()
     
     lazy var tableView:UITableView = {
@@ -64,6 +38,7 @@ class ViewController: UIViewController {
         
         RouterUsage.registerHandler()
         RouterUsage.registRouterMapping()
+        
         
         
     }
@@ -99,6 +74,8 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         let action = dataSource[indexPath.row]
         HBRouter.router().openRouterAction(action)
+        
+        
     }
     
     

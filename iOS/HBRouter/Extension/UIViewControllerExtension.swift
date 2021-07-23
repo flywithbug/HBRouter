@@ -5,7 +5,48 @@
 //  Created by flywithbug on 2021/7/8.
 //
 
-import Foundation
+import UIKit
+
+extension UIViewController{
+    
+    @discardableResult
+    open func handleRouterAction(_ action:HBRouterAction) ->Bool{
+        return true
+    }
+
+    open class func needsLogin(_ action:HBRouterAction) ->Bool{
+        return false
+    }
+    
+    
+    /// 栈内单例唯一：只在当前所处导航控制器的栈内单例
+    /// - Parameter
+    open class func isSingleton(_ action:HBRouterAction) -> Bool{
+        return false
+    }
+    
+    //是否允许侧滑返回- 默认允许
+    @objc open func canSlideBack() -> Bool{
+        return true
+    }
+    
+    
+//    @objc open func fbr_viewDidLoad() {
+//        fbr_viewDidLoad()
+//    }
+    
+    
+    
+//    class func initializeVCMethod() {
+//        self.swizzleMethod(for: self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(fbr_viewDidLoad))
+//    }
+}
+
+
+
+
+
+
 
 
 extension UIViewController {
@@ -63,3 +104,22 @@ extension UIViewController {
       return viewController
     }
 }
+
+
+
+
+public extension Array where Element:UIViewController {
+    typealias HBRValidationBlock = (_ obj:UIViewController)->Bool
+    
+    func match(validate:HBRValidationBlock) -> UIViewController?{
+        for item in self{
+            if validate(item)  {
+                return item
+            }
+        }
+        return nil
+    }
+    
+    
+}
+

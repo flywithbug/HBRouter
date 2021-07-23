@@ -8,7 +8,8 @@
 import Foundation
 
 //原生路由跳转 Action
-open class HBRouterAction {
+
+@objcMembers  open class HBRouterAction:NSObject {
     //默认转场为push
     public var options:[HBRouterOptions] = [.push]
     public private(set) var params:Dictionary<String,Any> = [:]
@@ -30,17 +31,18 @@ open class HBRouterAction {
     public var host:String?
     
     public init(url:URL) {
-        initt(url: url)
+        super.init()
+        self.initt(url: url)
     }
     
     
     
-    
-    public init(urlString:String){
-        guard let _url = URL.init(string: urlString) else {
+    public init(urlPattern:routerURLPattern){
+        super.init()
+        guard let _url = URL.init(string: urlPattern) else {
             return
         }
-        initt(url: _url)
+        self.initt(url: _url)
         
     }
 
@@ -61,14 +63,13 @@ open class HBRouterAction {
 
 extension HBRouterAction{
     
-    public func setCompleteBlock(_ block: @escaping ((Bool) -> Void)){
-        self.completeBlock = block
-    }
-    
-    public func setCallBackBlock(_ block: @escaping ((Any?) -> Void)){
-        self.callBackBlock = block
-    }
-    
+//    public func setCompleteBlock(_ block: @escaping ((Bool) -> Void)){
+//        self.completeBlock = block
+//    }
+//    
+//    public func setCallBackBlock(_ block: @escaping ((Any?) -> Void)){
+//        self.callBackBlock = block
+//    }
     
     public func addEntriesFromDictonary(_ entries:Dictionary<String,Any>){
         for item in entries{
@@ -76,11 +77,13 @@ extension HBRouterAction{
         }
     }
     
+    
     public func addParamsFromURLAction(routerAction:HBRouterAction) {
         self.addEntriesFromDictonary(routerAction.params)
     }
     
     //any nil时，删除对应Key的Value值
+
     public func setValue(_ key:String,value:Any?){
         self.params[key] = value
     }
@@ -89,19 +92,22 @@ extension HBRouterAction{
         return self.params[key]
     }
     
-    
     public func int(_ key:String)->Int?{
         return intValue(any(key))
     }
+    
     public func double(_ key:String)->Double?{
         return doubleValue(any(key))
     }
+    
     public func number(_ key:String)->NSNumber?{
         return numberValue(any(key))
     }
+    
     public func string(_ key:String)->String?{
         return stringValue(any(key))
     }
+    
     public func bool(_ key:String)->Bool?{
         return boolValue(any(key))
     }
@@ -203,7 +209,7 @@ extension HBRouterAction{
 
 
 //导航跳转Target
-open class HBRouterTarget {
+@objcMembers  open class HBRouterTarget:NSObject {
     public var  scheme:String  //scheme
     public var  host:String
     public var  path:String   //
@@ -220,11 +226,21 @@ open class HBRouterTarget {
         self.path = path
         self.target = target
         self.bundle = bundle
-        self.targetClass =  HBClassFromString(string: target,bundle: bundle)
         self.targetType = targetType
-        if self.targetClass is UIViewController.Type{
-            self.targetType = .controller
+        if let target =  HBClassFromString(string: target,bundle: bundle){
+            self.targetClass = target
+            if self.targetClass is UIViewController.Type{
+                self.targetType = .controller
+            }
+        }else{
+            #if DEBUG
+            assert(false, "target 类型无法获取，请检查注册对象")
+            #else
+            #endif
+           
         }
+        
+        
     }
 }
 
