@@ -12,6 +12,7 @@
 		B487A29126946B39007DDF21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B487A29026946B39007DDF21 /* Assets.xcassets */; };
 		B487A29426946B39007DDF21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B487A29226946B39007DDF21 /* LaunchScreen.storyboard */; };
 		B4D822F726A957AA006DEA9D /* RouterUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D822F626A957AA006DEA9D /* RouterUsage.swift */; };
+		B4D822FE26A95F9B006DEA9D /* RouterDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D822FD26A95F9B006DEA9D /* RouterDefinition.swift */; };
 		F96244AB934B9CDB6AF9BCD6 /* Pods_Example_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789120AA5A94DFF58B6786A7 /* Pods_Example_swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		B487A29326946B39007DDF21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B487A29526946B39007DDF21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4D822F626A957AA006DEA9D /* RouterUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterUsage.swift; sourceTree = "<group>"; };
+		B4D822FD26A95F9B006DEA9D /* RouterDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterDefinition.swift; sourceTree = SOURCE_ROOT; };
 		D9FEBEEA4A116996F5FA1D4E /* Pods-Example_swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_swift.release.xcconfig"; path = "Target Support Files/Pods-Example_swift/Pods-Example_swift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 				B487A28726946B36007DDF21 /* AppDelegate.swift */,
 				B487A28B26946B36007DDF21 /* ViewController.swift */,
 				B4D822F626A957AA006DEA9D /* RouterUsage.swift */,
+				B4D822FD26A95F9B006DEA9D /* RouterDefinition.swift */,
 				B487A29026946B39007DDF21 /* Assets.xcassets */,
 				B487A29226946B39007DDF21 /* LaunchScreen.storyboard */,
 				B487A29526946B39007DDF21 /* Info.plist */,
@@ -186,6 +189,7 @@
 				B487A28C26946B36007DDF21 /* ViewController.swift in Sources */,
 				B4D822F726A957AA006DEA9D /* RouterUsage.swift in Sources */,
 				B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */,
+				B4D822FE26A95F9B006DEA9D /* RouterDefinition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

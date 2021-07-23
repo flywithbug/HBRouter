@@ -7,7 +7,9 @@
 
 import Foundation
 
-let HBRouterAppName =  Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String?
+public let HBRouterAppName =  Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String?
+
+
 
 public func  HBClassFromString(string: String)-> AnyClass?{
     let stringName = HBRouterAppName! + "." + string

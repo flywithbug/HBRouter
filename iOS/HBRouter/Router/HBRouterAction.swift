@@ -14,6 +14,7 @@ open class HBRouterAction {
     public private(set) var params:Dictionary<String,Any> = [:]
     
     public var target:HBRouterTarget?
+    
     //转场动画
     public var animation:Bool = true
     //转场或者调用完成
@@ -31,6 +32,9 @@ open class HBRouterAction {
     public init(url:URL) {
         initt(url: url)
     }
+    
+    
+    
     
     public init(urlString:String){
         guard let _url = URL.init(string: urlString) else {
@@ -200,23 +204,24 @@ extension HBRouterAction{
 
 //导航跳转Target
 open class HBRouterTarget {
-    public var  scheme:String?  //scheme
-    public var  host:String?
-    public var  path:String?   //
-    public var  target:String?
+    public var  scheme:String  //scheme
+    public var  host:String
+    public var  path:String   //
+    public var  target:String
     public var  targetClass:AnyClass?
-    public var  bundle:String?  //注册路由所属bundle name
+    public var  bundle:String  //注册路由所属bundle name
     
     //target 调用类型
-    public var  targetType:HBTargetType = .undefined
+    public var  targetType:HBTargetType
 
-    init(scheme:String,host:String,path:String,target:String,bundle:String) {
+    init(scheme:String,host:String,path:String,target:String,bundle:String,targetType:HBTargetType = .undefined) {
         self.scheme = scheme
         self.host = host
         self.path = path
         self.target = target
         self.bundle = bundle
         self.targetClass =  HBClassFromString(string: target,bundle: bundle)
+        self.targetType = targetType
         if self.targetClass is UIViewController.Type{
             self.targetType = .controller
         }

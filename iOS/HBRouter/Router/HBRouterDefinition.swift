@@ -7,10 +7,18 @@
 
 import Foundation
 
-public enum HBTargetType {
-     case undefined
-     case controller //路由
-     case bridge //功能调用
+public enum HBTargetType:Int {
+    
+    //未定义
+    case undefined  = 0
+    //原生
+    case controller = 1   //路由
+
+    //flutter
+    case flutter = 2   //路由
+    case bridge     = 3    //功能调用
+    
+    
 }
 
 
