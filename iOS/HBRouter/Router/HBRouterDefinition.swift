@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum HBTargetType:Int {
+@objc public enum HBTargetType:Int {
     
     //未定义
     case undefined  = 0
@@ -22,7 +22,7 @@ public enum HBTargetType:Int {
 }
 
 
-public enum  HBRouterOptions : Int{
+@objc public enum  HBRouterOptions : Int{
     case push = 0
     case present
     

@@ -5,7 +5,7 @@
 //  Created by flywithbug on 2021/7/8.
 //
 
-import Foundation
+import UIKit
 
 
 
@@ -34,45 +34,77 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
 @objcMembers open class HBNavigator:NSObject {
     
     //
-    public var defaultRouterHost:String!
-    public var defaultRouterScheme:String!
+    public private(set)  var defaultRouterHost:String!
+    public private(set)  var defaultRouterScheme:String!
     
+    public func setDefault(_ scheme:routerScheme,host:routerHost) {
+        if defaultRouterHost != nil || defaultRouterScheme != nil  {
+            #if DEBUG
+            assert(false, "HBRouter::::重复设置 默认host和scheme......")
+            #else
+            #endif
+        }
+        defaultRouterHost = host
+        defaultRouterScheme = scheme
+    }
     var lock:NSLock = NSLock.init()
     
-    private var handlerFactories = [routerURLPattern: handlerFactory]()
+    private  var handlerFactories = [routerURLPattern: handlerFactory]()
 
     //路由表注册
-    public var routerTargetMapping = [routerScheme: [String:HBRouterTarget]]()
+    public private(set)  var routerTargetMapping = [routerScheme: [routerPath:HBRouterTarget]]()
     
     
-    
+    public private(set) var routerMapping = [routerURLPattern:HBRouterTarget]()
     
     /// 路由表注册
     /// - Parameters:
     ///   - mapping: 路由表映射关系
-    ///   - scheme: 路由 scheme头
     ///   - bundle: 映射对象所在bundle name
-    ///   - host: 路由Host
-    ///   - factory: 路由自定义方法调用
-    ///   - targetType: 路由类型
-    open func registRouterMapping(mapping:[routerPath:routerTarget],
-                                  scheme:routerScheme,
-                                  bundle:routerBundle,
-                                  host:routerHost = "",
-                                  targetType:HBTargetType = .undefined){
-        registerRouterMapping(mapping: [scheme:mapping], bundle: bundle, host: host,targetType: targetType)
+    public func registRouter(_ mapping:[routerPath:routerTarget],
+                             bundle:routerBundle){
+        
+        #if DEBUG
+        if defaultRouterHost  == nil {
+            assert(false, "默认 host 未设置")
+        }
+        if defaultRouterScheme == nil {
+            assert(false, "默认 scheme 未设置")
+        }
+        #else
+        #endif
+        registerRouter([defaultRouterScheme:mapping],
+                       bundle: bundle,
+                       host: defaultRouterHost,
+                       targetType: .undefined)
     }
+    
+    public func registRouter(_ scheme:routerScheme,
+                             mapping:[routerPath:routerTarget],
+                             bundle:routerBundle,
+                             host:routerHost,
+                             targetType:HBTargetType = .undefined){
+        var scheme = scheme
+        if scheme == "" {
+            scheme = defaultRouterScheme
+        }
+        registerRouter([scheme:mapping],
+                       bundle: bundle,
+                       host: host,
+                       targetType: targetType)
+    }
+    
     
     /// 注册路由表
     /// - Parameters:
-    ///   - mapping: {"bos":{"bike":"bikeViewController"}}
+    ///   - mapping: {"bos":{"/home/bike/map":"bikeViewController"}}
     ///              routerTarget: 路由目标对象
     ///          - routerScheme 不同的scheme可以配置不同的handler
     ///   - bundle: 注册路由所属bundle（swift需要bundle名称，Objective-C不需要）
-    open func registerRouterMapping( mapping:[routerScheme:[routerPath:routerTarget]],
-                                     bundle:routerBundle = "" ,
-                                     host:routerHost? = nil,
-                                     targetType:HBTargetType = .undefined){
+    public func registerRouter(_ mapping:[routerScheme:[routerPath:routerTarget]],
+                               bundle:routerBundle ,
+                               host:routerHost,
+                               targetType:HBTargetType = .undefined){
         lock.lock()
         defer {
             lock.unlock()
@@ -86,12 +118,12 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
         #endif
         
         var _host = defaultRouterHost!
-        if let host = host {
+        if host != "" {
             _host = host
         }
         
         for map in mapping{
-            var rMap = routerTargetMapping[map.key] ?? [String:HBRouterTarget]()
+            var rMap = routerTargetMapping[map.key] ?? [routerPath:HBRouterTarget]()
             for item in map.value{
                 let target = HBRouterTarget.init(scheme: map.key, host: _host, path: item.key, target: item.value, bundle: bundle,targetType: targetType)
                 #if DEBUG
@@ -100,15 +132,16 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
                 }
                 #else
                 #endif
-               
-                rMap[item.key] = target
+                routerMapping[target.routerURLPattern()] = target
+                rMap[target.scheme] = target
             }
             routerTargetMapping[map.key] = rMap
-            
         }
     }
     
-    public func registeHander(_ urlPatterns:[routerURLPattern],factory: @escaping handlerFactory){
+    //hb://router.com/path
+    public func registeHander(_ urlPatterns:[routerURLPattern],
+                              factory: @escaping handlerFactory){
         lock.lock()
         defer {
             lock.unlock()
@@ -120,11 +153,15 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
             }
             #else
             #endif
-            handlerFactories[urlPattern] = factory
+            let action = HBRouterAction.init(urlPattern: urlPattern)
+            if let pattern = action.routerURLPattern() {
+                handlerFactories[pattern] = factory
+            }
         }
     }
     
-    public func registerHander(_ urlPattern:routerURLPattern,factory: @escaping handlerFactory){
+    public func registerHander(_ urlPattern:routerURLPattern,
+                               factory: @escaping handlerFactory){
         registeHander([urlPattern], factory: factory)
     }
     
@@ -151,13 +188,11 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
     /// - Parameter action: 路由action
     /// - Returns: 返回调用对象, 若返回空则表示调用失败
     private func hanldeFactory(_ action:HBRouterAction) -> (target:Any?, success:Bool)? {
+        
         if let scheme = action.scheme, let host = action.host,let path = action.path, let handle = handlerFactories["\(scheme)://\(host)/\(path)"] {
             return (handle(action),true)
         }
         if let scheme = action.scheme, let host = action.host, let handle = handlerFactories["\(scheme)://\(host)"] {
-            return (handle(action),true)
-        }
-        if let scheme = action.scheme, let handle = handlerFactories["\(scheme)://"]{
             return (handle(action),true)
         }
         if let scheme = action.scheme, let handle = handlerFactories[scheme]{

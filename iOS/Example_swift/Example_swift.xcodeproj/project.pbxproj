@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B42DB8E526AADDA0002B1C99 /* ViewController01.m in Sources */ = {isa = PBXBuildFile; fileRef = B42DB8E426AADDA0002B1C99 /* ViewController01.m */; };
+		B450E26E26AFAEF800862A0E /* RouterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E26D26AFAEF800862A0E /* RouterManager.m */; };
+		B450E27226AFB00300862A0E /* ViewController02.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E27126AFB00300862A0E /* ViewController02.m */; };
 		B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487A28726946B36007DDF21 /* AppDelegate.swift */; };
 		B487A28C26946B36007DDF21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487A28B26946B36007DDF21 /* ViewController.swift */; };
 		B487A29126946B39007DDF21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B487A29026946B39007DDF21 /* Assets.xcassets */; };
@@ -23,6 +25,10 @@
 		B42DB8DB26AADD7A002B1C99 /* Example_swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example_swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		B42DB8E326AADDA0002B1C99 /* ViewController01.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController01.h; sourceTree = "<group>"; };
 		B42DB8E426AADDA0002B1C99 /* ViewController01.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController01.m; sourceTree = "<group>"; };
+		B450E26C26AFAEF800862A0E /* RouterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouterManager.h; sourceTree = "<group>"; };
+		B450E26D26AFAEF800862A0E /* RouterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouterManager.m; sourceTree = "<group>"; };
+		B450E27026AFB00300862A0E /* ViewController02.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController02.h; sourceTree = "<group>"; };
+		B450E27126AFB00300862A0E /* ViewController02.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController02.m; sourceTree = "<group>"; };
 		B487A28426946B36007DDF21 /* Example_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B487A28726946B36007DDF21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B487A28B26946B36007DDF21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +74,10 @@
 			children = (
 				B42DB8E326AADDA0002B1C99 /* ViewController01.h */,
 				B42DB8E426AADDA0002B1C99 /* ViewController01.m */,
+				B450E27026AFB00300862A0E /* ViewController02.h */,
+				B450E27126AFB00300862A0E /* ViewController02.m */,
+				B450E26C26AFAEF800862A0E /* RouterManager.h */,
+				B450E26D26AFAEF800862A0E /* RouterManager.m */,
 			);
 			path = OC;
 			sourceTree = "<group>";
@@ -202,7 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B450E26E26AFAEF800862A0E /* RouterManager.m in Sources */,
 				B42DB8E526AADDA0002B1C99 /* ViewController01.m in Sources */,
+				B450E27226AFB00300862A0E /* ViewController02.m in Sources */,
 				B487A28C26946B36007DDF21 /* ViewController.swift in Sources */,
 				B4D822F726A957AA006DEA9D /* RouterUsage.swift in Sources */,
 				B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */,

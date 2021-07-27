@@ -17,10 +17,9 @@ class RouterUsage {
     }
     //注册handler
     public  static func registerHandler(){
-        HBRouter.router().defaultRouterScheme = "hb"
-        HBRouter.router().defaultRouterHost = "router.com"
+        HBRouter.router().setDefault("hb", host: "router.com")
         
-        HBRouter.router().registeHander(["bridge"], factory: RouterUsage.handlerBridge)
+        HBRouter.router().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
         HBRouter.router().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
         HBRouter.router().registeHander(["hb://router.com"], factory: HBRouter.router().openController)
         
@@ -29,12 +28,17 @@ class RouterUsage {
     
     
     public static func registRouterMapping(){
-        HBRouter.router().registRouterMapping(mapping:  ["home_swift":"ViewController"],
-                                              scheme:   HBRouter.router().defaultRouterScheme,
-                                              bundle:   HBRouterAppName ?? "Example_swift",
-                                              host:     HBRouter.router().defaultRouterHost,
-                                              targetType:.controller)
+        HBRouter.router().registRouter(HBRouter.router().defaultRouterScheme,
+                                        mapping:
+                                            ["home_swift":"ViewController"
+                                             ,"vc_01_oc":"ViewController01"],
+                                        bundle:   HBRouterAppName ?? "Example_swift",
+                                        host:     HBRouter.router().defaultRouterHost,
+                                        targetType:.controller)
         
+        
+        
+        RouterManager.registRouter()
     }
     
     
@@ -92,6 +96,13 @@ class RouterUsage {
 //        action.setCallBackBlock { (value) in
 ////            print("\(value ?? "---")", "b")
 //        }
+        
+        
+//        for scheme in HBRouter.router().{
+//            for path in HBRouter.router().routerTargetMapping[scheme]{
+//                
+//            }
+//        }
         dataSource.append(action)
         return dataSource
     }
@@ -111,6 +122,15 @@ extension RouterUsage{
         
         print("==============================routerActionTest==============================")
         
+        var scheme = "https://"
+        print(scheme)
+        scheme = String(scheme.prefix(scheme.count - 3))
+        print(scheme)
+        
+        
+        
+        
+        
         var url:URL = URL.init(string: "http://www.baidu.com/path/home/page1?abc=1&a=10")!
         url.appendQueryParameters(["url":"https://www.baidu.com?c=2302322aaaa&d=4"])
         print(url.scheme ?? "");
@@ -124,18 +144,18 @@ extension RouterUsage{
         print(url.queryParameters as Any)
         let action:HBRouterAction = HBRouterAction(url: url)
         
-        print( action.string("url") ?? "")
+        print( action.stringValue("url") ?? "")
         
         print(action.scheme ?? "")
         print(action.host ?? "")
         print(action.path ?? "")
         print(action.params)
 
-        print( action.string("a") ?? "")
-        print( action.int("a") ?? "")
-        print( action.bool("a") ?? "")
-        print( action.number("a") ?? "")
-        print( action.double("a") ?? "")
+        print( action.stringValue("a") ?? "")
+        print( action.intValue("a") ?? "")
+        print( action.boolValue("a") ?? "")
+        print( action.numberValue("a") ?? "")
+        print( action.doubleValue("a") ?? "")
         
         
         print("==============================routerActionTest==============================")

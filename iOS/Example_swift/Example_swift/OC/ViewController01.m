@@ -24,14 +24,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"objective-C";
+    self.title = @"objective-C 01";
     self.view.backgroundColor = UIColor.blackColor;
     
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-   
+//   self.rouac
     
     
 }

@@ -5,7 +5,7 @@
 //  Created by flywithbug on 2021/7/6.
 //
 
-import Foundation
+import UIKit
 
 
 @objcMembers open class HBRouter:HBNavigator  {

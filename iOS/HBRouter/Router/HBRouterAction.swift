@@ -5,7 +5,7 @@
 //  Created by flywithbug on 2021/7/6.
 //
 
-import Foundation
+import UIKit
 
 //原生路由跳转 Action
 
@@ -36,10 +36,34 @@ import Foundation
     }
     
     
+    public init(_ scheme:routerScheme,host:routerHost,path:routerPath){
+        super.init()
+        self.scheme = scheme
+        self.host = host
+        self.path = path
+        
+        if scheme.hasSuffix("://") {
+            self.scheme = String(scheme.prefix(scheme.count - 3))
+        }
+        if host.hasSuffix("/") {
+            self.host = String(host.prefix(host.count - 1))
+        }
+        if !path.hasPrefix("/") {
+            self.path =  "/\(path)"
+        }
+        if path.hasSuffix("/") {
+            self.path = String(host.prefix(path.count - 1))
+        }
+        self.url = URL.init(string: "\(scheme)://\(host)\(path)")
+    }
     
-    public init(urlPattern:routerURLPattern){
+    public  init(urlPattern:routerURLPattern){
         super.init()
         guard let _url = URL.init(string: urlPattern) else {
+            //bh://router.com/path
+            //hb://router.com
+            //hb://
+            assert(false, "不符合 urlPatter规则")
             return
         }
         self.initt(url: _url)
@@ -58,6 +82,20 @@ import Foundation
         for item in para{
             params[item.key] = item.value
         }
+    }
+    
+    
+    public func routerURLPattern() -> routerURLPattern?{
+        if let scheme = scheme {
+            if let host = host {
+                if let path = path {
+                    return "\(scheme)://\(host)/\(path)"
+                }
+                return "\(scheme)://\(host)"
+            }
+            return scheme
+        }
+        return nil
     }
 }
 
@@ -84,31 +122,34 @@ extension HBRouterAction{
     
     //any nil时，删除对应Key的Value值
 
-    public func setValue(_ key:String,value:Any?){
-        self.params[key] = value
+    public func addValue(_ value:Any?, key:String?){
+        if key == nil {
+            return
+        }
+        self.params[key!] = value
     }
     
     public func any(_ key:String)-> Any?{
         return self.params[key]
     }
     
-    public func int(_ key:String)->Int?{
+    public func intValue(_ key:String)->Int?{
         return intValue(any(key))
     }
     
-    public func double(_ key:String)->Double?{
+    public func doubleValue(_ key:String)->Double?{
         return doubleValue(any(key))
     }
     
-    public func number(_ key:String)->NSNumber?{
+    public func numberValue(_ key:String)->NSNumber?{
         return numberValue(any(key))
     }
     
-    public func string(_ key:String)->String?{
+    public func stringValue(_ key:String)->String?{
         return stringValue(any(key))
     }
     
-    public func bool(_ key:String)->Bool?{
+    public func boolValue(_ key:String)->Bool?{
         return boolValue(any(key))
     }
     
@@ -217,20 +258,42 @@ extension HBRouterAction{
     public var  targetClass:AnyClass?
     public var  bundle:String  //注册路由所属bundle name
     
+    public func routerURLPattern() -> routerURLPattern{
+        return "\(scheme)://\(host)\(path)"
+    }
     //target 调用类型
     public var  targetType:HBTargetType
 
+    
+    /// 规则定义
+    /// - Parameters:
+    ///   - scheme: hb://  & hb   &   https://  & http
+    ///   - host: router.com
+    ///   - path: /home/page/detail
+    ///   - target: 目标类
+    ///   - bundle: 目标类所在库的库名
+    ///   - targetType: 目标类能力类型
     init(scheme:String,host:String,path:String,target:String,bundle:String,targetType:HBTargetType = .undefined) {
         self.scheme = scheme
+       
+        if scheme.hasSuffix("://") {
+            self.scheme = String(scheme.prefix(scheme.count - 3))
+        }
         self.host = host
+        if host.hasSuffix("/") {
+            self.host = String(host.prefix(host.count - 1))
+        }
         self.path = path
         self.target = target
         self.bundle = bundle
         self.targetType = targetType
+        
         if let target =  HBClassFromString(string: target,bundle: bundle){
             self.targetClass = target
-            if self.targetClass is UIViewController.Type{
-                self.targetType = .controller
+            if targetType == .undefined {
+                if self.targetClass is UIViewController.Type{
+                    self.targetType = .controller
+                }
             }
         }else{
             #if DEBUG
@@ -251,7 +314,9 @@ extension HBRouterAction{
 extension UIViewController {
     private struct AssociatedKey {
         static var routerActionIdentifier: String = "routerActionIdentifier"
+        static var routerSchemeIdentifier: String = "routerSchemeIdentifier"
     }
+    @objc
     public var routerAction:HBRouterAction?{
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.routerActionIdentifier) as? HBRouterAction
@@ -260,14 +325,17 @@ extension UIViewController {
             objc_setAssociatedObject(self, &AssociatedKey.routerActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
-    func setURLAction(urlAction:HBRouterAction) {
-        self.routerAction = urlAction
+//    public var routerScheme:String?{
+//
+//    }
+    @objc
+    func setRouterAction(routerAction:HBRouterAction) {
+        self.routerAction = routerAction
     }
     
-    convenience init(urlAction:HBRouterAction) {
+    convenience init(routerAction:HBRouterAction) {
         self.init()
-        self.routerAction = urlAction
+        self.routerAction = routerAction
         
     }
 }

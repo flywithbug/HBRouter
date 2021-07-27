@@ -10,23 +10,25 @@ import UIKit
 extension UIViewController{
     
     @discardableResult
-    open func handleRouterAction(_ action:HBRouterAction) ->Bool{
+    @objc public func handleRouterAction(_ action:HBRouterAction) ->Bool{
         return true
     }
-
-    open class func needsLogin(_ action:HBRouterAction) ->Bool{
+    
+   
+    @objc public class func needsLogin(_ action:HBRouterAction) ->Bool{
         return false
     }
     
     
-    /// 栈内单例唯一：只在当前所处导航控制器的栈内单例
+    /// 栈内单例唯一：
+    /// 只在当前所处导航控制器的栈内单例
     /// - Parameter
-    open class func isSingleton(_ action:HBRouterAction) -> Bool{
+    @objc public class func isSingleton(_ action:HBRouterAction) -> Bool{
         return false
     }
     
     //是否允许侧滑返回- 默认允许
-    @objc open func canSlideBack() -> Bool{
+    @objc public func canSlideBack() -> Bool{
         return true
     }
     
@@ -56,7 +58,7 @@ extension UIViewController {
     }
     
     /// Returns the current application's top most view controller.
-    open class var topMost: UIViewController? {
+    @objc open class var topMost: UIViewController? {
       guard let currentWindows = self.sharedApplication?.windows else { return nil }
       var rootViewController: UIViewController?
       for window in currentWindows {
@@ -70,7 +72,7 @@ extension UIViewController {
     }
 
     /// Returns the top most view controller from given view controller's stack.
-    open class func topMost(of viewController: UIViewController?) -> UIViewController? {
+    @objc open class func topMost(of viewController: UIViewController?) -> UIViewController? {
       // presented view controller
       if let presentedViewController = viewController?.presentedViewController {
         return self.topMost(of: presentedViewController)
@@ -108,9 +110,9 @@ extension UIViewController {
 
 
 
+
 public extension Array where Element:UIViewController {
     typealias HBRValidationBlock = (_ obj:UIViewController)->Bool
-    
     func match(validate:HBRValidationBlock) -> UIViewController?{
         for item in self{
             if validate(item)  {

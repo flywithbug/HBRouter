@@ -14,7 +14,7 @@ end
 
 target "Example_swift" do
   pod 'HBRouter' , :path => '../../'
-
+  pod 'Business_Pod_test' , :path => '../'
 
 
 end
