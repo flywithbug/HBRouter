@@ -127,8 +127,8 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
             for item in map.value{
                 let target = HBRouterTarget.init(scheme: map.key, host: _host, path: item.key, target: item.value, bundle: bundle,targetType: targetType)
                 #if DEBUG
-                if let val = rMap[item.key] {
-                    assert(false, "该路由path:\(item.key),target\(item.value)已被注册为target:\(val.target),请检查路由表:")
+                if let val = rMap[target.path] {
+                    assert(false, "该路由path:\(target.path),target\(target.target)已被注册为target:\(val.target),请检查路由表:")
                 }
                 #else
                 #endif
@@ -139,7 +139,11 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
         }
     }
     
-    //hb://router.com/path
+    
+    /// handler注册
+    /// - Parameters:
+    ///   - urlPatterns: hb://router.com/path  hb://router.com  hb://  hb
+    ///   - factory:  回调方法
     public func registeHander(_ urlPatterns:[routerURLPattern],
                               factory: @escaping handlerFactory){
         lock.lock()

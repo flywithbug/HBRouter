@@ -257,7 +257,7 @@ extension HBRouterAction{
     public var  target:String
     public var  targetClass:AnyClass?
     public var  bundle:String  //注册路由所属bundle name
-    
+    public var  url:URL?
     public func routerURLPattern() -> routerURLPattern{
         return "\(scheme)://\(host)\(path)"
     }
@@ -275,7 +275,6 @@ extension HBRouterAction{
     ///   - targetType: 目标类能力类型
     init(scheme:String,host:String,path:String,target:String,bundle:String,targetType:HBTargetType = .undefined) {
         self.scheme = scheme
-       
         if scheme.hasSuffix("://") {
             self.scheme = String(scheme.prefix(scheme.count - 3))
         }
@@ -284,10 +283,23 @@ extension HBRouterAction{
             self.host = String(host.prefix(host.count - 1))
         }
         self.path = path
+        if path.hasSuffix("/") {
+            self.path = String(self.path.prefix(self.path.count - 1))
+        }
+        if !path.hasPrefix("/"){
+            self.path = "/\(self.path)"
+        }
         self.target = target
         self.bundle = bundle
         self.targetType = targetType
         
+        super.init()
+        
+        if let _url = URL.init(string: routerURLPattern()) {
+            self.url = _url
+        }else{
+           assert(false, "\(routerURLPattern()) 注册规则不正确，请检查注册元数据")
+        }
         if let target =  HBClassFromString(string: target,bundle: bundle){
             self.targetClass = target
             if targetType == .undefined {

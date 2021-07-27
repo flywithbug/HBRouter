@@ -19,7 +19,7 @@ class RouterUsage {
     public  static func registerHandler(){
         HBRouter.router().setDefault("hb", host: "router.com")
         
-        HBRouter.router().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
+        HBRouter.router().registeHander(["bridge"], factory: RouterUsage.handlerBridge)
         HBRouter.router().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
         HBRouter.router().registeHander(["hb://router.com"], factory: HBRouter.router().openController)
         
@@ -30,7 +30,7 @@ class RouterUsage {
     public static func registRouterMapping(){
         HBRouter.router().registRouter(HBRouter.router().defaultRouterScheme,
                                         mapping:
-                                            ["home_swift":"ViewController"
+                                            ["home_swift://www.baidu.com/path/":"ViewController"
                                              ,"vc_01_oc":"ViewController01"],
                                         bundle:   HBRouterAppName ?? "Example_swift",
                                         host:     HBRouter.router().defaultRouterHost,
