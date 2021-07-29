@@ -12,16 +12,52 @@ import UIKit
 @objcMembers  open class HBRouterAction:NSObject {
     //默认转场为push
     public var options:[HBRouterOptions] = [.push]
-    public private(set) var params:Dictionary<String,Any> = [:]
+    
+    public private(set) var params = [String:Any]()
+    
+    //作为外部链接打开
+    public var openExternal:Bool = false
+    
+    //当前导航控制器栈内单例模式
+    public var isSingleton:Bool = false
+    
+    
+    //控制器链路
+    public weak var form:UIViewController?
+    public weak var next:UIViewController?
+    
     
     public var target:HBRouterTarget?
     
     //转场动画
     public var animation:Bool = true
-    //转场或者调用完成
-    public var completeBlock:((Bool)->Void)? = nil
+    
+    //转场或者调用完成状态回调
+    public  private(set) var openStateBlock:((_ success:Bool)->Void)? = nil
     //回调
-    public var callBackBlock:((Any?)->Void)? = nil
+    public  private(set) var callBackBlock:((_ value:Any?)->Void)? = nil
+    
+    public func setOpenstateBlock(_ block: @escaping ((_ success:Bool) -> Void)){
+        #if DEBUG
+        if self.openStateBlock != nil {
+            //容错处理，避免多处设置回调
+            assert(false, "此回调只能设置一次，请检查代码")
+        }
+        #else
+        #endif
+        self.openStateBlock = block
+    }
+    
+    public func setCallbackBlock(_ block: @escaping ((Any?) -> Void)){
+        #if DEBUG
+        if self.callBackBlock != nil {
+            //容错处理，避免多处设置回调
+            assert(false, "此回调只能设置一次，请检查代码")
+        }
+        #else
+        #endif
+        self.callBackBlock = block
+    }
     
     public private(set) var url:URL?
 
@@ -35,6 +71,24 @@ import UIKit
         self.initt(url: url)
     }
     
+    
+    
+    /// 使用默认路由和host初始化action
+    /// - Parameter path: router Path
+    public init(_ path:routerPath){
+        super.init()
+        self.scheme = HBRouter.router().defaultRouterScheme
+        self.host =  HBRouter.router().defaultRouterHost
+        self.path = path
+        
+        if !path.hasPrefix("/") {
+            self.path =  "/\(path)"
+        }
+        if path.hasSuffix("/") {
+            self.path = String(path.prefix(path.count - 1))
+        }
+        self.url = URL.init(string: "\(self.scheme!)://\(self.host!)\(path)")
+    }
     
     public init(_ scheme:routerScheme,host:routerHost,path:routerPath){
         super.init()
@@ -52,24 +106,27 @@ import UIKit
             self.path =  "/\(path)"
         }
         if path.hasSuffix("/") {
-            self.path = String(host.prefix(path.count - 1))
+            self.path = String(path.prefix(path.count - 1))
         }
         self.url = URL.init(string: "\(scheme)://\(host)\(path)")
     }
     
+    //bh://router.com/path
+    //hb://router.com
+    //hb://
     public  init(urlPattern:routerURLPattern){
         super.init()
+        if urlPattern.components(separatedBy: "://").count < 2 {
+            assert(false, "不符合 urlPatter规则")
+        }
         guard let _url = URL.init(string: urlPattern) else {
-            //bh://router.com/path
-            //hb://router.com
-            //hb://
             assert(false, "不符合 urlPatter规则")
             return
         }
         self.initt(url: _url)
-        
     }
 
+    
     private func initt(url:URL){
         self.url = url
         scheme = url.scheme
@@ -89,7 +146,7 @@ import UIKit
         if let scheme = scheme {
             if let host = host {
                 if let path = path {
-                    return "\(scheme)://\(host)/\(path)"
+                    return "\(scheme)://\(host)\(path)"
                 }
                 return "\(scheme)://\(host)"
             }
@@ -99,24 +156,21 @@ import UIKit
     }
 }
 
+
 extension HBRouterAction{
     
-//    public func setCompleteBlock(_ block: @escaping ((Bool) -> Void)){
-//        self.completeBlock = block
-//    }
-//    
-//    public func setCallBackBlock(_ block: @escaping ((Any?) -> Void)){
-//        self.callBackBlock = block
-//    }
+   
     
-    public func addEntriesFromDictonary(_ entries:Dictionary<String,Any>){
+    /// add params
+    /// - Parameter
+    public func addEntriesFromDictonary(_ entries:[String:Any]){
         for item in entries{
             self.params[item.key] = item.value
         }
     }
     
     
-    public func addParamsFromURLAction(routerAction:HBRouterAction) {
+    public func addParamsFromURLAction(_ routerAction:HBRouterAction) {
         self.addEntriesFromDictonary(routerAction.params)
     }
     
@@ -258,6 +312,7 @@ extension HBRouterAction{
     public var  targetClass:AnyClass?
     public var  bundle:String  //注册路由所属bundle name
     public var  url:URL?
+    
     public func routerURLPattern() -> routerURLPattern{
         return "\(scheme)://\(host)\(path)"
     }
@@ -298,7 +353,7 @@ extension HBRouterAction{
         if let _url = URL.init(string: routerURLPattern()) {
             self.url = _url
         }else{
-           assert(false, "\(routerURLPattern()) 注册规则不正确，请检查注册元数据")
+           assert(false, "\(routerURLPattern()) 注册规则(scheme://host/path)不正确，请检查注册元数据")
         }
         if let target =  HBClassFromString(string: target,bundle: bundle){
             self.targetClass = target
@@ -314,8 +369,6 @@ extension HBRouterAction{
             #endif
            
         }
-        
-        
     }
 }
 
@@ -326,30 +379,37 @@ extension HBRouterAction{
 extension UIViewController {
     private struct AssociatedKey {
         static var routerActionIdentifier: String = "routerActionIdentifier"
-        static var routerSchemeIdentifier: String = "routerSchemeIdentifier"
+        static var routerURLPatternIdentifier: String = "routerURLPatternIdentifier"
     }
     @objc
-    public var routerAction:HBRouterAction?{
+    public private(set) var routerAction:HBRouterAction?{
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.routerActionIdentifier) as? HBRouterAction
         }
-        set {
+         set {
             objc_setAssociatedObject(self, &AssociatedKey.routerActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-//    public var routerScheme:String?{
-//
-//    }
     @objc
-    func setRouterAction(routerAction:HBRouterAction) {
-        self.routerAction = routerAction
+    public private(set) var routerURLPattern:String?{
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKey.routerURLPatternIdentifier) as? String
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKey.routerURLPatternIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
     
-    convenience init(routerAction:HBRouterAction) {
-        self.init()
+    @objc
+    public func setRouterAction(routerAction:HBRouterAction) {
         self.routerAction = routerAction
-        
+        self.routerURLPattern = routerAction.routerURLPattern()
     }
+    
+//    @objc
+//    func setRouterURLPattern(routerURLPattern:String) {
+//        self.routerURLPattern = routerURLPattern
+//    }
 }
 
 

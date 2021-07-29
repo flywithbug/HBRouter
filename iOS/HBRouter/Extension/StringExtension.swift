@@ -17,8 +17,11 @@ public func  HBClassFromString(string: String)-> AnyClass?{
 }
 
 public func  HBClassFromString(string: String,_bundleClass:AnyClass)-> AnyClass?{
-    let stringName = HBBundleNameFromClass(_class: _bundleClass) + "." + string
-    return NSClassFromString(stringName)
+    if let  bundClass = HBBundleNameFromClass(_class: _bundleClass) {
+        let stringName = bundClass + "." + string
+        return NSClassFromString(stringName)
+    }
+    return nil
 }
 
 public func  HBClassFromString(string: String,bundle:String)-> AnyClass?{
@@ -30,7 +33,11 @@ public func  HBClassFromString(string: String,bundle:String)-> AnyClass?{
     return NSClassFromString(stringName)
 }
 
-public func HBBundleNameFromClass(_class: AnyClass) -> String {
-    let bundleName = String(NSStringFromClass(_class).split(separator: ".")[0])
-    return bundleName
+public func HBBundleNameFromClass(_class: AnyClass) -> String? {
+    let splits =  NSStringFromClass(_class).split(separator: ".")
+    if splits.count > 2{
+        let bundleName = String(splits[0])
+        return bundleName
+    }
+    return nil
 }

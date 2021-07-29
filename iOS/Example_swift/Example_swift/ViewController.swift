@@ -9,6 +9,7 @@ import UIKit
 import HBRouter
 import WebKit
 
+//import 
 
 class ViewController: UIViewController {
     
@@ -32,14 +33,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "home"
         view.addSubview(tableView)
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.white
-        
         RouterUsage.registerHandler()
         RouterUsage.registRouterMapping()
-        
-        
     }
     
     
@@ -73,7 +72,6 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         let action = dataSource[indexPath.row]
         HBRouter.router().openRouterAction(action)
-        
         
     }
     

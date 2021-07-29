@@ -30,10 +30,32 @@ public typealias routerBundle = String
 //自定义跳转方法
 public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
 
+//注册自定义返回Controller
+public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewController?
+
 
 @objcMembers open class HBNavigator:NSObject {
     
-    //
+    public override init() {
+        super.init()
+        HBRSwizzleManager.shared()
+    }
+    
+    private weak var _deleage:HBRouterDelegate?
+    public weak var deleage:HBRouterDelegate?{
+        set{
+            if _deleage != nil {
+                #if DEBUG
+                assert(false, "delegate只能有一个地方回调，请检查代码重新设置")
+                #else
+                #endif
+            }
+            _deleage = newValue
+        }
+        get {
+            return _deleage
+        }
+    }
     public private(set)  var defaultRouterHost:String!
     public private(set)  var defaultRouterScheme:String!
     
@@ -49,12 +71,12 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
     }
     var lock:NSLock = NSLock.init()
     
-    private  var handlerFactories = [routerURLPattern: handlerFactory]()
+    private var handlerFactories = [routerURLPattern: handlerFactory]()
+    private var viewControllerFactories = [routerURLPattern:viewControllerFactory]()
 
-    //路由表注册
+    //路由表 元数据
     public private(set)  var routerTargetMapping = [routerScheme: [routerPath:HBRouterTarget]]()
-    
-    
+    //路由表 生成
     public private(set) var routerMapping = [routerURLPattern:HBRouterTarget]()
     
     /// 路由表注册
@@ -62,7 +84,7 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
     ///   - mapping: 路由表映射关系
     ///   - bundle: 映射对象所在bundle name
     public func registRouter(_ mapping:[routerPath:routerTarget],
-                             bundle:routerBundle){
+                             bundle:AnyClass){
         
         #if DEBUG
         if defaultRouterHost  == nil {
@@ -73,8 +95,10 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
         }
         #else
         #endif
+        let bundleName = HBBundleNameFromClass(_class: bundle)
+
         registerRouter([defaultRouterScheme:mapping],
-                       bundle: bundle,
+                       bundle: bundleName ?? "",
                        host: defaultRouterHost,
                        targetType: .undefined)
     }
@@ -140,7 +164,7 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
     }
     
     
-    /// handler注册
+    /// 自行处理openAction操作
     /// - Parameters:
     ///   - urlPatterns: hb://router.com/path  hb://router.com  hb://  hb
     ///   - factory:  回调方法
@@ -153,7 +177,7 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
         for urlPattern in urlPatterns{
             #if DEBUG
             if let val = handlerFactories[urlPattern] {
-                assert(false, "该scheme：\(urlPattern)，factory:\(String(describing: factory)),已被注册为\(String(describing: val))，请检查注册表")
+                assert(false, "urlPattern:\(urlPattern)，factory:\(String(describing: factory)),已被注册为\(String(describing: val))，请检查注册表")
             }
             #else
             #endif
@@ -161,6 +185,7 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
             if let pattern = action.routerURLPattern() {
                 handlerFactories[pattern] = factory
             }
+            
         }
     }
     
@@ -169,30 +194,37 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
         registeHander([urlPattern], factory: factory)
     }
     
-    
-    //跳转控制器
-    @discardableResult
-    public func openRouterAction(_ action:HBRouterAction)  -> Any?{
-        action.target = matchTarget(action)
-        if let val = hanldeFactory(action),val.success {
-            return val.target
+    public func registeViewController(_ urlPatterns:[routerURLPattern],
+                              factory: @escaping viewControllerFactory){
+        lock.lock()
+        defer {
+            lock.unlock()
         }
-        if let val = openController(action),val.success {
-            return val
+        for urlPattern in urlPatterns{
+            #if DEBUG
+            if let val = viewControllerFactories[urlPattern] {
+                assert(false, "urlPattern:\(urlPattern)，factory:\(String(describing: factory)),已被注册为\(String(describing: val))，请检查注册表")
+            }
+            #else
+            #endif
+            let action = HBRouterAction.init(urlPattern: urlPattern)
+            if let pattern = action.routerURLPattern() {
+                viewControllerFactories[pattern] = factory
+            }
         }
-        
-        return openController(action)
     }
-    
-    
-    
+
+    public func registerViewController(_ urlPattern:routerURLPattern,
+                                       factory: @escaping viewControllerFactory){
+        registeViewController([urlPattern], factory: factory)
+    }
     
     
     /// 检索注册自定义方法
     /// - Parameter action: 路由action
     /// - Returns: 返回调用对象, 若返回空则表示调用失败
     private func hanldeFactory(_ action:HBRouterAction) -> (target:Any?, success:Bool)? {
-        
+        print("routerURLPattern::\(action.routerURLPattern() ?? "")")
         if let scheme = action.scheme, let host = action.host,let path = action.path, let handle = handlerFactories["\(scheme)://\(host)/\(path)"] {
             return (handle(action),true)
         }
@@ -207,9 +239,27 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
     }
     
     
+    //跳转控制器
+    @discardableResult
+    public func openRouterAction(_ action:HBRouterAction)  -> Any?{
+        if checkRouterActionAuth(action)  == false {
+            return nil
+        }
+        action.target = matchTarget(action)
+        if let val = hanldeFactory(action),val.success {
+            return val.target
+        }
+        if let val = openController(action),val.success {
+            return val
+        }
+        
+        return nil
+    }
+    
+    
+    
+    
     public func openController(_ action:HBRouterAction)  -> (target:Any?, success:Bool)?{
-        
-        
         
         
         return nil
@@ -217,33 +267,99 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
     
     
     
-    public func openRouteString(_ routePath:String){
-        
-        
-    }
 }
+
+
+
+
+
+extension HBNavigator{
+    
+    //权限校验
+    func checkRouterActionAuth(_ action:HBRouterAction) -> Bool {
+        if !shouldOpenRouter(action) {
+            return false
+        }
+        
+        if action.openExternal && !shouldOpenExternal(action) {
+            return false
+        }
+        return true
+    }
+   
+    
+    //router权限校验及调用生命周期
+    func shouldOpenRouter(_ action:HBRouterAction) -> Bool{
+        return self.deleage?.shouldOpenRouter(action) ?? true
+    }
+    func willOpenRouter(_ action:HBRouterAction){
+        self.deleage?.willOpenRouter(action)
+    }
+    func didOpenRouter(_ action:HBRouterAction){
+        self.deleage?.didOpenRouter(action)
+    }
+    
+    
+    //外链权限校验
+    func shouldOpenExternal(_ action:HBRouterAction) -> Bool{
+        return self.deleage?.shouldOpenExternal(action) ?? true
+    }
+    //打开外链
+    func willOpenExternal(_ action:HBRouterAction){
+        self.deleage?.willOpenExternal(action)
+    }
+    func didOpenExternal(_ action:HBRouterAction, completion: ((Bool) -> Void)?){
+        self.deleage?.didOpenExternal(action, completion: completion)
+    }
+    
+    //未能打开的Router回调
+    func onMatchUnhandleRouterAction(_ action:HBRouterAction){
+        self.deleage?.onMatchUnhandleRouterAction(action)
+    }
+    //页面打开回调
+    func onMatchRouterAction(_ action:HBRouterAction, viewController:UIViewController){
+        self.deleage?.onMatchRouterAction(action, viewController: viewController)
+    }
+    
+    func loginState() -> Bool {
+        
+        return false
+    }
+    
+    
+}
+
 
 
 
 extension HBNavigator {
     
     
-    @discardableResult
-    func matchTargetController(_ action:HBRouterAction,
+    /// 获取跳转控制器对象
+    /// - Parameters:
+    ///   - action: action 参数
+    ///   - navigationController: 导航栈
+    /// - Returns: 返回控制器对象
+    @discardableResult func matchTargetController(_ action:HBRouterAction,
                                navigationController:UINavigationController) -> UIViewController? {
-        
-//        guard  let targetClass = action.target?.targetClass as? UIViewController.Type else {
-//            return nil
-//        }
-        
-//        let viewController =   navigationController.viewControllers.match { (vc) -> Bool in
-//            return vc.isKind(of: targetClass)
-//        }
-        
-        
-        
-        
-        return nil
+        guard let target = action.target else {
+            return nil
+        }
+        guard let targetClass = target.targetClass as? UIViewController.Type else {
+            return nil
+        }
+        var isSingleton = action.isSingleton
+        if  targetClass.isSingleton(action) {
+            isSingleton = true
+        }
+        if isSingleton {
+            if let viweController =  navigationController.viewControllers.match(validate: {(item:UIViewController) -> Bool in return item.isKind(of: targetClass)}) {
+                return viweController
+            }
+        }
+        let viewController = targetClass.init()
+        viewController.setRouterAction(routerAction: action)
+        return viewController
     }
     
     @discardableResult
@@ -255,10 +371,8 @@ extension HBNavigator {
         if let target = routerTargetMapping[scheme]?[path]{
             return target
         }
-        
         return nil
     }
-    
     
     
 }

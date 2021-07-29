@@ -17,7 +17,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"objective-C 02";
-    self.view.backgroundColor = UIColor.blackColor;
+    self.view.backgroundColor = UIColor.whiteColor;
 }
 
 

@@ -18,20 +18,22 @@
                             bundle:@""
                               host:@"router.com" targetType:HBTargetTypeController];
     
-    
-    
-    
-    
 }
 
 
 + (void)actionTest{
     NSURL *url = [NSURL URLWithString:@"https:www.baidu.com"];
     HBRouterAction *action = [[HBRouterAction alloc]initWithUrl:url];
+    [action setOpenstateBlock:^(BOOL value) {
+        
+    }];
+    
     [action addValue:@"1" key:@"a"];
     NSLog(@"params:%@",action.params);
     
 }
+
+
 
 
 @end

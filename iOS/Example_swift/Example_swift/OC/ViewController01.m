@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"objective-C 01";
-    self.view.backgroundColor = UIColor.blackColor;
+    self.view.backgroundColor = UIColor.whiteColor;
     
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
