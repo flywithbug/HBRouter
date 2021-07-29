@@ -56,7 +56,8 @@ class RouterUsage {
                 url.appendQueryParameters([item.key:value])
             }
         }
-        return SFSafariViewController.init(url: url)
+        let safar = SFSafariViewController.init(url: url)
+        return safar
     }
     
     static func handlerBridge(_ action:HBRouterAction) -> Any? {
@@ -87,7 +88,8 @@ class RouterUsage {
     public static func  dataSource() -> [HBRouterAction] {
         var dataSource:[HBRouterAction] = []
         var action = HBRouterAction.init(urlPattern: "bridge://hellobike/routerActionTest")
-        action.setCallbackBlock { (value) in
+        
+        action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
@@ -95,7 +97,7 @@ class RouterUsage {
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest")
         action.animation = false
-        action.setCallbackBlock { (value) in
+        action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
@@ -103,14 +105,14 @@ class RouterUsage {
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest?a=10")
         action.animation = true
-        action.setCallbackBlock { (value) in
+        action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
         
         
         action = HBRouterAction.init(urlPattern: "https://www.baidu.com/s?wd=name&rsv_spt=1&rsv_iqid=0xaf313311006a4028&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=12&rsv_sug1=3&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2967&rsv_sug4=3153")
-        action.setCallbackBlock { (value) in
+        action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
@@ -118,13 +120,13 @@ class RouterUsage {
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/routerActionTest1")
         
-        action.setCallbackBlock { (value) in
+        action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
         
         action = HBRouterAction.init(urlPattern: "hb://router.com/home")
-        action.setCallbackBlock { (value) in
+        action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
@@ -132,14 +134,13 @@ class RouterUsage {
         
         
         action = HBRouterAction.init(urlPattern: "hb://flutter.com/flutterpage")
-        action.setCallbackBlock { (value) in
+        action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         
-        
         for item in HBRouter.router().routerMapping{
             let action = HBRouterAction.init(urlPattern: item.key)
-            action.setCallbackBlock { (value) in
+            action.callBackBlock = { (value) in
                 print("\(value ?? "---")")
             }
             dataSource.append(action)

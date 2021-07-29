@@ -37,7 +37,9 @@ static BRouterManager *manager = nil;
 }
 
 
-- (void)didOpenExternal:(HBRouterAction * _Nonnull)action completion:(void (^ _Nullable)(BOOL))completion {
+
+
+- (void)didOpenExternal:(HBRouterAction * _Nonnull)action {
     
 }
 
@@ -45,10 +47,8 @@ static BRouterManager *manager = nil;
     
 }
 
-//
 - (BOOL)loginStatus:(HBRouterAction * _Nonnull)action completion:(void (^ _Nullable)(BOOL))completion {
-    
-    return  YES;
+    return  true;
 }
 
 - (void)onMatchRouterAction:(HBRouterAction * _Nonnull)action viewController:(UIViewController * _Nonnull)viewController {
@@ -59,12 +59,16 @@ static BRouterManager *manager = nil;
     
 }
 
+- (void)openExternal:(HBRouterAction * _Nonnull)action completion:(void (^ _Nullable)(BOOL))completion {
+  
+}
+
 - (BOOL)shouldOpenExternal:(HBRouterAction * _Nonnull)action {
-    return  YES;
+    return  true;
 }
 
 - (BOOL)shouldOpenRouter:(HBRouterAction * _Nonnull)action {
-    return  YES;
+    return  true;
 }
 
 - (void)willOpenExternal:(HBRouterAction * _Nonnull)action {

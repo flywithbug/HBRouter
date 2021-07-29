@@ -26,7 +26,8 @@ public protocol HBRouterDelegate:class {
     func shouldOpenExternal(_ action:HBRouterAction) -> Bool
     //打开外链
     func willOpenExternal(_ action:HBRouterAction)
-    func didOpenExternal(_ action:HBRouterAction, completion: ((Bool) -> Void)?)
+    func openExternal(_ action:HBRouterAction, completion: ((Bool) -> Void)?)
+    func didOpenExternal(_ action:HBRouterAction)
     
     //未能打开的Router回调
     func onMatchUnhandleRouterAction(_ action:HBRouterAction)

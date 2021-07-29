@@ -33,31 +33,44 @@ import UIKit
     public var animation:Bool = true
     
     //转场或者调用完成状态回调
-    public  private(set) var openStateBlock:((_ success:Bool)->Void)? = nil
+    private var _openStateBlock:((Bool)->Void)? = nil
+    public  var openStateBlock:((Bool)->Void)?{
+        set{
+            if _openStateBlock != nil {
+                #if DEBUG
+                if self.openStateBlock != nil {
+                    //容错处理，避免多处设置回调
+                    assert(false, "此回调只能设置一次，请检查代码")
+                }
+                #else
+                #endif
+            }
+            _openStateBlock = newValue
+        }
+        get{
+            return _openStateBlock
+        }
+    }
     //回调
-    public  private(set) var callBackBlock:((_ value:Any?)->Void)? = nil
-    
-    public func setOpenstateBlock(_ block: @escaping ((_ success:Bool) -> Void)){
-        #if DEBUG
-        if self.openStateBlock != nil {
-            //容错处理，避免多处设置回调
-            assert(false, "此回调只能设置一次，请检查代码")
+    private var _callBackBlock:((_ value:Any?)->Void)? = nil
+    public var callBackBlock:((_ value:Any?)->Void)? {
+        set{
+            if _callBackBlock  != nil{
+                #if DEBUG
+                if self.callBackBlock != nil {
+                    //容错处理，避免多处设置回调
+                    assert(false, "此回调只能设置一次，请检查代码")
+                }
+                #else
+                #endif
+            }
+            _callBackBlock = newValue
         }
-        #else
-        #endif
-        self.openStateBlock = block
+        get {
+            return _callBackBlock
+        }
     }
     
-    public func setCallbackBlock(_ block: @escaping ((Any?) -> Void)){
-        #if DEBUG
-        if self.callBackBlock != nil {
-            //容错处理，避免多处设置回调
-            assert(false, "此回调只能设置一次，请检查代码")
-        }
-        #else
-        #endif
-        self.callBackBlock = block
-    }
     
     public private(set) var url:URL?
 
@@ -153,6 +166,19 @@ import UIKit
             return scheme
         }
         return nil
+    }
+    
+    
+    public func externalURL() ->URL?{
+        guard var url = url else {
+            return nil
+        }
+        for item in params{
+            if let value = item.value as? String {
+                url.appendQueryParameters([item.key:value])
+            }
+        }
+        return url
     }
 }
 
