@@ -37,8 +37,7 @@ class ViewController: UIViewController {
         view.addSubview(tableView)
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.white
-        RouterUsage.registerHandler()
-        RouterUsage.registRouterMapping()
+        
     }
     
     

@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.backgroundColor = .white
         window.rootViewController = UINavigationController.init(rootViewController: ViewController())
         self.window = window
-        
+        RouterUsage.registerHandler()
+        RouterUsage.registRouterMapping()
         return true
     }
 

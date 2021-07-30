@@ -16,19 +16,12 @@ class RouterUsage {
     //注册handler
     public  static func registerHandler(){
         HBRouter.router().setDefault("hb", host: "router.com")
-        
-        
-//        HBRouter.router().registeHander(["http://","https://"], factory: RouterUsage.handlerWebView)
         HBRouter.router().registeViewController(["http://","https://"], factory: RouterUsage.webViewControllerFactory)
-        
-        
+//        HBRouter.router().registeHander(["http://","https://"], factory: RouterUsage.openWebViewController)
         HBRouter.router().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
         HBRouter.router().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
         HBRouter.router().registeHander(["hb://native.com"], factory: HBRouter.router().openController)
-        
     }
-    
-    
     
     public static func registRouterMapping(){
         HBRouter.router().registRouter(HBRouter.router().defaultRouterScheme,
@@ -56,8 +49,14 @@ class RouterUsage {
                 url.appendQueryParameters([item.key:value])
             }
         }
+        action.options = [.present]
         let safar = SFSafariViewController.init(url: url)
         return safar
+    }
+    
+    static func openWebViewController(_ action:HBRouterAction) -> Any? {
+        
+        return HBRouter.router().openController(action)
     }
     
     static func handlerBridge(_ action:HBRouterAction) -> Any? {
@@ -124,13 +123,6 @@ class RouterUsage {
             print("\(value ?? "---")")
         }
         dataSource.append(action)
-        
-        action = HBRouterAction.init(urlPattern: "hb://router.com/home")
-        action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
-        }
-        dataSource.append(action)
-        
         
         
         action = HBRouterAction.init(urlPattern: "hb://flutter.com/flutterpage")

@@ -51,9 +51,6 @@ static BRouterManager *manager = nil;
     return  true;
 }
 
-- (void)onMatchRouterAction:(HBRouterAction * _Nonnull)action viewController:(UIViewController * _Nonnull)viewController {
-    
-}
 
 - (void)onMatchUnhandleRouterAction:(HBRouterAction * _Nonnull)action {
     
@@ -78,5 +75,10 @@ static BRouterManager *manager = nil;
 - (void)willOpenRouter:(HBRouterAction * _Nonnull)action {
     
 }
+
+- (void)onMatchRouterAction:(HBRouterAction * _Nonnull)action any:(id _Nullable)any {
+    
+}
+
 
 @end

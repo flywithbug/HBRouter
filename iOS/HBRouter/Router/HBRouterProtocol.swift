@@ -32,7 +32,7 @@ public protocol HBRouterDelegate:class {
     //未能打开的Router回调
     func onMatchUnhandleRouterAction(_ action:HBRouterAction)
     //页面打开回调
-    func onMatchRouterAction(_ action:HBRouterAction, viewController:UIViewController)
+    func onMatchRouterAction(_ action:HBRouterAction, any:Any?)
     
     
     
