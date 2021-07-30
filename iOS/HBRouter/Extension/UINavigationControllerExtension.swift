@@ -13,7 +13,6 @@ extension UINavigationController {
     func inBlockMode() -> Bool {
         return self.inAnimating
     }
-    
     private var fblock:NSLock{
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.fblockIdentifier) as? NSLock ?? NSLock()
@@ -22,8 +21,6 @@ extension UINavigationController {
             objc_setAssociatedObject(self, &AssociatedKey.fblockIdentifier, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
-    
-    
     private struct AssociatedKey {
         static var inAnimatingIdentifier: String = "inAnimatingIdentifier"
         static var fblockIdentifier: String = "fblockIdentifier"
@@ -36,7 +33,6 @@ extension UINavigationController {
             objc_setAssociatedObject(self, &AssociatedKey.inAnimatingIdentifier, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
-    
     public func push(_ viewController:UIViewController, animated:Bool = true, completion:(() -> Void)? = nil){
         pushViewController(viewController, animated: animated)
         completion?()
@@ -49,7 +45,6 @@ extension UINavigationController {
         let controllers = popToViewController(toViewController, animated: animated)
         completion?(controllers)
     }
-    
     
     @objc func hbr_pushViewController(_ viewController:UIViewController,animated:Bool = true){
         if viewControllers.last == viewController {
@@ -64,7 +59,6 @@ extension UINavigationController {
             }
             setViewControllers(viewControllers, animated: false)
         }
-        
         CATransaction.begin()
         hbr_pushViewController(viewController, animated: animated)
         CATransaction.setCompletionBlock {

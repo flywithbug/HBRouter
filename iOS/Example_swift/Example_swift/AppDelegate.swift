@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.backgroundColor = .white
         window.rootViewController = UINavigationController.init(rootViewController: ViewController())
         self.window = window
+        UserAccountManager.share()
         RouterUsage.registerHandler()
         RouterUsage.registRouterMapping()
         return true

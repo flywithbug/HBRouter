@@ -13,6 +13,8 @@ import UIKit
     //默认转场为push
     public var options:[HBRouterOptions] = [.push]
     
+    public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
+    
     public private(set) var params = [String:Any]()
     
     //作为外部链接打开
@@ -21,12 +23,9 @@ import UIKit
     //当前导航控制器栈内单例模式
     public var isSingleton:Bool = false
     
-    
     //控制器链路
     public weak var form:UIViewController?
     public weak var next:UIViewController?
-    
-    
     public var target:HBRouterTarget?
     
     //转场动画
@@ -34,11 +33,11 @@ import UIKit
     
     //转场或者调用完成状态回调
     private var _openStateBlock:((Bool)->Void)? = nil
-    public  var openStateBlock:((Bool)->Void)?{
+    public  var openCompleteBlock:((Bool)->Void)?{
         set{
             if _openStateBlock != nil {
                 #if DEBUG
-                if self.openStateBlock != nil {
+                if self.openCompleteBlock != nil {
                     //容错处理，避免多处设置回调
                     assert(false, "此回调只能设置一次，请检查代码")
                 }

@@ -40,7 +40,9 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         super.init()
         HBRSwizzleManager.shared()
     }
-    
+    public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
+ 
+   
     private weak var _deleage:HBRouterDelegate?
     public weak var deleage:HBRouterDelegate?{
         set{
@@ -56,9 +58,9 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             return _deleage
         }
     }
+    
     public private(set)  var defaultRouterHost:String!
     public private(set)  var defaultRouterScheme:String!
-    
     public func setDefault(_ scheme:routerScheme,host:routerHost) {
         if defaultRouterHost != nil || defaultRouterScheme != nil  {
             #if DEBUG
@@ -69,8 +71,8 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         defaultRouterHost = host
         defaultRouterScheme = scheme
     }
-    var lock:NSLock = NSLock.init()
     
+    let lock:NSLock = NSLock.init()
     private var handlerFactories = [routerURLPattern: handlerFactory]()
     private var viewControllerFactories = [routerURLPattern:viewControllerFactory]()
 
@@ -285,7 +287,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         
         navigationController.push(viewController, animated: action.animation) { () in
-            action.openStateBlock?(true)
+            action.openCompleteBlock?(true)
         }
         return true
         
@@ -295,8 +297,16 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return false
         }
-        navigationController.present(viewController, animated: action.animation) { () in
-            action.openStateBlock?(true)
+        var _viewController = viewController
+        if action.options.contains(.wrap_nc) {
+            if action.wrapNavgClass != self.wrapNavgClass {
+                _viewController = action.wrapNavgClass.init(rootViewController: viewController)
+            }else{
+                _viewController = wrapNavgClass.init(rootViewController: viewController)
+            }
+        }
+        navigationController.present(_viewController, animated: action.animation) { () in
+            action.openCompleteBlock?(true)
         }
         return true
     }
@@ -404,8 +414,7 @@ extension HBNavigator{
     //登录态判断，登录回调，登录成功之后，重新执行前流程
     func checkRouterActionAuth(_ action:HBRouterAction) -> Bool {
         if let target = action.target ,
-           let targetClass = target.targetClass as? UIViewController.Type,
-           targetClass.needsLogin(action) == true{
+           let targetClass = target.targetClass as? UIViewController.Type,targetClass.needsLogin(action) {
             if !loginStatus(action, completion: { [weak self] (success) in
                 if success{
                     self?.openRouterAction(action)
@@ -451,13 +460,20 @@ extension HBNavigator{
             return
         }
         if let url = action.externalURL() {
-            UIApplication.shared.open(url, options: [:]) { (success) in
-                action.openStateBlock?(success)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:]) { (success) in
+                    action.openCompleteBlock?(success)
+                }
+            } else {
+                if UIApplication.shared.openURL(url) {
+                    action.openCompleteBlock?(true)
+                }else{
+                    action.openCompleteBlock?(false)
+                }
             }
         }else{
+            action.openCompleteBlock?(false)
         }
-        
-        
     }
     
     func didOpenExternal(_ action:HBRouterAction){
