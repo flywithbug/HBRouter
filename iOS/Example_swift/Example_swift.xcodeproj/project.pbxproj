@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B424AA0B26B3C72400C94B05 /* UserAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B424AA0A26B3C72400C94B05 /* UserAccountManager.swift */; };
 		B42DB8E526AADDA0002B1C99 /* ViewController01.m in Sources */ = {isa = PBXBuildFile; fileRef = B42DB8E426AADDA0002B1C99 /* ViewController01.m */; };
 		B450E26E26AFAEF800862A0E /* RouterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E26D26AFAEF800862A0E /* RouterManager.m */; };
 		B450E27226AFB00300862A0E /* ViewController02.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E27126AFB00300862A0E /* ViewController02.m */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		73A1A10840E333FDB5E55AE8 /* Pods-Example_swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_swift.debug.xcconfig"; path = "Target Support Files/Pods-Example_swift/Pods-Example_swift.debug.xcconfig"; sourceTree = "<group>"; };
 		789120AA5A94DFF58B6786A7 /* Pods_Example_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B424AA0A26B3C72400C94B05 /* UserAccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountManager.swift; sourceTree = "<group>"; };
 		B42DB8DB26AADD7A002B1C99 /* Example_swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example_swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		B42DB8E326AADDA0002B1C99 /* ViewController01.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController01.h; sourceTree = "<group>"; };
 		B42DB8E426AADDA0002B1C99 /* ViewController01.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController01.m; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				B487A28726946B36007DDF21 /* AppDelegate.swift */,
 				B487A28B26946B36007DDF21 /* ViewController.swift */,
 				B4D822F626A957AA006DEA9D /* RouterUsage.swift */,
+				B424AA0A26B3C72400C94B05 /* UserAccountManager.swift */,
 				B4D822FD26A95F9B006DEA9D /* RouterDefinition.swift */,
 				B42DB8E026AADD7E002B1C99 /* OC */,
 				B487A29026946B39007DDF21 /* Assets.xcassets */,
@@ -214,6 +217,7 @@
 			files = (
 				B450E26E26AFAEF800862A0E /* RouterManager.m in Sources */,
 				B42DB8E526AADDA0002B1C99 /* ViewController01.m in Sources */,
+				B424AA0B26B3C72400C94B05 /* UserAccountManager.swift in Sources */,
 				B450E27226AFB00300862A0E /* ViewController02.m in Sources */,
 				B487A28C26946B36007DDF21 /* ViewController.swift in Sources */,
 				B4D822F726A957AA006DEA9D /* RouterUsage.swift in Sources */,

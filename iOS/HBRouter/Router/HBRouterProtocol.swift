@@ -14,7 +14,6 @@ public protocol HBRouterDelegate:class {
     
     //router权限校验及调用生命周期
     //登录态判断及状态回调
-    
     func loginStatus(_ action:HBRouterAction, completion: ((Bool) -> Void)?) -> Bool
     
     func shouldOpenRouter(_ action:HBRouterAction) -> Bool

@@ -82,10 +82,15 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     /// 路由表注册
     /// - Parameters:
     ///   - mapping: 路由表映射关系
-    ///   - bundle: 映射对象所在bundle name
+    ///   - bundleClass: 映射对象所在 bundleClass
     public func registRouter(_ mapping:[routerPath:routerTarget],
-                             bundle:AnyClass){
-        
+                             bundleClass:AnyClass? = nil){
+        let bundleName = HBBundleNameFromClass(_class: bundleClass)
+        registRouter(mapping, bundle: bundleName)
+    }
+    
+    public func registRouter(_ mapping:[routerPath:routerTarget],
+                                bundle:routerBundle? = nil){
         #if DEBUG
         if defaultRouterHost  == nil {
             assert(false, "默认 host 未设置")
@@ -95,12 +100,11 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         #else
         #endif
-        let bundleName = HBBundleNameFromClass(_class: bundle)
-
-        registerRouter([defaultRouterScheme:mapping],
-                       bundle: bundleName ?? "",
-                       host: defaultRouterHost,
-                       targetType: .undefined)
+        registRouter(defaultRouterScheme,
+                     mapping:mapping,
+                     bundle: bundle ?? "",
+                     host: defaultRouterHost,
+                     targetType: .undefined)
     }
     
     public func registRouter(_ scheme:routerScheme,
@@ -221,12 +225,12 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     
     
+    
     //跳转控制器
     @discardableResult
     public func openRouterAction(_ action:HBRouterAction)  -> Any?{
         //获取target类型
         var target:Any?
-        
         defer{
             if target != nil {
                 onMatchRouterAction(action, any: target)
@@ -234,7 +238,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 onMatchUnhandleRouterAction(action)
             }
         }
-        
+        action.target = matchTarget(action)
         if checkRouterActionAuth(action)  == false {
             return nil
         }
@@ -244,7 +248,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 self?.didOpenExternal(action)
             }
         }
-        action.target = matchTarget(action)
+       
         if let _target =  handleFactory(action) {
             target = _target
             return _target
@@ -397,7 +401,19 @@ extension HBNavigator {
 extension HBNavigator{
     
     //权限校验
+    //登录态判断，登录回调，登录成功之后，重新执行前流程
     func checkRouterActionAuth(_ action:HBRouterAction) -> Bool {
+        if let target = action.target ,
+           let targetClass = target.targetClass as? UIViewController.Type,
+           targetClass.needsLogin(action) == true{
+            if !loginStatus(action, completion: { [weak self] (success) in
+                if success{
+                    self?.openRouterAction(action)
+                }
+            }) {
+                return false
+            }
+        }
         if !shouldOpenRouter(action) {
             return false
         }
@@ -457,9 +473,8 @@ extension HBNavigator{
         self.deleage?.onMatchRouterAction(action, any:any)
     }
     
-    func loginState() -> Bool {
-        
-        return false
+    func loginStatus(_ action:HBRouterAction, completion: ((Bool) -> Void)?) -> Bool{
+        return self.deleage?.loginStatus(action, completion: completion) ?? false
     }
     
     
