@@ -33,7 +33,7 @@ extension UINavigationController {
             objc_setAssociatedObject(self, &AssociatedKey.inAnimatingIdentifier, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
-    public func push(_ viewController:UIViewController, animated:Bool = true, completion:(() -> Void)? = nil){
+    @objc public func push(_ viewController:UIViewController, animated:Bool = true, completion:(() -> Void)? = nil){
         CATransaction.begin()
         pushViewController(viewController, animated: animated)
         CATransaction.setCompletionBlock {
@@ -43,7 +43,7 @@ extension UINavigationController {
         CATransaction.commit()
        
     }
-    public func pop(_ animated:Bool = true, completion:(() -> Void)? = nil){
+    @objc public func pop(_ animated:Bool = true, completion:(() -> Void)? = nil){
         CATransaction.begin()
         popViewController(animated: animated)
         CATransaction.setCompletionBlock {
@@ -52,6 +52,7 @@ extension UINavigationController {
         }
         CATransaction.commit()
     }
+    @objc
     public func pop(_ toViewController:UIViewController, animated:Bool = true,completion: (([UIViewController]?) -> Void)? = nil){
         CATransaction.begin()
         let controllers = popToViewController(toViewController, animated: animated)
@@ -130,7 +131,7 @@ extension UINavigationController {
     
     
     
-    static func initializeSwizzleMethod(){
+    @objc  static func initializeSwizzleMethod(){
         
         swizzleMethod(for: self, originalSelector: #selector(pushViewController(_:animated:)), swizzledSelector: #selector(hbr_pushViewController(_:animated:)))
         swizzleMethod(for: self, originalSelector: #selector(popViewController(animated:)), swizzledSelector: #selector(hbr_popViewController(animated:)))

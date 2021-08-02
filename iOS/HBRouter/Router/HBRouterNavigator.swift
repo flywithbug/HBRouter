@@ -259,7 +259,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     
    
-    private func openController(_ action:HBRouterAction)  -> UIViewController?{
+    public func openController(_ action:HBRouterAction)  -> UIViewController?{
         return openController(action, inside: false)
     }
     

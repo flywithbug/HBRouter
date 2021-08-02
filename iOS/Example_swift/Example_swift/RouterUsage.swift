@@ -24,7 +24,6 @@ class RouterUsage {
 //        HBRouter.router().registeHander(["http://","https://"], factory: RouterUsage.openWebViewController)
         HBRouter.router().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
         HBRouter.router().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
-        HBRouter.router().registeHander(["hb://native.com"], factory: HBRouter.router().openController)
     }
     
     public static func registRouterMapping(){
