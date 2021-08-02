@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'http://gitlab.hellobike.cn/Torrent/HBRouter.git', :tag => s.version }
 
   s.ios.deployment_target = '9.0'
-  s.static_framework = true
+#  s.static_framework = true
 
   s.frameworks       = 'UIKit', 'Foundation'
 
@@ -36,7 +36,6 @@ Pod::Spec.new do |s|
   s.subspec 'HBRouter' do |ss|
     ss.source_files = ['iOS/HBRouter/**/*']
   end
-  
   
   
   

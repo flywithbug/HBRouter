@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 // MARK: - Properties
 public extension URL {
