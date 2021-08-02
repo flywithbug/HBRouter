@@ -33,7 +33,7 @@ import HBRouter
 extension UserAccountManager:HBRouterDelegate {
     func loginStatus(_ action: HBRouterAction, completion: ((Bool) -> Void)?) -> Bool {
         if loginState == false {
-            let action = HBRouterAction.init("login")
+            let action = HBRouterAction.init(path:"login")
             action.options = [.present,.wrap_nc]
             action.callBackBlock = { (value) in
                 completion?(value as? Bool ?? false)

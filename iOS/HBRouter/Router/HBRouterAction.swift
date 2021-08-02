@@ -87,7 +87,7 @@ import UIKit
     
     /// 使用默认路由和host初始化action
     /// - Parameter path: router Path
-    public init(_ path:routerPath){
+    public init(path:routerPath){
         super.init()
         self.scheme = HBRouter.router().defaultRouterScheme
         self.host =  HBRouter.router().defaultRouterHost
@@ -128,7 +128,7 @@ import UIKit
     //hb://
     public  init(urlPattern:routerURLPattern){
         super.init()
-        if urlPattern.components(separatedBy: "://").count < 2 {
+        if urlPattern.components(separatedBy: "://").count != 2 {
             assert(false, "不符合 urlPatter规则")
         }
         guard let _url = URL.init(string: urlPattern) else {

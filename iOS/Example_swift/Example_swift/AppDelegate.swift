@@ -6,6 +6,7 @@
 //
 
 import UIKit
+@_exported import HBRouter
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.makeKeyAndVisible()
         window.backgroundColor = .white
-        window.rootViewController = UINavigationController.init(rootViewController: ViewController())
+        window.rootViewController = UINavigationController.init(rootViewController: FuncModuleViewController())
         self.window = window
         UserAccountManager.share()
         RouterUsage.registerHandler()

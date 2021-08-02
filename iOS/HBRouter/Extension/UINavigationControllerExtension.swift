@@ -34,16 +34,32 @@ extension UINavigationController {
         }
     }
     public func push(_ viewController:UIViewController, animated:Bool = true, completion:(() -> Void)? = nil){
+        CATransaction.begin()
         pushViewController(viewController, animated: animated)
-        completion?()
+        CATransaction.setCompletionBlock {
+            ()in
+            completion?()
+        }
+        CATransaction.commit()
+       
     }
     public func pop(_ animated:Bool = true, completion:(() -> Void)? = nil){
+        CATransaction.begin()
         popViewController(animated: animated)
-        completion?()
+        CATransaction.setCompletionBlock {
+            ()in
+            completion?()
+        }
+        CATransaction.commit()
     }
     public func pop(_ toViewController:UIViewController, animated:Bool = true,completion: (([UIViewController]?) -> Void)? = nil){
+        CATransaction.begin()
         let controllers = popToViewController(toViewController, animated: animated)
-        completion?(controllers)
+        CATransaction.setCompletionBlock {
+            ()in
+            completion?(controllers)
+        }
+        CATransaction.commit()
     }
     
     @objc func hbr_pushViewController(_ viewController:UIViewController,animated:Bool = true){

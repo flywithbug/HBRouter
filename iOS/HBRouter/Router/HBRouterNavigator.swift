@@ -231,6 +231,10 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     //跳转控制器
     @discardableResult
     public func openRouterAction(_ action:HBRouterAction)  -> Any?{
+        return openRouterAction(action,inside: false)
+    }
+    
+    private func openRouterAction(_ action:HBRouterAction,inside:Bool)  -> Any?{
         //获取target类型
         action.target = matchTarget(action)
         if checkRouterActionAuth(action)  == false {
@@ -245,7 +249,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         if let _target =  handleFactory(action) {
             return _target.target
         }
-        if let val = openController(action) {
+        if let val = openController(action,inside: true) {
             return val
         }
         //未处理action回调
@@ -254,7 +258,19 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     }
     
     
-    public func openController(_ action:HBRouterAction)  -> UIViewController?{
+   
+    private func openController(_ action:HBRouterAction)  -> UIViewController?{
+        return openController(action, inside: false)
+    }
+    
+    private func openController(_ action:HBRouterAction, inside:Bool)  -> UIViewController?{
+        var success:Bool = false
+        defer {
+            if inside == false && success == false {
+                onMatchUnhandleRouterAction(action)
+            }
+        }
+        
         guard let viewController = matchTargetController(action) else {
             return nil
         }
@@ -269,9 +285,11 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 return nil
             }
         }
+        success = true
         onMatchRouterAction(action, any: viewController)
         return viewController
     }
+   
     
     func push(_ action:HBRouterAction,viewController:UIViewController) -> Bool {
         guard let navigationController = UIViewController.topMost?.navigationController else {
@@ -320,7 +338,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             return false
         }
         action.target = target
-        
         //倒叙遍历
         for item in navigationController.viewControllers.reversed() {
             if item.isKind(of: targetClass) {
@@ -346,9 +363,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         return false
     }
-    
-    
-    
 }
 
 

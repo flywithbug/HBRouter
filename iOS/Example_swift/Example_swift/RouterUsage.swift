@@ -9,6 +9,10 @@ import SafariServices
 
 import HBRouter
 
+
+//extension
+
+
 class RouterUsage {
     func handler()  {
 //        send
@@ -26,11 +30,9 @@ class RouterUsage {
     public static func registRouterMapping(){
         HBRouter.router().registRouter(HBRouter.router().defaultRouterScheme,
                                         mapping:
-                                            ["home_swift/path":"ViewController"
+                                            ["home_swift":"ViewController"
                                              ,"vc_01_oc":"ViewController01",
                                              "login":"LoginViewController",
-                                             
-                                             
                                             ],
                                         bundle:   HBRouterAppName ?? "Example_swift",
                                         host:     HBRouter.router().defaultRouterHost,
@@ -72,11 +74,6 @@ class RouterUsage {
            return routerActionTest(action)
         }
         
-        //调用方式优化
-        if action.path == "/routerActionTest1" {
-           return routerActionTest(action)
-        }
-        
         
         if action.path == "/navigationPushtest" {
             return navigationPushtest(action)
@@ -89,7 +86,30 @@ class RouterUsage {
     
     public static func  dataSource() -> [HBRouterAction] {
         var dataSource:[HBRouterAction] = []
+        let action = HBRouterAction.init(urlPattern: "https://www.baidu.com/s?wd=name&rsv_spt=1&rsv_iqid=0xaf313311006a4028&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=12&rsv_sug1=3&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2967&rsv_sug4=3153")
+        action.addValue("网页跳转测试", key: "subTitle")
+        action.callBackBlock = { (value) in
+            print("\(value ?? "---")")
+        }
+        dataSource.append(action)
+        
+        for item in HBRouter.router().routerMapping{
+            let action = HBRouterAction.init(urlPattern: item.key)
+            action.addValue("已注册原生路由跳转测试", key: "subTitle")
+            action.callBackBlock = { (value) in
+                print("\(value ?? "---")")
+            }
+            dataSource.append(action)
+        }
+        dataSource.append(action)
+        return dataSource
+    }
+    
+    public static func bridgeDataSource() -> [HBRouterAction] {
+        
+        var dataSource:[HBRouterAction] = []
         var action = HBRouterAction.init(urlPattern: "bridge://hellobike/routerActionTest")
+        action.addValue("基础功能测试，HBRouterAction参数获取", key: "subTitle")
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
@@ -97,6 +117,7 @@ class RouterUsage {
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest")
         action.animation = false
+        action.addValue("基础功能测试，连续跳转，关闭转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
@@ -104,32 +125,12 @@ class RouterUsage {
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest?a=10")
         action.animation = true
+        action.addValue("基础功能测试，连续跳转，打开转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
         
-        
-        action = HBRouterAction.init(urlPattern: "https://www.baidu.com/s?wd=name&rsv_spt=1&rsv_iqid=0xaf313311006a4028&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=12&rsv_sug1=3&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2967&rsv_sug4=3153")
-        action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
-        }
-        dataSource.append(action)
-        
-        
-        action = HBRouterAction.init(urlPattern: "hb://flutter.com/flutterpage")
-        action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
-        }
-        
-        for item in HBRouter.router().routerMapping{
-            let action = HBRouterAction.init(urlPattern: item.key)
-            action.callBackBlock = { (value) in
-                print("\(value ?? "---")")
-            }
-            dataSource.append(action)
-        }
-        dataSource.append(action)
         return dataSource
     }
     
@@ -146,20 +147,20 @@ extension RouterUsage{
     
     static func navigationPushtest(_ action:HBRouterAction) -> Any?{
         let nav = UIViewController.topMost?.navigationController
-        let vc = ViewController01.init()
+        let vc1 = ViewController01.init()
         
-        let vc1 = ViewController02.init()
-        vc.setRouterAction(routerAction: action)
-        nav?.push(vc,animated: action.animation,completion: {
-            print("\(vc.routerURLPattern ?? "")")
-        })
+        let vc2 = ViewController02.init()
         nav?.push(vc1,animated: action.animation,completion: {
-            print("\(vc.routerURLPattern ?? "")")
+            print("\(vc1.routerURLPattern ?? "")")
         })
-        nav?.push(vc,animated: action.animation,completion: {
-            print("\(vc.routerURLPattern ?? "")")
+        nav?.push(vc2,animated: action.animation,completion: {
+            print("\(vc2.routerURLPattern ?? "")")
+           
         })
         
+        nav?.push(vc1,animated: action.animation,completion: {
+            print("\(vc1.routerURLPattern ?? "")")
+        })
         return true
     }
     static func routerActionTest(_ action:HBRouterAction) -> Any?{

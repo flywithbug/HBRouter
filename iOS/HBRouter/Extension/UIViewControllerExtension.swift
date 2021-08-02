@@ -14,20 +14,20 @@ extension UIViewController{
     /// - Parameter action: action参数
     /// - Returns: 判断是否可以打开页面 false 时，不能打开该页面
     @discardableResult
-    @objc public func handleRouterAction(_ action:HBRouterAction) ->Bool{
+    @objc open func handleRouterAction(_ action:HBRouterAction) ->Bool{
         return true
     }
-    @objc public class func needsLogin(_ action:HBRouterAction) ->Bool{
+    @objc open class func needsLogin(_ action:HBRouterAction) ->Bool{
         return false
     }
     /// 栈内单例唯一：
     /// 只在当前所处导航控制器的栈内单例
     /// - Parameter
-    @objc public class func isSingleton(_ action:HBRouterAction) -> Bool{
+    @objc open class func isSingleton(_ action:HBRouterAction) -> Bool{
         return false
     }
     //是否允许侧滑返回- 默认允许
-    @objc public func canSlideBack() -> Bool{
+    @objc open func canSlideBack() -> Bool{
         return true
     }
     

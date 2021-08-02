@@ -14,8 +14,16 @@ import WebKit
 class ViewController: UIViewController {
     
     
-    lazy var dataSource:[HBRouterAction] = {
+    override func handleRouterAction(_ action: HBRouterAction) -> Bool {
         
+        return super.handleRouterAction(action)
+    }
+    
+    
+    lazy var dataSource:[HBRouterAction] = {
+        if let dataSource = routerAction?.any("dataSource") as? [HBRouterAction]{
+            return dataSource
+        }
         return RouterUsage.dataSource()
     }()
     
@@ -33,17 +41,15 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "home"
+        self.title = routerAction?.stringValue("title")
         view.addSubview(tableView)
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.white
-        
     }
     
     
     @objc
     func btnAction(btn:UIButton)  {
-      
 
     }
     
@@ -54,9 +60,9 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
         return dataSource.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 44
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")
@@ -65,6 +71,7 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
         }
         let action = dataSource[indexPath.row]
         cell?.textLabel?.text = action.url?.absoluteString
+        cell?.detailTextLabel?.text = action.stringValue("subTitle")
         return cell!
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
