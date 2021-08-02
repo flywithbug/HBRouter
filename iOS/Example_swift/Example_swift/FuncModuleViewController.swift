@@ -8,7 +8,7 @@
 import UIKit
 import HBRouter
 
-class ItemModel {
+@objcMembers class ItemModel:NSObject {
     var action:HBRouterAction
     var title:String
     var subTitle:String
@@ -44,7 +44,6 @@ class FuncModuleViewController: UIViewController {
         var action:HBRouterAction = HBRouterAction.init(path:"home_swift")
         action.addValue(RouterUsage.dataSource(), key: "dataSource")
         var item:ItemModel = ItemModel.init(action: action, title: "路由表", subTitle: "")
-        
         list.append(item)
         
         action = HBRouterAction.init(path:"home_swift")

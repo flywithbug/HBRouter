@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 // MARK: - Properties
 public extension URL {
     /// SwifterSwift: Dictionary of the URL's query parameters

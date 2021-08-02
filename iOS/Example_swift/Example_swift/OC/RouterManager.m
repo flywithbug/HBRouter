@@ -7,9 +7,40 @@
 
 #import "RouterManager.h"
 #import <HBRouter/HBRouter-Swift.h>
+#import "Example_swift-Swift.h"
+#import "HBBaseNavigationController.h"
 
+
+@interface RouterManager ()
+
+@end
 
 @implementation RouterManager
+
+
+//01控制器需要的Data
++ (NSArray *)loadDataSource01{
+    NSMutableArray *dataSource = [NSMutableArray new];
+    HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"login"];
+    action.option = HBRouterOptionPresent;
+    action.wrapNavgClass = HBBaseNavigationController.class;
+    action.isSingleton = true;
+
+    [HBRouter.router openRouterAction:action];
+    ItemModel *item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
+    [dataSource addObject:item];
+    
+    
+    action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
+    action.isSingleton = true;
+    [HBRouter.router openRouterAction:action];
+    item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
+    
+    
+    
+    return  dataSource;
+}
+
 
 + (void)registRouter{
     

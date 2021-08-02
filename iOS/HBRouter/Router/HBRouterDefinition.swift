@@ -8,7 +8,6 @@
 import Foundation
 
 @objc public enum HBTargetType:Int {
-    
     //未定义
     case undefined  = 0
     //原生
@@ -21,10 +20,9 @@ import Foundation
     
 }
 
-
-@objc public enum  HBRouterOptions : Int{
+@objc public enum  HBRouterOption : Int{
     case push = 0
-    case present
+    case present //优先级最高
     
     //present时添加导航控制器
     case wrap_nc

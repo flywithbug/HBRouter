@@ -11,9 +11,28 @@ import UIKit
 
 @objcMembers  open class HBRouterAction:NSObject {
     //默认转场为push
-    public var options:[HBRouterOptions] = [.push]
     
-    public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
+    public var options:[HBRouterOption] = [.push]
+    
+    private var _option:HBRouterOption = .push
+    public var option:HBRouterOption {
+        set{
+            if newValue != _option {
+                options.removeAll { (opt) -> Bool in
+                    return opt == _option
+                }
+                options.append(newValue)
+            }
+            _option = newValue
+        }
+        get {
+            return _option
+        }
+    }
+    
+    
+    @objc
+    public var wrapNavgClass:UINavigationController.Type?
     
     public private(set) var params = [String:Any]()
     

@@ -35,6 +35,7 @@
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.estimatedRowHeight = 60;
     [self.view addSubview:self.tableView];
 
     
@@ -46,15 +47,18 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
     }
+    cell.detailTextLabel.text = @"";
     if (indexPath.row == 0) {
         cell.textLabel.text = @"点击退出登录态,并pop当前页面";
     }else if(indexPath.row == 1) {
-        cell.textLabel.text = @"点击跳转到02页面：单例页面，栈内唯一";
+        cell.textLabel.text = @"点击跳转到02页面：";
+        cell.detailTextLabel.text = @"单例使用栈内最近一个打开的相同path页面";
     }else if(indexPath.row == 2) {
         cell.textLabel.text = @"点击跳转到02页面：新开页面，栈内多开";
     }else{
         cell.textLabel.text = @"点击跳转百度";
     }
+    cell.textLabel.numberOfLines = 0;
     return cell;
 }
 
@@ -71,8 +75,12 @@
         [UserAccountManager share].loginState = NO;
         [self.navigationController popViewControllerAnimated:YES];
     }else if(indexPath.row == 1){
-        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
+        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
         action.isSingleton = true;
+        [HBRouter.router openRouterAction:action];
+    }else if(indexPath.row == 2){
+        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
+        action.isSingleton = false;
         [HBRouter.router openRouterAction:action];
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];

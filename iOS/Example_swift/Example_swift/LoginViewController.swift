@@ -11,7 +11,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "登录页面"
+        self.title = "需要登录"
         view.backgroundColor = UIColor.white
         let btn = UIButton.init(type: .custom)
         btn.setTitle("点击登录", for: .normal)
@@ -31,11 +31,11 @@ class LoginViewController: UIViewController {
     func dismiss()  {
         if presentingViewController != nil{
             dismiss(animated: true) {
-                self.routerAction?.callBackBlock!(true)
+                self.routerAction?.callBackBlock?(true)
             }
         }else{
             navigationController?.pop(true, completion: {
-                self.routerAction?.callBackBlock!(true)
+                self.routerAction?.callBackBlock?(true)
             })
         }
     }

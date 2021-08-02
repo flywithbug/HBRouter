@@ -11,6 +11,7 @@
 		B424AA0E26B3D66A00C94B05 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B424AA0D26B3D66A00C94B05 /* LoginViewController.swift */; };
 		B42DB8E526AADDA0002B1C99 /* ViewController01.m in Sources */ = {isa = PBXBuildFile; fileRef = B42DB8E426AADDA0002B1C99 /* ViewController01.m */; };
 		B43128AB26B7A184008CE8C8 /* FuncModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43128AA26B7A184008CE8C8 /* FuncModuleViewController.swift */; };
+		B43128BA26B80604008CE8C8 /* HBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43128B926B80604008CE8C8 /* HBBaseNavigationController.m */; };
 		B450E26E26AFAEF800862A0E /* RouterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E26D26AFAEF800862A0E /* RouterManager.m */; };
 		B450E27226AFB00300862A0E /* ViewController02.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E27126AFB00300862A0E /* ViewController02.m */; };
 		B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487A28726946B36007DDF21 /* AppDelegate.swift */; };
@@ -31,6 +32,8 @@
 		B42DB8E326AADDA0002B1C99 /* ViewController01.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController01.h; sourceTree = "<group>"; };
 		B42DB8E426AADDA0002B1C99 /* ViewController01.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController01.m; sourceTree = "<group>"; };
 		B43128AA26B7A184008CE8C8 /* FuncModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncModuleViewController.swift; sourceTree = "<group>"; };
+		B43128B826B80604008CE8C8 /* HBBaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBBaseNavigationController.h; sourceTree = "<group>"; };
+		B43128B926B80604008CE8C8 /* HBBaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBBaseNavigationController.m; sourceTree = "<group>"; };
 		B450E26C26AFAEF800862A0E /* RouterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouterManager.h; sourceTree = "<group>"; };
 		B450E26D26AFAEF800862A0E /* RouterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouterManager.m; sourceTree = "<group>"; };
 		B450E27026AFB00300862A0E /* ViewController02.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController02.h; sourceTree = "<group>"; };
@@ -84,6 +87,8 @@
 				B450E27126AFB00300862A0E /* ViewController02.m */,
 				B450E26C26AFAEF800862A0E /* RouterManager.h */,
 				B450E26D26AFAEF800862A0E /* RouterManager.m */,
+				B43128B826B80604008CE8C8 /* HBBaseNavigationController.h */,
+				B43128B926B80604008CE8C8 /* HBBaseNavigationController.m */,
 			);
 			path = OC;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 				B424AA0E26B3D66A00C94B05 /* LoginViewController.swift in Sources */,
 				B450E26E26AFAEF800862A0E /* RouterManager.m in Sources */,
 				B42DB8E526AADDA0002B1C99 /* ViewController01.m in Sources */,
+				B43128BA26B80604008CE8C8 /* HBBaseNavigationController.m in Sources */,
 				B424AA0B26B3C72400C94B05 /* UserAccountManager.swift in Sources */,
 				B43128AB26B7A184008CE8C8 /* FuncModuleViewController.swift in Sources */,
 				B450E27226AFB00300862A0E /* ViewController02.m in Sources */,

@@ -276,7 +276,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         viewController.setRouterAction(routerAction: action)
         viewController.handleRouterAction(action)
-        if action.options.contains(.present){
+        if action.options.contains(.present) || action.option == .present{
             if present(action, viewController: viewController) == false {
                 return nil
             }
@@ -307,9 +307,9 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             return false
         }
         var _viewController = viewController
-        if action.options.contains(.wrap_nc) {
-            if action.wrapNavgClass != self.wrapNavgClass {
-                _viewController = action.wrapNavgClass.init(rootViewController: viewController)
+        if action.options.contains(.wrap_nc) || action.wrapNavgClass != nil {
+            if action.wrapNavgClass != nil && action.wrapNavgClass !=  self.wrapNavgClass{
+                _viewController = action.wrapNavgClass!.init(rootViewController: viewController)
             }else{
                 _viewController = wrapNavgClass.init(rootViewController: viewController)
             }
