@@ -8,7 +8,7 @@
 import UIKit
 import HBRouter
 
-class UserAccountManager: NSObject {
+@objcMembers class UserAccountManager: NSObject {
     
     public var loginState:Bool = false
     private static let shareInstance = UserAccountManager()
@@ -32,7 +32,15 @@ class UserAccountManager: NSObject {
 
 extension UserAccountManager:HBRouterDelegate {
     func loginStatus(_ action: HBRouterAction, completion: ((Bool) -> Void)?) -> Bool {
-        return false
+        if loginState == false {
+            let action = HBRouterAction.init("login")
+            action.options = [.present,.wrap_nc]
+            action.callBackBlock = { (value) in
+                completion?(value as? Bool ?? false)
+            }
+            HBRouter.router().openRouterAction(action)
+        }
+        return self.loginState
     }
     
     func shouldOpenRouter(_ action: HBRouterAction) -> Bool {

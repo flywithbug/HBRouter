@@ -27,7 +27,11 @@ class RouterUsage {
         HBRouter.router().registRouter(HBRouter.router().defaultRouterScheme,
                                         mapping:
                                             ["home_swift/path":"ViewController"
-                                             ,"vc_01_oc":"ViewController01"],
+                                             ,"vc_01_oc":"ViewController01",
+                                             "login":"LoginViewController",
+                                             
+                                             
+                                            ],
                                         bundle:   HBRouterAppName ?? "Example_swift",
                                         host:     HBRouter.router().defaultRouterHost,
                                         targetType:.controller)
@@ -55,7 +59,6 @@ class RouterUsage {
     }
     
     static func openWebViewController(_ action:HBRouterAction) -> Any? {
-        
         return HBRouter.router().openController(action)
     }
     
@@ -87,12 +90,10 @@ class RouterUsage {
     public static func  dataSource() -> [HBRouterAction] {
         var dataSource:[HBRouterAction] = []
         var action = HBRouterAction.init(urlPattern: "bridge://hellobike/routerActionTest")
-        
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
-        
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest")
         action.animation = false
@@ -100,7 +101,6 @@ class RouterUsage {
             print("\(value ?? "---")")
         }
         dataSource.append(action)
-        
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest?a=10")
         action.animation = true
@@ -111,14 +111,6 @@ class RouterUsage {
         
         
         action = HBRouterAction.init(urlPattern: "https://www.baidu.com/s?wd=name&rsv_spt=1&rsv_iqid=0xaf313311006a4028&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=12&rsv_sug1=3&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2967&rsv_sug4=3153")
-        action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
-        }
-        dataSource.append(action)
-        
-        
-        action = HBRouterAction.init(urlPattern: "bridge://hellobike/routerActionTest1")
-        
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
@@ -168,7 +160,7 @@ extension RouterUsage{
             print("\(vc.routerURLPattern ?? "")")
         })
         
-        return nil
+        return true
     }
     static func routerActionTest(_ action:HBRouterAction) -> Any?{
         
@@ -211,6 +203,6 @@ extension RouterUsage{
         
         print("==============================routerActionTest==============================")
 
-        return nil
+        return true
     }
 }

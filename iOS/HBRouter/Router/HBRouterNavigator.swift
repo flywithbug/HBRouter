@@ -232,14 +232,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     @discardableResult
     public func openRouterAction(_ action:HBRouterAction)  -> Any?{
         //获取target类型
-        var target:Any?
-        defer{
-            if target != nil {
-                onMatchRouterAction(action, any: target)
-            }else{
-                onMatchUnhandleRouterAction(action)
-            }
-        }
         action.target = matchTarget(action)
         if checkRouterActionAuth(action)  == false {
             return nil
@@ -250,15 +242,14 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 self?.didOpenExternal(action)
             }
         }
-       
         if let _target =  handleFactory(action) {
-            target = _target
-            return _target
+            return _target.target
         }
         if let val = openController(action) {
-            target = val
             return val
         }
+        //未处理action回调
+        onMatchUnhandleRouterAction(action)
         return nil
     }
     
@@ -278,6 +269,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 return nil
             }
         }
+        onMatchRouterAction(action, any: viewController)
         return viewController
     }
     
@@ -285,7 +277,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return false
         }
-        
         navigationController.push(viewController, animated: action.animation) { () in
             action.openCompleteBlock?(true)
         }
@@ -311,6 +302,53 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         return true
     }
     
+    
+    //示例：hb://host.com/path
+    func pop2Path(_ urlPattern:routerURLPattern, params:[String:Any] = [:]) -> Bool {
+        let action = HBRouterAction.init(urlPattern: urlPattern)
+        action.addEntriesFromDictonary(params)
+        return pop(action)
+    }
+    
+    
+    //回退到当前导航栈中的某控制器
+    func pop(_ action:HBRouterAction) -> Bool {
+        guard let navigationController = UIViewController.topMost?.navigationController else {
+            return false
+        }
+        guard let target = matchTarget(action),let targetClass = target.targetClass else {
+            return false
+        }
+        action.target = target
+        
+        //倒叙遍历
+        for item in navigationController.viewControllers.reversed() {
+            if item.isKind(of: targetClass) {
+                //参数回传
+                if item.routerAction != nil {
+                    item.routerAction?.addEntriesFromDictonary(action.params)
+                }else{
+                    item.setRouterAction(routerAction: action)
+                }
+                item.handleRouterAction(item.routerAction!)
+                navigationController.pop(item)
+                return true
+            }
+        }
+        return false
+    }
+    //回退到任意actions
+    func pop2Any(_ actions:[HBRouterAction]) -> Bool {
+        for item in actions{
+            if pop(item) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
+    
 }
 
 
@@ -321,11 +359,13 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
 
 extension HBNavigator {
     
-    func handleFactory(_ action:HBRouterAction) -> Any? {
-        guard let val = matchFactory(action),val.success else {
+    func handleFactory(_ action:HBRouterAction) -> (target:Any?,success:Bool)? {
+        guard let handler = matchFactory(action) else {
             return nil
         }
-        return val.target
+        let target = handler(action)
+        onMatchRouterAction(action, any: target)
+        return (target,true)
     }
 
     
@@ -370,19 +410,18 @@ extension HBNavigator {
     /// 检索注册自定义方法
     /// - Parameter action: 路由action
     /// - Returns: 返回调用对象, 若返回空则表示调用失败
-    private func matchFactory(_ action:HBRouterAction) -> (target:Any?, success:Bool)? {
+    private func matchFactory(_ action:HBRouterAction) -> handlerFactory? {
 //        print("routerURLPattern::\(action.routerURLPattern() ?? "")")
-        
         if let scheme = action.scheme, let host = action.host,let path = action.path, let handle = handlerFactories["\(scheme)://\(host)/\(path)"] {
-            return (handle(action),true)
+            return handle
         }
         
         if let scheme = action.scheme, let host = action.host, let handle = handlerFactories["\(scheme)://\(host)"] {
-            return (handle(action),true)
+            return handle
         }
         
         if let scheme = action.scheme, let handle = handlerFactories[scheme]{
-            return (handle(action),true)
+            return handle
         }
         
         return nil
@@ -484,6 +523,7 @@ extension HBNavigator{
     func onMatchUnhandleRouterAction(_ action:HBRouterAction){
         self.deleage?.onMatchUnhandleRouterAction(action)
     }
+    
     //页面打开回调
     func onMatchRouterAction(_ action:HBRouterAction, any:Any?){
         self.deleage?.onMatchRouterAction(action, any:any)

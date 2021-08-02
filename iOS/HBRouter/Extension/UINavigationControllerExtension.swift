@@ -10,9 +10,9 @@ import Foundation
 
 extension UINavigationController {
     
-    func inBlockMode() -> Bool {
-        return self.inAnimating
-    }
+//    func inBlockMode() -> Bool {
+//        return self.inAnimating
+//    }
     private var fblock:NSLock{
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.fblockIdentifier) as? NSLock ?? NSLock()

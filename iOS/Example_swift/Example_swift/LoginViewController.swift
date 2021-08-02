@@ -12,9 +12,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "登录页面"
-        
+        view.backgroundColor = UIColor.white
         let btn = UIButton.init(type: .custom)
         btn.setTitle("点击登录", for: .normal)
+        btn.setTitleColor(UIColor.black, for: .normal);
         btn.frame = CGRect.init(x: 100, y: 100, width: self.view.frame.size.width - 200, height: 80)
         view.addSubview(btn)
         btn.addTarget(self, action: #selector(btnAction(_:)), for: .touchUpInside)
@@ -24,12 +25,18 @@ class LoginViewController: UIViewController {
     @objc
     func btnAction(_ sender:UIButton) {
         UserAccountManager.share().loginState = true
+        dismiss()
+        
     }
     func dismiss()  {
-        if presentedViewController != nil{
-            dismiss(animated: true, completion: nil)
+        if presentingViewController != nil{
+            dismiss(animated: true) {
+                self.routerAction?.callBackBlock!(true)
+            }
         }else{
-            navigationController?.popViewController(animated: true)
+            navigationController?.pop(true, completion: {
+                self.routerAction?.callBackBlock!(true)
+            })
         }
     }
 }
