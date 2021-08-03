@@ -34,6 +34,7 @@ public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
 public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewController?
 
 
+
 @objcMembers open class HBNavigator:NSObject {
     
     public override init() {
@@ -231,10 +232,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     //跳转控制器
     @discardableResult
     public func openRouterAction(_ action:HBRouterAction)  -> Any?{
-        return openRouterAction(action,inside: false)
-    }
-    
-    private func openRouterAction(_ action:HBRouterAction,inside:Bool)  -> Any?{
         //获取target类型
         action.target = matchTarget(action)
         if checkRouterActionAuth(action)  == false {
@@ -246,7 +243,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 self?.didOpenExternal(action)
             }
         }
-        if let _target =  handleFactory(action) {
+        if  let _target =  handleFactory(action) {
             return _target.target
         }
         if let val = openController(action,inside: true) {
@@ -259,6 +256,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     
    
+    
     public func openController(_ action:HBRouterAction)  -> UIViewController?{
         return openController(action, inside: false)
     }
