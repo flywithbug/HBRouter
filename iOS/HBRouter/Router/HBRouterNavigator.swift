@@ -277,11 +277,11 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         viewController.setRouterAction(routerAction: action)
         viewController.handleRouterAction(action)
         if action.options.contains(.present) || action.option == .present{
-            if present(action, viewController: viewController) == false {
+            if !present(action, viewController: viewController)  {
                 return nil
             }
         }else{
-            if push(action, viewController: viewController) == false{
+            if !push(action, viewController: viewController){
                 return nil
             }
         }
@@ -295,8 +295,25 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return false
         }
-        navigationController.push(viewController, animated: action.animation) { () in
-            action.openCompleteBlock?(true)
+        if navigationController.inAnimating {
+            return true
+        }
+        if action.isSingleton {
+            if navigationController.viewControllers.last == viewController {
+                viewController.viewWillAppear(false)
+                viewController.viewDidAppear(false)
+                return true
+            }
+            var viewControllers = [UIViewController]()
+            for item in navigationController.viewControllers{
+                if item != viewController {
+                    viewControllers.append(item)
+                }
+            }
+            navigationController.setViewControllers(viewControllers, animated: false)
+            navigationController.pushViewController(viewController, animated: action.animation)
+        }else{
+            navigationController.pushViewController(viewController, animated: action.animation)
         }
         return true
         
@@ -314,9 +331,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 _viewController = wrapNavgClass.init(rootViewController: viewController)
             }
         }
-        navigationController.present(_viewController, animated: action.animation) { () in
-            action.openCompleteBlock?(true)
-        }
+        navigationController.present(_viewController, animated: action.animation)
         return true
     }
     
@@ -348,7 +363,8 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                     item.setRouterAction(routerAction: action)
                 }
                 item.handleRouterAction(item.routerAction!)
-                navigationController.pop(item)
+                navigationController.popToViewController(item, animated: false)
+//                navigationController.pop(item)
                 return true
             }
         }
@@ -410,7 +426,7 @@ extension HBNavigator {
                 }
             }
         }
-       
+        action.isSingleton = isSingleton
         let viewController = targetClass.init()
         viewController.setRouterAction(routerAction: action)
         return viewController
@@ -541,6 +557,7 @@ extension HBNavigator{
     //页面打开回调
     func onMatchRouterAction(_ action:HBRouterAction, any:Any?){
         self.deleage?.onMatchRouterAction(action, any:any)
+        action.openCompleteBlock?(true)
     }
     
     func loginStatus(_ action:HBRouterAction, completion: ((Bool) -> Void)?) -> Bool{

@@ -34,9 +34,9 @@ class LoginViewController: UIViewController {
                 self.routerAction?.callBackBlock?(true)
             }
         }else{
-            navigationController?.pop(true, completion: {
-                self.routerAction?.callBackBlock?(true)
-            })
+//            navigationController?.pop(true, completion: {
+//                self.routerAction?.callBackBlock?(true)
+//            })
         }
     }
 }

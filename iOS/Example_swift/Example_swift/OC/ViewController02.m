@@ -9,6 +9,7 @@
 #import <HBRouter/HBRouter-Swift.h>
 #import "Example_swift-Swift.h"
 
+#import "ViewController01.h"
 
 @interface ViewController02 ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -29,19 +30,23 @@
 //}
 
 - (void)loadData{
-    self.dataSource = [NSMutableArray new];
-    HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"login"];
-    action.isSingleton = true;
-    [HBRouter.router openRouterAction:action];
-    ItemModel *item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
-    [self.dataSource addObject:item];
-    
-    
-    action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
-    action.isSingleton = true;
-    [HBRouter.router openRouterAction:action];
-    item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
-    
+//    self.dataSource = [NSMutableArray new];
+//    HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"login"];
+//    action.isSingleton = true;
+////    action.option = HBRouterOptionPresent;
+//    [HBRouter.router openRouterAction:action];
+//    ItemModel *item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
+//    [self.dataSource addObject:item];
+//
+//
+//    action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
+////    action.isSingleton = true;
+//    [HBRouter.router openRouterAction:action];
+//    item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
+//    LoginViewController *vc = [[LoginViewController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//    ViewController01 *vc01 = [ViewController01 new];
+//    [self.navigationController push:vc01 animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -57,7 +62,6 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
 
-    
     
 }
 

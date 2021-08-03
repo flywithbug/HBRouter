@@ -15,6 +15,7 @@ extension UIViewController{
     /// - Returns: 判断是否可以打开页面 false 时，不能打开该页面
     @discardableResult
     @objc open func handleRouterAction(_ action:HBRouterAction) ->Bool{
+        
         return true
     }
     @objc open class func needsLogin(_ action:HBRouterAction) ->Bool{

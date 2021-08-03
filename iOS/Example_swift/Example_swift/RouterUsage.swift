@@ -149,17 +149,9 @@ extension RouterUsage{
         let vc1 = ViewController01.init()
         
         let vc2 = ViewController02.init()
-        nav?.push(vc1,animated: action.animation,completion: {
-            print("\(vc1.routerURLPattern ?? "")")
-        })
-        nav?.push(vc2,animated: action.animation,completion: {
-            print("\(vc2.routerURLPattern ?? "")")
-           
-        })
+        nav?.pushViewController(vc1, animated: true)
+        nav?.pushViewController(vc2, animated: true)
         
-        nav?.push(vc1,animated: action.animation,completion: {
-            print("\(vc1.routerURLPattern ?? "")")
-        })
         return true
     }
     static func routerActionTest(_ action:HBRouterAction) -> Any?{

@@ -14,7 +14,7 @@ extension UINavigationController {
 //    func inBlockMode() -> Bool {
 //        return self.inAnimating
 //    }
-    private var fblock:NSLock{
+    private var hblock:NSLock{
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.fblockIdentifier) as? NSLock ?? NSLock()
         }
@@ -34,98 +34,76 @@ extension UINavigationController {
             objc_setAssociatedObject(self, &AssociatedKey.inAnimatingIdentifier, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
-    @objc public func push(_ viewController:UIViewController, animated:Bool = true, completion:(() -> Void)? = nil){
-        CATransaction.begin()
-        pushViewController(viewController, animated: animated)
-        CATransaction.setCompletionBlock {
-            ()in
-            completion?()
-        }
-        CATransaction.commit()
-       
-    }
-    @objc public func pop(_ animated:Bool = true, completion:(() -> Void)? = nil){
-        CATransaction.begin()
-        popViewController(animated: animated)
-        CATransaction.setCompletionBlock {
-            ()in
-            completion?()
-        }
-        CATransaction.commit()
-    }
-    @objc
-    public func pop(_ toViewController:UIViewController, animated:Bool = true,completion: (([UIViewController]?) -> Void)? = nil){
-        CATransaction.begin()
-        let controllers = popToViewController(toViewController, animated: animated)
-        CATransaction.setCompletionBlock {
-            ()in
-            completion?(controllers)
-        }
-        CATransaction.commit()
-    }
+//    @objc public func push(_ viewController:UIViewController, animated:Bool = true, completion:(() -> Void)? = nil){
+//        hblock.lock()
+//        CATransaction.begin()
+//        pushViewController(viewController, animated: animated)
+//        CATransaction.setCompletionBlock {
+//            ()in
+//            completion?()
+//            self.hblock.unlock()
+//        }
+//        CATransaction.commit()
+//
+//    }
+//    @objc public func pop(_ animated:Bool = true, completion:(() -> Void)? = nil){
+//        CATransaction.begin()
+//        popViewController(animated: animated)
+//        CATransaction.setCompletionBlock {
+//            ()in
+//            completion?()
+//        }
+//        CATransaction.commit()
+//    }
+//    @objc
+//    public func pop(_ toViewController:UIViewController, animated:Bool = true,completion: (([UIViewController]?) -> Void)? = nil){
+//        CATransaction.begin()
+//        let controllers = popToViewController(toViewController, animated: animated)
+//        CATransaction.setCompletionBlock {
+//            ()in
+//            completion?(controllers)
+//        }
+//        CATransaction.commit()
+//    }
+    
     
     @objc func hbr_pushViewController(_ viewController:UIViewController,animated:Bool = true){
-        if viewControllers.last == viewController {
+        if viewControllers.contains(viewController){
+            assert(false, "pushing the same view controller instance \(viewController)  more than once which is not supported and is most likely an error in the applicatio")
             return
         }
-        fblock.lock()
         inAnimating = true
-        //栈内已存在相同控制器
-        if viewControllers.contains(viewController) {
-            viewControllers.removeAll { (item) -> Bool in
-                return item == viewController
-            }
-            setViewControllers(viewControllers, animated: false)
-        }
-        CATransaction.begin()
         hbr_pushViewController(viewController, animated: animated)
-        CATransaction.setCompletionBlock {
-            ()in
+        DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
             self.inAnimating = false
-            self.fblock.unlock()
         }
-        CATransaction.commit()
     }
+    
     
     @objc func hbr_popViewController(animated: Bool) -> UIViewController?{
         inAnimating = true
-        fblock.lock()
-        CATransaction.begin()
         let viewController = hbr_popViewController(animated: animated)
-        CATransaction.setCompletionBlock {
-            ()in
+        DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
             self.inAnimating = false
-            self.fblock.unlock()
         }
-        CATransaction.commit()
         return viewController
     }
     
     @objc func hbr_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]?{
         inAnimating = true
-        fblock.lock()
-        CATransaction.begin()
-        let viewControllers = popToViewController(viewController, animated: animated)
-        CATransaction.setCompletionBlock {
-            ()in
+        let viewControllers = hbr_popToViewController(viewController, animated: animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
             self.inAnimating = false
-            self.fblock.unlock()
         }
-        CATransaction.commit()
         return viewControllers
     }
     
     @objc func hbr_popToRootViewController(animated: Bool) -> [UIViewController]?{
         inAnimating = true
-        fblock.lock()
-        CATransaction.begin()
-        let viewControllers = popToRootViewController(animated: animated)
-        CATransaction.setCompletionBlock {
-            ()in
+        let viewControllers = hbr_popToRootViewController(animated: animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
             self.inAnimating = false
-            self.fblock.unlock()
         }
-        CATransaction.commit()
         return viewControllers
     }
     
