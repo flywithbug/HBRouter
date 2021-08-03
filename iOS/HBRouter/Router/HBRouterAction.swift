@@ -12,6 +12,7 @@ import UIKit
 @objcMembers  open class HBRouterAction:NSObject {
     //默认转场为push
     
+    
     public var options:[HBRouterOption] = [.push]
     
     private var _option:HBRouterOption = .push
