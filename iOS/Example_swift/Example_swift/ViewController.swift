@@ -77,7 +77,7 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let action = dataSource[indexPath.row]
-        HBRouter.router().openRouterAction(action)
+        HBRouter.shared().openRouterAction(action)
         
     }
     

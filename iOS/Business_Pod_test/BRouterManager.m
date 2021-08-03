@@ -33,7 +33,7 @@ static BRouterManager *manager = nil;
 
 + (void)registRouter{
     [BRouterManager shared];
-    [[HBRouter router]registRouter:@{} bundleClass:self.class];
+    [[HBRouter shared]registRouter:@{} bundleClass:self.class];
 }
 
 

@@ -36,13 +36,25 @@ class HBRSwizzleManager:NSObject {
     }()
     
     private override init(){
-        UINavigationController.initializeSwizzleMethod()
+        UINavigationController.initializeNavSwizzleMethod()
     }
     
     @discardableResult
     public class func shared() -> HBRSwizzleManager{
         return shareManager
     }
+    
+}
+
+extension NSObject{
+    func hb_address(o:UnsafeRawPointer) -> Int {
+        return Int(bitPattern: o)
+    }
+    
+    func addressHeap<T: AnyObject>(o: T) -> Int {
+        return unsafeBitCast(o, to: Int.self)
+    }
+
 }
 
 

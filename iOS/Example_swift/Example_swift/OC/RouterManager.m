@@ -24,16 +24,16 @@
     HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"login"];
     action.option = HBRouterOptionPresent;
     action.wrapNavgClass = HBBaseNavigationController.class;
-    action.isSingleton = true;
+    action.useExistingPage = true;
 
-    [HBRouter.router openRouterAction:action];
+    [HBRouter.shared openRouterAction:action];
     ItemModel *item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
     [dataSource addObject:item];
     
     
     action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
-    action.isSingleton = true;
-    [HBRouter.router openRouterAction:action];
+    action.useExistingPage = true;
+    [HBRouter.shared openRouterAction:action];
     item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
     
     
@@ -44,7 +44,7 @@
 
 + (void)registRouter{
     
-    [[HBRouter router]registRouter:@"hb"
+    [[HBRouter shared]registRouter:@"hb"
                            mapping:@{@"vc_02_oc":@"ViewController02"}
                             bundle:@""
                               host:@"router.com" targetType:HBTargetTypeController];

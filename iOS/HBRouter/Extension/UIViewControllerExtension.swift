@@ -18,11 +18,12 @@ extension UIViewController{
         
         return true
     }
+    
     @objc open class func needsLogin(_ action:HBRouterAction) ->Bool{
         return false
     }
     /// 栈内单例唯一：
-    /// 只在当前所处导航控制器的栈内单例
+    /// 当前导航栈内唯一
     /// - Parameter
     @objc open class func isSingleton(_ action:HBRouterAction) -> Bool{
         return false
@@ -32,6 +33,42 @@ extension UIViewController{
         return true
     }
     
+   
+    
+}
+
+extension UIViewController{
+    
+    private struct AssociatedKey {
+        static var hbr_inAnimatingIdentifier: String = "hbr_inAnimatingIdentifier"
+    }
+    
+    public var hbr_inAnimating:Bool{
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKey.hbr_inAnimatingIdentifier) as? Bool ?? false
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKey.hbr_inAnimatingIdentifier, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        }
+    }
+    
+    
+    @objc func hbr_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
+        self.hbr_inAnimating = true
+        hbr_present(viewControllerToPresent, animated: flag) { [weak self] () in
+            completion?()
+            self?.hbr_inAnimating = false
+        }
+        
+    }
+    
+    
+    
+    
+    @objc
+    static func initializeSwizzleMethod(){
+        swizzleMethod(for: self, originalSelector: #selector(present(_:animated:completion:)), swizzledSelector: #selector(hbr_present(_:animated:completion:)))
+    }
     
     
 }

@@ -11,11 +11,9 @@ import UIKit
 
 @objcMembers  open class HBRouterAction:NSObject {
     //默认转场为push
-    
-    
     public var options:[HBRouterOption] = [.push]
-    
     private var _option:HBRouterOption = .push
+    
     public var option:HBRouterOption {
         set{
             if newValue != _option {
@@ -31,7 +29,6 @@ import UIKit
         }
     }
     
-    
     @objc
     public var wrapNavgClass:UINavigationController.Type?
     
@@ -40,8 +37,8 @@ import UIKit
     //作为外部链接打开
     public var openExternal:Bool = false
     
-    //当前导航控制器栈内单例模式
-    public var isSingleton:Bool = false
+    //使用已存在页面
+    public var useExistingPage:Bool = false
     
     //控制器链路
     public weak var form:UIViewController?
@@ -109,10 +106,9 @@ import UIKit
     /// - Parameter path: router Path
     public init(path:routerPath){
         super.init()
-        self.scheme = HBRouter.router().defaultRouterScheme
-        self.host =  HBRouter.router().defaultRouterHost
+        self.scheme = HBRouter.shared().defaultRouterScheme
+        self.host =  HBRouter.shared().defaultRouterHost
         self.path = path
-        
         if !path.hasPrefix("/") {
             self.path =  "/\(path)"
         }
@@ -216,8 +212,11 @@ extension HBRouterAction{
     }
     
     
-    public func addParamsFromURLAction(_ routerAction:HBRouterAction) {
-        self.addEntriesFromDictonary(routerAction.params)
+    public func addParamsFromURLAction(_ routerAction:HBRouterAction?) {
+        if let action = routerAction {
+            self.addEntriesFromDictonary(action.params)
+        }
+       
     }
     
     //any nil时，删除对应Key的Value值

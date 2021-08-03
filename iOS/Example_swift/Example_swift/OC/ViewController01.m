@@ -26,6 +26,11 @@
     return  YES;
 }
 
+//栈内唯一单例
++ (BOOL)isSingleton:(HBRouterAction *)action{
+    return  YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -76,15 +81,15 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else if(indexPath.row == 1){
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
-        action.isSingleton = true;
-        [HBRouter.router openRouterAction:action];
+        action.useExistingPage = true;
+        [HBRouter.shared openRouterAction:action];
     }else if(indexPath.row == 2){
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
-        action.isSingleton = false;
-        [HBRouter.router openRouterAction:action];
+        action.useExistingPage = false;
+        [HBRouter.shared openRouterAction:action];
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];
-        [[HBRouter router] openRouterAction:action];
+        [[HBRouter shared] openRouterAction:action];
     }
     
     

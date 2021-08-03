@@ -295,10 +295,12 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return false
         }
-        if navigationController.inAnimating {
+        
+        if navigationController.hbr_inAnimating  || navigationController.topViewController?.hbr_inAnimating ?? false{
             return true
         }
-        if action.isSingleton {
+        
+        if action.useExistingPage {
             if navigationController.viewControllers.last == viewController {
                 viewController.viewWillAppear(false)
                 viewController.viewDidAppear(false)
@@ -323,6 +325,10 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return false
         }
+        
+        if navigationController.hbr_inAnimating  || navigationController.topViewController?.hbr_inAnimating ?? false{
+            return true
+        }
         var _viewController = viewController
         if action.options.contains(.wrap_nc) || action.wrapNavgClass != nil {
             if action.wrapNavgClass != nil && action.wrapNavgClass !=  self.wrapNavgClass{
@@ -334,7 +340,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         navigationController.present(_viewController, animated: action.animation)
         return true
     }
-    
     
     //示例：hb://host.com/path
     func pop2Path(_ urlPattern:routerURLPattern, params:[String:Any] = [:]) -> Bool {
@@ -415,18 +420,16 @@ extension HBNavigator {
         guard let targetClass = target.targetClass as? UIViewController.Type else {
             return nil
         }
-        var isSingleton = action.isSingleton
-        if  targetClass.isSingleton(action) {
-            isSingleton = true
-        }
-        if isSingleton {
+        action.useExistingPage = action.useExistingPage || targetClass.isSingleton(action)
+        if action.useExistingPage {
             if let navigationController = UIViewController.topMost?.navigationController {
-                if let viweController =  navigationController.viewControllers.match(validate: {(item:UIViewController) -> Bool in return item.isKind(of: targetClass)}) {
-                    return viweController
+                if let viewController =  navigationController.viewControllers.match(validate: {(item:UIViewController) -> Bool in return item.isKind(of: targetClass)}) {
+                    action.addParamsFromURLAction(viewController.routerAction)
+                    viewController.setRouterAction(routerAction: action)
+                    return viewController
                 }
             }
         }
-        action.isSingleton = isSingleton
         let viewController = targetClass.init()
         viewController.setRouterAction(routerAction: action)
         return viewController
@@ -460,7 +463,6 @@ extension HBNavigator {
         if let scheme = action.scheme, let host = action.host,let path = action.path, let handle = viewControllerFactories["\(scheme)://\(host)/\(path)"] {
             return handle(action)
         }
-        
         if let scheme = action.scheme, let host = action.host, let handle = viewControllerFactories["\(scheme)://\(host)"] {
             return handle(action)
         }
@@ -468,7 +470,6 @@ extension HBNavigator {
         if let scheme = action.scheme, let handle = viewControllerFactories[scheme]{
             return handle(action)
         }
-        
         return nil
     }
     
@@ -513,13 +514,12 @@ extension HBNavigator{
         self.deleage?.didOpenRouter(action)
     }
     
-    
     //外链权限校验
     func shouldOpenExternal(_ action:HBRouterAction) -> Bool{
         return self.deleage?.shouldOpenExternal(action) ?? true
     }
     
-    //打开外链
+    //将要打开外链
     func willOpenExternal(_ action:HBRouterAction){
         self.deleage?.willOpenExternal(action)
     }

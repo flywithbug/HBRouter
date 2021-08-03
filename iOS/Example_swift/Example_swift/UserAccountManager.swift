@@ -14,7 +14,7 @@ import HBRouter
     private static let shareInstance = UserAccountManager()
     private override init() {
         super.init()
-        HBRouter.router().deleage = self
+        HBRouter.shared().deleage = self
         
     }
     @discardableResult
@@ -38,7 +38,7 @@ extension UserAccountManager:HBRouterDelegate {
             action.callBackBlock = { (value) in
                 completion?(value as? Bool ?? false)
             }
-            HBRouter.router().openRouterAction(action)
+            HBRouter.shared().openRouterAction(action)
         }
         return self.loginState
     }

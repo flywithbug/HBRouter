@@ -19,22 +19,22 @@ class RouterUsage {
     }
     //注册handler
     public  static func registerHandler(){
-        HBRouter.router().setDefault("hb", host: "router.com")
-        HBRouter.router().registeViewController(["http://","https://"], factory: RouterUsage.webViewControllerFactory)
-//        HBRouter.router().registeHander(["http://","https://"], factory: RouterUsage.openWebViewController)
-        HBRouter.router().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
-        HBRouter.router().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
+        HBRouter.shared().setDefault("hb", host: "router.com")
+        HBRouter.shared().registeViewController(["http://","https://"], factory: RouterUsage.webViewControllerFactory)
+//        HBRouter.shared().registeHander(["http://","https://"], factory: RouterUsage.openWebViewController)
+        HBRouter.shared().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
+        HBRouter.shared().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
     }
     
     public static func registRouterMapping(){
-        HBRouter.router().registRouter(HBRouter.router().defaultRouterScheme,
+        HBRouter.shared().registRouter(HBRouter.shared().defaultRouterScheme,
                                         mapping:
                                             ["home_swift":"ViewController"
                                              ,"vc_01_oc":"ViewController01",
                                              "login":"LoginViewController",
                                             ],
                                         bundle:   HBRouterAppName ?? "Example_swift",
-                                        host:     HBRouter.router().defaultRouterHost,
+                                        host:     HBRouter.shared().defaultRouterHost,
                                         targetType:.controller)
         RouterManager.registRouter()
     }
@@ -60,7 +60,7 @@ class RouterUsage {
     }
     
     static func openWebViewController(_ action:HBRouterAction) -> Any? {
-        return HBRouter.router().openController(action)
+        return HBRouter.shared().openController(action)
     }
     
     static func handlerBridge(_ action:HBRouterAction) -> Any? {
@@ -92,7 +92,7 @@ class RouterUsage {
         }
         dataSource.append(action)
         
-        for item in HBRouter.router().routerMapping{
+        for item in HBRouter.shared().routerMapping{
             let action = HBRouterAction.init(urlPattern: item.key)
             action.addValue("已注册原生路由跳转测试", key: "subTitle")
             action.callBackBlock = { (value) in
@@ -149,9 +149,12 @@ extension RouterUsage{
         let vc1 = ViewController01.init()
         
         let vc2 = ViewController02.init()
-        nav?.pushViewController(vc1, animated: true)
-        nav?.pushViewController(vc2, animated: true)
-        
+        nav?.pushViewController(vc1, animated: false)
+        nav?.pushViewController(vc2, animated: false)
+//        vc1 = ViewController01.init()
+        nav?.pushViewController(vc1, animated: false)
+        nav?.pushViewController(vc2, animated: false)
+
         return true
     }
     static func routerActionTest(_ action:HBRouterAction) -> Any?{

@@ -14,8 +14,11 @@ import UIKit
     private override init() {
         super.init()
     }
-    public static func router() -> HBRouter{
+    public static func shared() -> HBRouter{
         return shareInstance
     }
+    
+    
+    
     
 }

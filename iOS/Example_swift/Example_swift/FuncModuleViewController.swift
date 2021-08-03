@@ -82,7 +82,7 @@ extension FuncModuleViewController:UICollectionViewDelegate,UICollectionViewData
         let item = dataSource[indexPath.row]
         item.action.addValue(item.title, key: "title")
         collectionView.deselectItem(at: indexPath, animated: true)
-        HBRouter.router().openRouterAction(item.action)
+        HBRouter.shared().openRouterAction(item.action)
     }
     
     
