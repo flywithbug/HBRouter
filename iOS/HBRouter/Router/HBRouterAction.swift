@@ -49,8 +49,8 @@ import UIKit
     public var animation:Bool = true
     
     //转场或者调用完成状态回调
-    private var _openStateBlock:((Bool)->Void)? = nil
-    public  var openCompleteBlock:((Bool)->Void)?{
+    private var _openStateBlock:((_ success:Bool,_ any:Any?)->Void)? = nil
+    public  var openCompleteBlock:((_ success:Bool,_ any:Any?)->Void)?{
         set{
             if _openStateBlock != nil {
                 #if DEBUG

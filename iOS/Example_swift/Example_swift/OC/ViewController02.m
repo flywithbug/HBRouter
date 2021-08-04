@@ -85,7 +85,7 @@
     }else if(indexPath.row == 1) {
         cell.textLabel.text = @"点击跳转到01页面：栈内唯一";
     }else if(indexPath.row == 2) {
-        cell.textLabel.text = @"点击跳转到01页面：新开页面，栈内多开";
+        cell.textLabel.text = @"点击跳转到02页面";
     }else{
         cell.textLabel.text = @"点击跳转百度";
     }
@@ -109,7 +109,7 @@
         action.useExistingPage = true;
         [HBRouter.shared openRouterAction:action];
     }else if(indexPath.row == 2){
-        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
+        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_2_oc"];
         action.useExistingPage = false;
         [HBRouter.shared openRouterAction:action];
     }else{

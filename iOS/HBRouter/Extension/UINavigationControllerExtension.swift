@@ -62,7 +62,6 @@ extension UINavigationController {
     }
     
     
-    
     @objc static func initializeNavSwizzleMethod(){
         swizzleMethod(for: self, originalSelector: #selector(pushViewController(_:animated:)), swizzledSelector: #selector(hbr_pushViewController(_:animated:)))
         swizzleMethod(for: self, originalSelector: #selector(popViewController(animated:)), swizzledSelector: #selector(hbr_popViewController(animated:)))

@@ -9,7 +9,6 @@ import UIKit
 
 extension UIViewController{
     
-    
     /// 控制器内处理action回调
     /// - Parameter action: action参数
     /// - Returns: 判断是否可以打开页面 false 时，不能打开该页面
@@ -51,24 +50,28 @@ extension UIViewController{
             objc_setAssociatedObject(self, &AssociatedKey.hbr_inAnimatingIdentifier, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
-    
-    
     @objc func hbr_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         self.hbr_inAnimating = true
         hbr_present(viewControllerToPresent, animated: flag) { [weak self] () in
             completion?()
             self?.hbr_inAnimating = false
         }
-        
     }
     
-    
+    @objc func hbr_dismiss(animated flag: Bool, completion: (() -> Void)? = nil){
+        self.hbr_inAnimating = true
+        hbr_dismiss(animated: flag) { [weak self] () in
+            self?.hbr_inAnimating = false
+        }
+    }
     
     
     @objc
-    static func initializeSwizzleMethod(){
+    static func initializeVCSwizzleMethod(){
         swizzleMethod(for: self, originalSelector: #selector(present(_:animated:completion:)), swizzledSelector: #selector(hbr_present(_:animated:completion:)))
+        swizzleMethod(for: self, originalSelector: #selector(dismiss(animated:completion:)), swizzledSelector: #selector(hbr_dismiss(animated:completion:)))
     }
+    
     
     
 }

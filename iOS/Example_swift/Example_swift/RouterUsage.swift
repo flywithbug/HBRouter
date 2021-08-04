@@ -70,7 +70,9 @@ class RouterUsage {
         if action.path == "/routerActionTest" {
            return routerActionTest(action)
         }
-        
+        if action.path == "/hbRouterPushtest" {
+            return hbRouterPushtest(action)
+        }
         
         if action.path == "/navigationPushtest" {
             return navigationPushtest(action)
@@ -91,6 +93,7 @@ class RouterUsage {
         dataSource.append(action)
         
         for item in HBRouter.shared().routerMapping{
+            
             let action = HBRouterAction.init(urlPattern: item.key)
             action.addValue("已注册原生路由跳转测试", key: "subTitle")
             action.callBackBlock = { (value) in
@@ -114,7 +117,7 @@ class RouterUsage {
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest")
         action.animation = false
-        action.addValue("基础功能测试，连续跳转，关闭转场动画", key: "subTitle")
+        action.addValue("原生连续跳转，关闭转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
@@ -122,12 +125,27 @@ class RouterUsage {
         
         action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest?a=10")
         action.animation = true
-        action.addValue("基础功能测试，连续跳转，打开转场动画", key: "subTitle")
+        action.addValue("原生连续跳转，打开转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
         }
         dataSource.append(action)
         
+        action = HBRouterAction.init(urlPattern: "bridge://hellobike/hbRouterPushtest?a=10")
+        action.animation = false
+        action.addValue("HBRouter 连续跳转测试,关闭转场动画", key: "subTitle")
+        action.callBackBlock = { (value) in
+            print("\(value ?? "---")")
+        }
+        dataSource.append(action)
+        
+        action = HBRouterAction.init(urlPattern: "bridge://hellobike/hbRouterPushtest?a=10")
+        action.animation = true
+        action.addValue("HBRouter 连续跳转测试，打开转场动画", key: "subTitle")
+        action.callBackBlock = { (value) in
+            print("\(value ?? "---")")
+        }
+        dataSource.append(action)
         return dataSource
     }
     
@@ -140,18 +158,36 @@ class RouterUsage {
 
 extension RouterUsage{
     
-    
+    static func hbRouterPushtest(_ _action:HBRouterAction) -> Any?{
+        var action = HBRouterAction.init(path: "vc_01_oc")
+        action.animation = _action.animation
+        action.openCompleteBlock = { (success,value) in
+            print("isSuccess:\(success),value:\(value ?? "null")")
+        }
+        print(HBRouter.shared().open(action: action).debugDescription)
+        print(HBRouter.shared().open(action: action).debugDescription)
+        
+        action = HBRouterAction.init(path: "vc_02_oc")
+        action.animation = _action.animation
+        print(HBRouter.shared().open(action: action).debugDescription)
+        print(HBRouter.shared().open(action: action).debugDescription)
+        print(HBRouter.shared().open(action: action).debugDescription)
+        print(HBRouter.shared().open(action: action).debugDescription)
+        print(HBRouter.shared().open(action: action).debugDescription)
+        print(HBRouter.shared().open(action: action).debugDescription)
+        return true
+    }
     
     static func navigationPushtest(_ action:HBRouterAction) -> Any?{
         let nav = UIViewController.topMost?.navigationController
         let vc1 = ViewController01.init()
         
         let vc2 = ViewController02.init()
-        nav?.pushViewController(vc1, animated: false)
-        nav?.pushViewController(vc2, animated: false)
+        nav?.pushViewController(vc1, animated: action.animation)
+        nav?.pushViewController(vc2, animated: action.animation)
 //        vc1 = ViewController01.init()
-        nav?.pushViewController(vc1, animated: false)
-        nav?.pushViewController(vc2, animated: false)
+        nav?.pushViewController(vc1, animated: action.animation)
+        nav?.pushViewController(vc2, animated: action.animation)
 
         return true
     }

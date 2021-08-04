@@ -42,8 +42,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         HBRSwizzleManager.shared()
     }
     public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
- 
-   
+    
     private weak var _deleage:HBRouterDelegate?
     public weak var deleage:HBRouterDelegate?{
         set{
@@ -76,7 +75,9 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     let lock:NSLock = NSLock.init()
     private var handlerFactories = [routerURLPattern: handlerFactory]()
     private var viewControllerFactories = [routerURLPattern:viewControllerFactory]()
-
+    private var checkBlockModeLock:NSLock = NSLock()
+    private var checkInBlockModesemaphore = DispatchSemaphore.init(value: 1)
+    
     //路由表 元数据
     public private(set)  var routerTargetMapping = [routerScheme: [routerPath:HBRouterTarget]]()
     //路由表 生成
@@ -246,8 +247,8 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         if  let _target =  handleFactory(action) {
             return _target.target
         }
-        if let val = openController(action,inside: true) {
-            return val
+        if let val = openController(action,inside: true),val.success{
+            return val.viewController
         }
         //未处理action回调
         onMatchUnhandleRouterAction(action)
@@ -255,37 +256,52 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     }
     
     
-   
-    
-    public func openController(_ action:HBRouterAction)  -> UIViewController?{
+    public func openController(_ action:HBRouterAction)  -> (viewController:UIViewController?, success:Bool)?{
         return openController(action, inside: false)
     }
     
-    private func openController(_ action:HBRouterAction, inside:Bool)  -> UIViewController?{
+    private func checkInBlockMode() ->Bool{
+        guard let navigationController = UIViewController.topMost?.navigationController else {
+            return false
+        }
+        if navigationController.hbr_inAnimating  || navigationController.topViewController?.hbr_inAnimating ?? false{
+            return true
+        }
+        return false
+    }
+    
+    private func openController(_ action:HBRouterAction, inside:Bool)  -> (viewController:UIViewController?, success:Bool)?{
+        //防止连续Open导致动画冲突
+        if action.animation && checkInBlockMode(){
+            checkInBlockModesemaphore.wait()
+            DispatchQueue.global().asyncAfter(deadline: .now()) { () in
+                self.checkInBlockModesemaphore.signal()
+            }
+        }
         var success:Bool = false
         defer {
             if inside == false && success == false {
                 onMatchUnhandleRouterAction(action)
             }
         }
-        
         guard let viewController = matchTargetController(action) else {
-            return nil
+            return (nil,false)
         }
         viewController.setRouterAction(routerAction: action)
         viewController.handleRouterAction(action)
+        
         if action.options.contains(.present) || action.option == .present{
             if !present(action, viewController: viewController)  {
-                return nil
+                return (viewController,false)
             }
         }else{
             if !push(action, viewController: viewController){
-                return nil
+                return (viewController,false)
             }
         }
         success = true
         onMatchRouterAction(action, any: viewController)
-        return viewController
+        return (viewController,true)
     }
    
     
@@ -293,11 +309,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return false
         }
-        
-        if navigationController.hbr_inAnimating  || navigationController.topViewController?.hbr_inAnimating ?? false{
-            return true
-        }
-        
         if action.useExistingPage {
             if navigationController.viewControllers.last == viewController {
                 viewController.viewWillAppear(false)
@@ -324,9 +335,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             return false
         }
         
-        if navigationController.hbr_inAnimating  || navigationController.topViewController?.hbr_inAnimating ?? false{
-            return true
-        }
         var _viewController = viewController
         if action.options.contains(.wrap_nc) || action.wrapNavgClass != nil {
             if action.wrapNavgClass != nil && action.wrapNavgClass !=  self.wrapNavgClass{
@@ -529,17 +537,17 @@ extension HBNavigator{
         if let url = action.externalURL() {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:]) { (success) in
-                    action.openCompleteBlock?(success)
+                    action.openCompleteBlock?(success,nil)
                 }
             } else {
                 if UIApplication.shared.openURL(url) {
-                    action.openCompleteBlock?(true)
+                    action.openCompleteBlock?(true,nil)
                 }else{
-                    action.openCompleteBlock?(false)
+                    action.openCompleteBlock?(false,nil)
                 }
             }
         }else{
-            action.openCompleteBlock?(false)
+            action.openCompleteBlock?(false,nil)
         }
     }
     
@@ -555,7 +563,7 @@ extension HBNavigator{
     //页面打开回调
     func onMatchRouterAction(_ action:HBRouterAction, any:Any?){
         self.deleage?.onMatchRouterAction(action, any:any)
-        action.openCompleteBlock?(true)
+        action.openCompleteBlock?(true,any)
     }
     
     func loginStatus(_ action:HBRouterAction, completion: ((Bool) -> Void)?) -> Bool{

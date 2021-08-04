@@ -37,6 +37,7 @@ class HBRSwizzleManager:NSObject {
     
     private override init(){
         UINavigationController.initializeNavSwizzleMethod()
+        UIViewController.initializeVCSwizzleMethod()
     }
     
     @discardableResult
