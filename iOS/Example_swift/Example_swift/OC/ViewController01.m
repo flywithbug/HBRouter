@@ -81,11 +81,11 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else if(indexPath.row == 1){
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
-        action.useExistingPage = true;
+        action.useExistPage = true;
         [HBRouter.shared openRouterAction:action];
     }else if(indexPath.row == 2){
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
-        action.useExistingPage = false;
+        action.useExistPage = false;
         [HBRouter.shared openRouterAction:action];
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];

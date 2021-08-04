@@ -39,6 +39,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     public override init() {
         super.init()
+        
         HBRSwizzleManager.shared()
     }
     public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
@@ -226,10 +227,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                                        factory: @escaping viewControllerFactory){
         registeViewController([urlPattern], factory: factory)
     }
-    
-    
-    
-    
     //跳转控制器
     @discardableResult
     public func openRouterAction(_ action:HBRouterAction)  -> Any?{
@@ -270,6 +267,8 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         return false
     }
     
+    
+    
     private func openController(_ action:HBRouterAction, inside:Bool)  -> (viewController:UIViewController?, success:Bool)?{
         //防止连续Open导致动画冲突
         if action.animation && checkInBlockMode(){
@@ -287,7 +286,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let viewController = matchTargetController(action) else {
             return (nil,false)
         }
-        viewController.setRouterAction(routerAction: action)
+        viewController.setRouterAction(action)
         viewController.handleRouterAction(action)
         
         if action.options.contains(.present) || action.option == .present{
@@ -309,7 +308,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return false
         }
-        if action.useExistingPage {
+        if action.useExistPage {
             if navigationController.viewControllers.last == viewController {
                 viewController.viewWillAppear(false)
                 viewController.viewDidAppear(false)
@@ -348,7 +347,8 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     }
     
     //示例：hb://host.com/path
-    func pop2Path(_ urlPattern:routerURLPattern, params:[String:Any] = [:]) -> Bool {
+    @discardableResult
+    func pop2Path(_ urlPattern:routerURLPattern, params:[String:Any] = [:]) ->  [UIViewController]? {
         let action = HBRouterAction.init(urlPattern: urlPattern)
         action.addEntriesFromDictonary(params)
         return pop(action)
@@ -356,39 +356,39 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     
     //回退到当前导航栈中的某控制器
-    func pop(_ action:HBRouterAction) -> Bool {
+    @discardableResult
+    func pop(_ action:HBRouterAction) -> [UIViewController]? {
         guard let navigationController = UIViewController.topMost?.navigationController else {
-            return false
+            return nil
         }
         guard let target = matchTarget(action),let targetClass = target.targetClass else {
-            return false
+            return nil
         }
         action.target = target
         //倒叙遍历
         for item in navigationController.viewControllers.reversed() {
             if item.isKind(of: targetClass) {
                 //参数回传
-                if item.routerAction != nil {
-                    item.routerAction?.addEntriesFromDictonary(action.params)
+                if item.routeAction != nil {
+                    item.routeAction?.addEntriesFromDictonary(action.params)
                 }else{
-                    item.setRouterAction(routerAction: action)
+                    item.setRouterAction(action)
                 }
-                item.handleRouterAction(item.routerAction!)
-                navigationController.popToViewController(item, animated: false)
-//                navigationController.pop(item)
-                return true
+                item.handleRouterAction(item.routeAction!)
+                return  navigationController.popToViewController(item, animated: false)
             }
         }
-        return false
+        return nil
     }
     //回退到任意actions
-    func pop2Any(_ actions:[HBRouterAction]) -> Bool {
+    @discardableResult
+    func pop2Any(_ actions:[HBRouterAction]) ->  [UIViewController]? {
         for item in actions{
-            if pop(item) {
-                return true
+            if let items =  pop(item) {
+                return items
             }
         }
-        return false
+        return nil
     }
 }
 
@@ -420,24 +420,25 @@ extension HBNavigator {
         if let viewController = matchViewControllerFactory(action){
             return viewController
         }
+      
         guard let target = action.target else {
             return nil
         }
         guard let targetClass = target.targetClass as? UIViewController.Type else {
             return nil
         }
-        action.useExistingPage = action.useExistingPage || targetClass.isSingleton(action)
-        if action.useExistingPage {
+        action.useExistPage = action.useExistPage || targetClass.isSingleton(action)
+        if action.useExistPage {
             if let navigationController = UIViewController.topMost?.navigationController {
                 if let viewController =  navigationController.viewControllers.match(validate: {(item:UIViewController) -> Bool in return item.isKind(of: targetClass)}) {
-                    action.addParamsFromURLAction(viewController.routerAction)
-                    viewController.setRouterAction(routerAction: action)
+                    action.addParamsFromURLAction(viewController.routeAction)
+                    viewController.setRouterAction( action)
                     return viewController
                 }
             }
         }
         let viewController = targetClass.init()
-        viewController.setRouterAction(routerAction: action)
+        viewController.setRouterAction(action)
         return viewController
     }
     
@@ -465,6 +466,7 @@ extension HBNavigator {
         
         return nil
     }
+    
     func matchViewControllerFactory(_ action:HBRouterAction) -> UIViewController? {
         if let scheme = action.scheme, let host = action.host,let path = action.path, let handle = viewControllerFactories["\(scheme)://\(host)/\(path)"] {
             return handle(action)

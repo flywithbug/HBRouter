@@ -24,7 +24,7 @@
     HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"login"];
     action.option = HBRouterOptionPresent;
     action.wrapNavgClass = HBBaseNavigationController.class;
-    action.useExistingPage = true;
+    action.useExistPage = true;
 
 //    [HBRouter.shared openRouterAction:action];
     ItemModel *item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
@@ -32,7 +32,7 @@
     
     
     action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
-    action.useExistingPage = true;
+    action.useExistPage = true;
 //    [HBRouter.shared openRouterAction:action];
     item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
     

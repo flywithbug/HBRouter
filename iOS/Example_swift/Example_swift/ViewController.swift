@@ -9,19 +9,16 @@ import UIKit
 import HBRouter
 import WebKit
 
-//import 
 
 class ViewController: UIViewController {
     
-    
     override func handleRouterAction(_ action: HBRouterAction) -> Bool {
-        
         return super.handleRouterAction(action)
     }
     
     
     lazy var dataSource:[HBRouterAction] = {
-        if let dataSource = routerAction?.any("dataSource") as? [HBRouterAction]{
+        if let dataSource = routeAction?.any("dataSource") as? [HBRouterAction]{
             return dataSource
         }
         return RouterUsage.dataSource()
@@ -41,7 +38,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = routerAction?.stringValue("title")
+        self.title = routeAction?.stringValue("title")
         view.addSubview(tableView)
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.white

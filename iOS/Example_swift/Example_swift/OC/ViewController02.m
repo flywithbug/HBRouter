@@ -19,34 +19,13 @@
 
 @implementation ViewController02
 
-//
-//- (BOOL)canSlideBack{
-//    return  YES;
-//}
-
-
-//+ (BOOL)needsLogin:(HBRouterAction *)action{
-//    return  YES;
-//}
+- (BOOL)handleRouterAction:(HBRouterAction *)action{
+    
+    
+    return  [super handleRouterAction:action];
+}
 
 - (void)loadData{
-//    self.dataSource = [NSMutableArray new];
-//    HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"login"];
-//    action.isSingleton = true;
-////    action.option = HBRouterOptionPresent;
-//    [HBRouter.router openRouterAction:action];
-//    ItemModel *item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
-//    [self.dataSource addObject:item];
-//
-//
-//    action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
-////    action.isSingleton = true;
-//    [HBRouter.router openRouterAction:action];
-//    item = [[ItemModel alloc]initWithAction:action title:@"" subTitle:@""];
-//    LoginViewController *vc = [[LoginViewController alloc]init];
-//    [self.navigationController pushViewController:vc animated:YES];
-//    ViewController01 *vc01 = [ViewController01 new];
-//    [self.navigationController push:vc01 animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -106,11 +85,11 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else if(indexPath.row == 1){
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_01_oc"];
-        action.useExistingPage = true;
+        action.useExistPage = true;
         [HBRouter.shared openRouterAction:action];
     }else if(indexPath.row == 2){
-        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_2_oc"];
-        action.useExistingPage = false;
+        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
+        action.useExistPage = false;
         [HBRouter.shared openRouterAction:action];
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];

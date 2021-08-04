@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
     func dismiss()  {
         if presentingViewController != nil{
             dismiss(animated: true) {
-                self.routerAction?.callBackBlock?(true)
+                self.routeAction?.callBackBlock?(true)
             }
         }else{
             navigationController?.popViewController(animated: true)

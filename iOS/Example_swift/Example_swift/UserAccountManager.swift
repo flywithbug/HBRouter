@@ -43,7 +43,11 @@ extension UserAccountManager:HBRouterDelegate {
         return self.loginState
     }
     
+    func onMatchRouterAction(_ action: HBRouterAction, any: Any?) {
+        print("onMatchRouterAction:::: routerURLPattern:\(action.routerURLPattern() ?? "path is null"), \(any.debugDescription)")
+    }
     func shouldOpenRouter(_ action: HBRouterAction) -> Bool {
+       
         return true
     }
     
@@ -75,9 +79,6 @@ extension UserAccountManager:HBRouterDelegate {
         
     }
     
-    func onMatchRouterAction(_ action: HBRouterAction, any: Any?) {
-        
-    }
     
     
 }

@@ -41,14 +41,17 @@ import UIKit
         return openRouterAction(action)
     }
     
+    
+    
 }
 
 
 extension UIViewController{
-    func open(_ url:URL) -> UIViewController? {
+    func open(url:URL) -> UIViewController? {
         let action = HBRouterAction.init(url: url)
         return HBRouter.shared().openRouterAction(action) as? UIViewController
     }
+    
     
     
 }

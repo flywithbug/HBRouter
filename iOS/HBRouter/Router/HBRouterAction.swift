@@ -37,8 +37,8 @@ import UIKit
     //作为外部链接打开
     public var openExternal:Bool = false
     
-    //使用已存在页面
-    public var useExistingPage:Bool = false
+    //使用导航栈内已存在页面
+    public var useExistPage:Bool = false
     
     //控制器链路
     public weak var form:UIViewController?
@@ -423,32 +423,32 @@ extension HBRouterAction{
 
 extension UIViewController {
     private struct AssociatedKey {
-        static var routerActionIdentifier: String = "routerActionIdentifier"
-        static var routerURLPatternIdentifier: String = "routerURLPatternIdentifier"
+        static var routeActionIdentifier: String = "routeActionIdentifier"
+        static var routeURLPatternIdentifier: String = "routeURLPatternIdentifier"
     }
     @objc
-    public private(set) var routerAction:HBRouterAction?{
+    public private(set) var routeAction:HBRouterAction?{
         get {
-            return objc_getAssociatedObject(self, &AssociatedKey.routerActionIdentifier) as? HBRouterAction
+            return objc_getAssociatedObject(self, &AssociatedKey.routeActionIdentifier) as? HBRouterAction
         }
          set {
-            objc_setAssociatedObject(self, &AssociatedKey.routerActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.routeActionIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     @objc
-    public private(set) var routerURLPattern:String?{
+    public private(set) var routeURLPattern:String?{
         get {
-            return objc_getAssociatedObject(self, &AssociatedKey.routerURLPatternIdentifier) as? String
+            return objc_getAssociatedObject(self, &AssociatedKey.routeURLPatternIdentifier) as? String
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.routerURLPatternIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.routeURLPatternIdentifier, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
     @objc
-    public func setRouterAction(routerAction:HBRouterAction) {
-        self.routerAction = routerAction
-        self.routerURLPattern = routerAction.routerURLPattern()
+    public func setRouterAction(_ routeAction:HBRouterAction) {
+        self.routeAction = routeAction
+        self.routeURLPattern = routeAction.routerURLPattern()
     }
     
 //    @objc
