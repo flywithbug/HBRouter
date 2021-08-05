@@ -22,6 +22,7 @@
 - (BOOL)canSlideBack{
     return  YES;
 }
+
 + (BOOL)needsLogin:(HBRouterAction *)action{
     return  YES;
 }
@@ -30,6 +31,9 @@
 + (BOOL)isSingleton:(HBRouterAction *)action{
     return  YES;
 }
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

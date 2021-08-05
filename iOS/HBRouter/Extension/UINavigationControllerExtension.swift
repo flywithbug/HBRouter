@@ -11,6 +11,16 @@ import UIKit
 
 extension UINavigationController {
     
+    @discardableResult
+    @objc public func popViewController(animated: Bool,completion:(()->Void)? = nil) -> UIViewController?{
+        let viewController =  popViewController(animated: animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
+            completion?()
+        }
+        return viewController
+    }
+    
+    
     @objc func hbr_pushViewController(_ viewController:UIViewController,animated:Bool = true){
         if viewControllers.last == viewController {
             return
@@ -68,9 +78,20 @@ extension UINavigationController {
         swizzleMethod(for: self, originalSelector: #selector(popToViewController(_:animated:)), swizzledSelector: #selector(hbr_popToViewController(_:animated:)))
         swizzleMethod(for: self, originalSelector: #selector(popToRootViewController(animated:)), swizzledSelector: #selector(hbr_popToRootViewController(animated:)))
     }
+}
+
+
+extension UINavigationController:UIGestureRecognizerDelegate{
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
     
-    
-    
-    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer == interactivePopGestureRecognizer) {
+            return viewControllers.last?.canSlideBack() ?? false
+        }
+        return false
+    }
     
 }

@@ -94,6 +94,7 @@
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];
         [[HBRouter shared] openRouterAction:action];
+        
     }
     
     

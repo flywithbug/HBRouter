@@ -53,8 +53,8 @@ extension UIViewController{
     @objc func hbr_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         self.hbr_inAnimating = true
         hbr_present(viewControllerToPresent, animated: flag) { [weak self] () in
-            completion?()
             self?.hbr_inAnimating = false
+            completion?()
         }
     }
     
@@ -62,6 +62,7 @@ extension UIViewController{
         self.hbr_inAnimating = true
         hbr_dismiss(animated: flag) { [weak self] () in
             self?.hbr_inAnimating = false
+            completion?()
         }
     }
     

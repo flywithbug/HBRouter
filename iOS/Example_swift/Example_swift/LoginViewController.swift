@@ -11,10 +11,10 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "需要登录"
+        self.title = UserAccountManager.share().loginState ? "已登录" : "需要登录"
         view.backgroundColor = UIColor.white
         let btn = UIButton.init(type: .custom)
-        btn.setTitle("点击登录", for: .normal)
+        btn.setTitle(UserAccountManager.share().loginState ? "点击退出登录" :"点击登录", for: .normal)
         btn.setTitleColor(UIColor.black, for: .normal);
         btn.frame = CGRect.init(x: 100, y: 100, width: self.view.frame.size.width - 200, height: 80)
         view.addSubview(btn)
@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     }
     @objc
     func btnAction(_ sender:UIButton) {
-        UserAccountManager.share().loginState = true
+        UserAccountManager.share().loginState = !UserAccountManager.share().loginState
         dismiss()
         
     }
@@ -34,7 +34,11 @@ class LoginViewController: UIViewController {
                 self.routeAction?.callBackBlock?(true)
             }
         }else{
-            navigationController?.popViewController(animated: true)
+            
+            self.navigationController?.popViewController(animated: true, completion: { [weak self]()in
+                self?.routeAction?.callBackBlock?(true)
+            })
+            
         }
     }
 }

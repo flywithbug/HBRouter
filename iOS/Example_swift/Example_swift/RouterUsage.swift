@@ -173,8 +173,9 @@ extension RouterUsage{
         print(HBRouter.shared().open(action: action).debugDescription)
         print(HBRouter.shared().open(action: action).debugDescription)
         print(HBRouter.shared().open(action: action).debugDescription)
-        print(HBRouter.shared().open(action: action).debugDescription)
-        print(HBRouter.shared().open(action: action).debugDescription)
+        
+        
+        
         return true
     }
     

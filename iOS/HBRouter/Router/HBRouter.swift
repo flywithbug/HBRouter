@@ -41,17 +41,37 @@ import UIKit
         return openRouterAction(action)
     }
     
-    
-    
 }
 
 
 extension UIViewController{
-    func open(url:URL) -> UIViewController? {
+    
+    @discardableResult
+    @objc public func openRouterAction(_ action:HBRouterAction)  -> Any?{
+        return HBRouter.shared().openRouterAction(action)
+    }
+    
+    @discardableResult
+    @objc public func open(url:URL) -> UIViewController? {
         let action = HBRouterAction.init(url: url)
         return HBRouter.shared().openRouterAction(action) as? UIViewController
     }
     
+    @discardableResult
+    @objc public func open(urlPattern:routerURLPattern) -> Any? {
+        let action = HBRouterAction.init(urlPattern: urlPattern)
+        return openRouterAction(action)
+    }
+    @discardableResult
+    @objc public func open(action:HBRouterAction) -> Any? {
+        return openRouterAction(action)
+    }
+    
+    @discardableResult
+    @objc public func open(path:routerPath) -> Any? {
+        let action = HBRouterAction.init(path: path)
+        return openRouterAction(action)
+    }
     
     
 }

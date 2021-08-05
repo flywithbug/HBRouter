@@ -57,10 +57,6 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
         return dataSource.count
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 44
-//    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")
         if cell == nil {
@@ -74,8 +70,7 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let action = dataSource[indexPath.row]
-        HBRouter.shared().openRouterAction(action)
-        
+        open(action: action)
     }
     
     
