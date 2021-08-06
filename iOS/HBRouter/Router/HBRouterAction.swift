@@ -41,7 +41,8 @@ import UIKit
     public var useExistPage:Bool = false
     
     //控制器链路
-    public weak var form:UIViewController?
+    public weak var from:UIViewController?
+    public weak var current:UIViewController?
     public weak var next:UIViewController?
     public var target:HBRouterTarget?
     

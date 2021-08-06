@@ -6,26 +6,23 @@
 //
 
 #import "BViewController01.h"
-
+#import <HBrouter/HBRouter-Swift.h>
 @interface BViewController01 ()
 
 @end
 
 @implementation BViewController01
 
+- (BOOL)handleRouterAction:(HBRouterAction *)action{
+    NSLog(@"from:%@",action.from);
+    
+    return  [super handleRouterAction:action];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = UIColor.grayColor;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -8,7 +8,7 @@
 import SafariServices
 
 import HBRouter
-
+import Business_Pod_test
 
 
 class RouterUsage {
@@ -35,6 +35,7 @@ class RouterUsage {
                                         host:     HBRouter.shared().defaultRouterHost,
                                         targetType:.controller)
         RouterManager.registRouter()
+        BRouterManager.registRouter()
     }
     
     static func handlerflutter(_ action:HBRouterAction) -> Any? {

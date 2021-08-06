@@ -286,8 +286,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let viewController = matchTargetController(action) else {
             return (nil,false)
         }
-        viewController.setRouterAction(action)
-        viewController.handleRouterAction(action)
+       
         
         if action.options.contains(.present) || action.option == .present{
             if !present(action, viewController: viewController)  {
@@ -300,12 +299,15 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         success = true
         onMatchRouterAction(action, any: viewController)
+        viewController.setRouterAction(action)
+        viewController.handleRouterAction(action)
+        
         return (viewController,true)
     }
    
     
     func push(_ action:HBRouterAction,viewController:UIViewController) -> Bool {
-        guard let navigationController = UIViewController.topMost?.navigationController else {
+        guard let vc = UIViewController.topMost, let navigationController = vc.navigationController else {
             return false
         }
         if action.useExistPage {
@@ -325,12 +327,13 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }else{
             navigationController.pushViewController(viewController, animated: action.animation)
         }
+      
         return true
         
     }
     
     func present(_ action:HBRouterAction,viewController:UIViewController) -> Bool  {
-        guard let navigationController = UIViewController.topMost?.navigationController else {
+        guard let vc = UIViewController.topMost, let navigationController = vc.navigationController else {
             return false
         }
         
@@ -343,6 +346,9 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             }
         }
         navigationController.present(_viewController, animated: action.animation)
+        action.from = vc
+        action.current = viewController
+        vc.routeAction?.next = viewController
         return true
     }
     

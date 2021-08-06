@@ -33,7 +33,9 @@ static BRouterManager *manager = nil;
 
 + (void)registRouter{
     [BRouterManager shared];
-    [[HBRouter shared]registRouter:@{} bundleClass:self.class];
+    [[HBRouter shared]registRouter:@{
+        @"b_vc01_oc":@"BViewController01"
+    } bundleClass:self.class];
 }
 
 

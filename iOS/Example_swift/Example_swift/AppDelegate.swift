@@ -13,17 +13,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    override init() {
+        super.init()
+        UserAccountManager.share()
+        RouterUsage.registerHandler()
+        RouterUsage.registRouterMapping()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+     
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.makeKeyAndVisible()
         window.backgroundColor = .white
         window.rootViewController = UINavigationController.init(rootViewController: FuncModuleViewController())
         self.window = window
-        UserAccountManager.share()
-        RouterUsage.registerHandler()
-        RouterUsage.registRouterMapping()
+    
         return true
     }
 
