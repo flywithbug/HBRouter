@@ -18,6 +18,17 @@ import UIKit
     public static func shared() -> HBRouter{
         return shareInstance
     }
+    public  var defaultRouterHost:String{
+        get {
+            return HBRouterMCache.shared().defaultRouterHost
+        }
+    }
+    public  var defaultRouterScheme:String{
+        get {
+            return HBRouterMCache.shared().defaultRouterScheme
+        }
+    }
+    
     
     @discardableResult
     public func open(url:URL) -> Any? {

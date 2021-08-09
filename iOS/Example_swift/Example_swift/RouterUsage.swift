@@ -85,10 +85,10 @@ class RouterUsage {
     }
     
     static func matchPages(action:HBRouterAction) -> Any?  {
-        
-//        let array = HBRouter.shared().matchPages(<#T##action: HBRouterAction##HBRouterAction#>)
-        
-        return true
+        let matchAction = HBRouterAction.init(path: "vc_02_oc")
+        let array = HBRouter.shared().matchPages(HBRouterAction.init(path: "vc_02_oc"))
+        action.callBackBlock?(["match":matchAction.routerURLPattern(),"viewControllers":array])
+        return array
     }
     
     
@@ -96,7 +96,7 @@ class RouterUsage {
     
     public static func  dataSource() -> [HBRouterAction] {
         var dataSource:[HBRouterAction] = []
-        let action = HBRouterAction.init(urlPattern: "https://www.baidu.com/s?wd=name&rsv_spt=1&rsv_iqid=0xaf313311006a4028&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=12&rsv_sug1=3&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2967&rsv_sug4=3153")
+        var action = HBRouterAction.init(urlPattern: "https://www.baidu.com/s?wd=name&rsv_spt=1&rsv_iqid=0xaf313311006a4028&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=12&rsv_sug1=3&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2967&rsv_sug4=3153")
         action.addValue("网页跳转测试", key: "subTitle")
         action.callBackBlock = { (value) in
             print("\(value ?? "---")")
@@ -113,6 +113,14 @@ class RouterUsage {
             dataSource.append(action)
         }
         dataSource.append(action)
+        
+         
+        action = HBRouterAction.init(path:"home_swift")
+        action.addValue("跳转调用测试页面", key: "subTitle")
+        action.addValue(RouterUsage.bridgeDataSource(), key: "dataSource")
+        dataSource.append(action)
+        
+        
         return dataSource
     }
     
@@ -154,6 +162,15 @@ class RouterUsage {
         action.animation = true
         action.addValue("HBRouter 连续跳转测试，打开转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
+            print("\(value ?? "---")")
+        }
+        dataSource.append(action)
+        
+        action = HBRouterAction.init(urlPattern: "bridge://hellobike/matchPages?a=10")
+        action.animation = true
+        action.addValue("获取栈中页面", key: "subTitle")
+        action.callBackBlock = { (value) in
+            
             print("\(value ?? "---")")
         }
         dataSource.append(action)

@@ -59,18 +59,9 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             return _deleage
         }
     }
-    
-    public private(set)  var defaultRouterHost:String!
-    public private(set)  var defaultRouterScheme:String!
+
     public func setDefault(_ scheme:routerScheme,host:routerHost) {
-        if defaultRouterHost != nil || defaultRouterScheme != nil  {
-            #if DEBUG
-            assert(false, "HBRouter::::重复设置 默认host和scheme......")
-            #else
-            #endif
-        }
-        defaultRouterHost = host
-        defaultRouterScheme = scheme
+        HBRouterMCache.shared().setDefault(scheme,host:host)
     }
     
     let lock:NSLock = NSLock.init()
@@ -96,18 +87,18 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     func registRouter(_ mapping:[routerPath:routerTarget],
                                 bundle:routerBundle? = nil){
         #if DEBUG
-        if defaultRouterHost  == nil {
+        if HBRouterMCache.shared().defaultRouterHost  == nil {
             assert(false, "默认 host 未设置")
         }
-        if defaultRouterScheme == nil {
+        if HBRouterMCache.shared().defaultRouterScheme == nil {
             assert(false, "默认 scheme 未设置")
         }
         #else
         #endif
-        registRouter(defaultRouterScheme,
+        registRouter(HBRouterMCache.shared().defaultRouterScheme,
                      mapping:mapping,
                      bundle: bundle ?? "",
-                     host: defaultRouterHost,
+                     host: HBRouterMCache.shared().defaultRouterHost,
                      targetType: .undefined)
     }
     
@@ -118,7 +109,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                              targetType:HBTargetType = .undefined){
         var scheme = scheme
         if scheme == "" {
-            scheme = defaultRouterScheme
+            scheme = HBRouterMCache.shared().defaultRouterScheme
         }
         registerRouter([scheme:mapping],
                        bundle: bundle,
@@ -143,13 +134,13 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         
         #if DEBUG
-        if defaultRouterHost  == nil {
+        if HBRouterMCache.shared().defaultRouterHost  == nil {
             assert(false, "默认 host 未设置")
         }
         #else
         #endif
         
-        var _host = defaultRouterHost!
+        var _host = HBRouterMCache.shared().defaultRouterHost!
         if host != "" {
             _host = host
         }

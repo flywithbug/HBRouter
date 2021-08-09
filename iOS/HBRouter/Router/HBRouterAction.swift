@@ -107,16 +107,16 @@ import UIKit
     /// - Parameter path: router Path
     public init(path:routerPath){
         super.init()
-        self.scheme = HBRouter.shared().defaultRouterScheme
-        self.host =  HBRouter.shared().defaultRouterHost
+        self.scheme = HBRouterMCache.shared().defaultRouterScheme
+        self.host =  HBRouterMCache.shared().defaultRouterHost
         self.path = path
         if !path.hasPrefix("/") {
             self.path =  "/\(path)"
         }
         if path.hasSuffix("/") {
-            self.path = String(path.prefix(path.count - 1))
+            self.path = String(self.path!.prefix(self.path!.count - 1))
         }
-        self.url = URL.init(string: "\(self.scheme!)://\(self.host!)\(path)")
+        self.url = URL.init(string: "\(self.scheme!)://\(self.host!)\(self.path!)")
     }
     
     public init(_ scheme:routerScheme,host:routerHost,path:routerPath){
@@ -125,19 +125,25 @@ import UIKit
         self.host = host
         self.path = path
         
+        //  hb:// or  hb
         if scheme.hasSuffix("://") {
             self.scheme = String(scheme.prefix(scheme.count - 3))
+        }else if scheme.contains("://"){
+            assert(false, "格式不正确")
         }
+        
         if host.hasSuffix("/") {
             self.host = String(host.prefix(host.count - 1))
+        }else if host .contains("/"){
+            assert(false, "格式不正确")
         }
         if !path.hasPrefix("/") {
             self.path =  "/\(path)"
         }
         if path.hasSuffix("/") {
-            self.path = String(path.prefix(path.count - 1))
+            self.path = String(self.path!.prefix(self.path!.count - 1))
         }
-        self.url = URL.init(string: "\(scheme)://\(host)\(path)")
+        self.url = URL.init(string: "\(scheme)://\(host)\(self.path!)")
     }
     
     //bh://router.com/path
@@ -162,6 +168,7 @@ import UIKit
         scheme = url.scheme
         host = url.host
         path = url.path
+        
         
         guard let para = url.queryParameters else {
             return
