@@ -1,4 +1,12 @@
 
+
+
+#source 'ssh://git@gitlab.hellobike.cn:10022/Torrent/Cocoapods_StaticBinary_iOS.git'
+source 'ssh://git@gitlab.hellobike.cn:10022/Torrent/Cocoapods_StaticSource_iOS.git'
+
+
+
+
 use_frameworks!
 install! 'cocoapods', :deterministic_uuids => false
 
@@ -13,7 +21,8 @@ post_install do |installer|
 end
 
 target "Example_swift" do
-  pod 'HBRouter' , :path => '../../'
+  pod 'HBRouter'  , :path => '../../' #'0.0.1-SNAPSHOT'
+  
   pod 'Business_Pod_test' , :path => '../'
 
 
