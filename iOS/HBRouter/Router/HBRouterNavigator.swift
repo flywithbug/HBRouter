@@ -76,7 +76,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     let lock:NSLock = NSLock.init()
     private var handlerFactories = [routerURLPattern: handlerFactory]()
     private var viewControllerFactories = [routerURLPattern:viewControllerFactory]()
-    private var checkBlockModeLock:NSLock = NSLock()
     private var checkInBlockModesemaphore = DispatchSemaphore.init(value: 1)
     
     //路由表 元数据
@@ -227,6 +226,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                                        factory: @escaping viewControllerFactory){
         registeViewController([urlPattern], factory: factory)
     }
+    
     //跳转控制器
     @discardableResult
     public func openRouterAction(_ action:HBRouterAction)  -> Any?{
