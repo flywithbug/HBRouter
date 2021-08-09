@@ -15,7 +15,8 @@
 
 - (BOOL)handleRouterAction:(HBRouterAction *)action{
     NSLog(@"from:%@",action.from);
-    
+    NSLog(@"current:%@",action.current);
+//    NSLog(@"next:%@",action.next);
     return  [super handleRouterAction:action];
 }
 

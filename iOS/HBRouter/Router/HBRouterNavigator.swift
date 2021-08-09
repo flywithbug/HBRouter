@@ -327,7 +327,10 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }else{
             navigationController.pushViewController(viewController, animated: action.animation)
         }
-      
+        //调用链
+        action.from = vc
+        action.current = viewController
+        vc.routeAction?.next = viewController
         return true
         
     }
