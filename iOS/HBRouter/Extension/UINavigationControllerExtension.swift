@@ -89,6 +89,10 @@ extension UINavigationController:UIGestureRecognizerDelegate{
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if (gestureRecognizer == interactivePopGestureRecognizer) {
+            //last 控制器禁用侧滑
+            if viewControllers.count == 1 {
+                return false
+            }
             return viewControllers.last?.canSlideBack() ?? false
         }
         return false

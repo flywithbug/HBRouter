@@ -35,7 +35,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
 
 
 
-@objcMembers open class HBNavigator:NSObject {
+ open class HBNavigator:NSObject {
     
     public override init() {
         super.init()
@@ -87,13 +87,13 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     /// - Parameters:
     ///   - mapping: 路由表映射关系
     ///   - bundleClass: 映射对象所在 bundleClass
-    public func registRouter(_ mapping:[routerPath:routerTarget],
+    func registRouter(_ mapping:[routerPath:routerTarget],
                              bundleClass:AnyClass? = nil){
         let bundleName = HBBundleNameFromClass(_class: bundleClass)
         registRouter(mapping, bundle: bundleName)
     }
     
-    public func registRouter(_ mapping:[routerPath:routerTarget],
+    func registRouter(_ mapping:[routerPath:routerTarget],
                                 bundle:routerBundle? = nil){
         #if DEBUG
         if defaultRouterHost  == nil {
@@ -111,7 +111,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                      targetType: .undefined)
     }
     
-    public func registRouter(_ scheme:routerScheme,
+    func registRouter(_ scheme:routerScheme,
                              mapping:[routerPath:routerTarget],
                              bundle:routerBundle,
                              host:routerHost,
@@ -133,7 +133,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     ///              routerTarget: 路由目标对象
     ///          - routerScheme 不同的scheme可以配置不同的handler
     ///   - bundle: 注册路由所属bundle（swift需要bundle名称，Objective-C不需要）
-    public func registerRouter(_ mapping:[routerScheme:[routerPath:routerTarget]],
+    func registerRouter(_ mapping:[routerScheme:[routerPath:routerTarget]],
                                bundle:routerBundle ,
                                host:routerHost,
                                targetType:HBTargetType = .undefined){
@@ -176,7 +176,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     /// - Parameters:
     ///   - urlPatterns: hb://router.com/path  hb://router.com  hb://  hb
     ///   - factory:  回调方法
-    public func registeHander(_ urlPatterns:[routerURLPattern],
+    func registeHander(_ urlPatterns:[routerURLPattern],
                               factory: @escaping handlerFactory){
         lock.lock()
         defer {
@@ -197,12 +197,12 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
     }
     
-    public func registerHander(_ urlPattern:routerURLPattern,
+    func registerHander(_ urlPattern:routerURLPattern,
                                factory: @escaping handlerFactory){
         registeHander([urlPattern], factory: factory)
     }
     
-    public func registeViewController(_ urlPatterns:[routerURLPattern],
+    func registeViewController(_ urlPatterns:[routerURLPattern],
                               factory: @escaping viewControllerFactory){
         lock.lock()
         defer {
@@ -222,14 +222,14 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
     }
 
-    public func registerViewController(_ urlPattern:routerURLPattern,
+    func registerViewController(_ urlPattern:routerURLPattern,
                                        factory: @escaping viewControllerFactory){
         registeViewController([urlPattern], factory: factory)
     }
     
     //跳转控制器
     @discardableResult
-    public func openRouterAction(_ action:HBRouterAction)  -> Any?{
+    func openRouterAction(_ action:HBRouterAction)  -> Any?{
         //获取target类型
         action.target = matchTarget(action)
         if checkRouterActionAuth(action)  == false {
@@ -399,6 +399,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         return nil
     }
+    
 }
 
 
@@ -490,6 +491,22 @@ extension HBNavigator {
         return nil
     }
     
+    
+    //获取最顶层导航栈中对应routerURLPattern的控制器
+    @objc
+    func matchPages(_ action:HBRouterAction) -> [UIViewController]? {
+        guard let navigationController = UIViewController.topMost?.navigationController else {
+            return nil
+        }
+        guard  let target = matchTarget(action),let targetClass = target.targetClass else {
+            return nil
+        }
+        action.target = target
+        return navigationController.viewControllers.filter { (item) -> Bool in
+            return item.isKind(of: targetClass)
+        }
+        
+    }
 }
 
 

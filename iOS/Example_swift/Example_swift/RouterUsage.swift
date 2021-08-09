@@ -78,7 +78,17 @@ class RouterUsage {
         if action.path == "/navigationPushtest" {
             return navigationPushtest(action)
         }
+        if action.path == "/matchPages" {
+            return matchPages(action:action)
+        }
         return nil
+    }
+    
+    static func matchPages(action:HBRouterAction) -> Any?  {
+        
+//        let array = HBRouter.shared().matchPages(<#T##action: HBRouterAction##HBRouterAction#>)
+        
+        return true
     }
     
     
@@ -237,3 +247,4 @@ extension RouterUsage{
         return true
     }
 }
+//

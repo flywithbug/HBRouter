@@ -69,6 +69,88 @@ import UIKit
         return openRouterAction(action)
     }
     
+    
+    
+    
+    @discardableResult
+    public override func openRouterAction(_ action: HBRouterAction) -> Any? {
+        return super.openRouterAction(action)
+    }
+    
+    public override func registRouter(_ mapping:[routerPath:routerTarget],
+                             bundleClass:AnyClass? = nil){
+        super.registRouter(mapping, bundleClass: bundleClass)
+    }
+    
+    public override func registRouter(_ mapping:[routerPath:routerTarget],
+                                bundle:routerBundle? = nil){
+        super.registRouter(mapping, bundle: bundle)
+    }
+    
+    public override func registRouter(_ scheme:routerScheme,
+                             mapping:[routerPath:routerTarget],
+                             bundle:routerBundle,
+                             host:routerHost,
+                             targetType:HBTargetType = .undefined){
+        super.registRouter(scheme, mapping: mapping, bundle: bundle, host: host, targetType: targetType)
+    }
+    
+    
+    /// 注册路由表
+    /// - Parameters:
+    ///   - mapping: {"bos":{"/home/bike/map":"bikeViewController"}}
+    ///              routerTarget: 路由目标对象
+    ///          - routerScheme 不同的scheme可以配置不同的handler
+    ///   - bundle: 注册路由所属bundle（swift需要bundle名称，Objective-C不需要）
+    public override func registerRouter(_ mapping:[routerScheme:[routerPath:routerTarget]],
+                               bundle:routerBundle ,
+                               host:routerHost,
+                               targetType:HBTargetType = .undefined){
+        super.registerRouter(mapping, bundle: bundle, host: host, targetType: targetType)
+    }
+    
+    
+    /// 自行处理openAction操作
+    /// - Parameters:
+    ///   - urlPatterns: hb://router.com/path  hb://router.com  hb://  hb
+    ///   - factory:  回调方法
+    public override func registeHander(_ urlPatterns:[routerURLPattern],
+                              factory: @escaping handlerFactory){
+        super.registeHander(urlPatterns, factory: factory)
+    }
+    
+    public override func registerHander(_ urlPattern:routerURLPattern,
+                               factory: @escaping handlerFactory){
+        super.registerHander(urlPattern, factory: factory)
+    }
+    
+    public override func registeViewController(_ urlPatterns:[routerURLPattern],
+                              factory: @escaping viewControllerFactory){
+        super.registeViewController(urlPatterns, factory: factory)
+    }
+
+    public override func registerViewController(_ urlPattern:routerURLPattern,
+                                       factory: @escaping viewControllerFactory){
+        super.registerViewController(urlPattern, factory: factory)
+    }
+    
+    
+    @objc
+    public override func matchPages(_ action: HBRouterAction) -> [UIViewController]? {
+        return super.matchPages(action)
+    }
+    
+    
+    override func pop2Any(_ actions: [HBRouterAction]) -> [UIViewController]? {
+        return super.pop2Any(actions)
+    }
+    override func pop2Path(_ urlPattern: routerURLPattern, params: [String : Any] = [:]) -> [UIViewController]? {
+        return super.pop2Path(urlPattern,params: params)
+    }
+    override func pop(_ action: HBRouterAction) -> [UIViewController]? {
+        return super.pop(action)
+    }
+    
 }
 
 

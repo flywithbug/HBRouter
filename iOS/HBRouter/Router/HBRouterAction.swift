@@ -92,9 +92,9 @@ import UIKit
     public private(set) var url:URL?
 
     
-    public var scheme:String?
-    public var path:String?
-    public var host:String?
+    public private(set) var scheme:String?
+    public private(set) var path:String?
+    public private(set) var host:String?
     
     public init(url:URL) {
         super.init()
@@ -378,10 +378,14 @@ extension HBRouterAction{
         self.scheme = scheme
         if scheme.hasSuffix("://") {
             self.scheme = String(scheme.prefix(scheme.count - 3))
+        }else if scheme.contains("://"){
+            assert(false, "格式不正确")
         }
         self.host = host
         if host.hasSuffix("/") {
             self.host = String(host.prefix(host.count - 1))
+        }else if host.contains("/"){
+            assert(false, "格式不正确")
         }
         self.path = path
         if path.hasSuffix("/") {
