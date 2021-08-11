@@ -18,11 +18,16 @@ import UIKit
     public static func shared() -> HBRouter{
         return shareInstance
     }
+    
+    
+    ///默认路由host
     public  var defaultRouterHost:String{
         get {
             return HBRouterMCache.shared().defaultRouterHost
         }
     }
+    
+    /// 默认路由scheme
     public  var defaultRouterScheme:String{
         get {
             return HBRouterMCache.shared().defaultRouterScheme
@@ -30,15 +35,25 @@ import UIKit
     }
     
     
+    /// 注册路由表
+    /// - Parameters:
+    ///   - mapping: 路由表map
+    ///   - bundleClass: 路由表所属bundle，swift组件需要传
     public override func registRouter(_ mapping:[routerPath:routerTarget],
                              bundleClass:AnyClass? = nil){
         super.registRouter(mapping, bundleClass: bundleClass)
     }
     
+    
+    /// 注册路由表
+    /// - Parameters:
+    ///   - mapping: 路由表Map
+    ///   - bundle: bundle 名称
     public override func registRouter(_ mapping:[routerPath:routerTarget],
                                 bundle:routerBundle? = nil){
         super.registRouter(mapping, bundle: bundle)
     }
+    
     
     public override func registRouter(_ scheme:routerScheme,
                              mapping:[routerPath:routerTarget],
@@ -124,8 +139,12 @@ import UIKit
 
 extension HBRouter{
     
-    @discardableResult
-    public func pop2Path(_ path: routerPath) -> [UIViewController]? {
+    
+    /// 回退到 path
+    /// - Parameter path: 路由 path
+    /// - Returns: 返回被释放的控制器
+    
+    @discardableResult public func pop2Path(_ path: routerPath) -> [UIViewController]? {
         return super.pop2Path(path)
     }
     
