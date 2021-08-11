@@ -348,14 +348,14 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     //示例：hb://host.com/path
     @discardableResult
-    func pop2Path(_ path:routerPath, params:[String:Any] = [:], completion: (() -> Void)? = nil) ->  [UIViewController]? {
+    func pop2Path(_ path:routerPath, params:[String:Any] = [:], completion: ((_ success:Bool) -> Void)? = nil) ->  [UIViewController]? {
         let action = HBRouterAction.init(path: path)
         action.addEntriesFromDictonary(params)
         return pop(action,completion: completion)
     }
     
     @discardableResult
-    func pop2URL(_ url:URL,params:[String:Any] = [:], completion: (() -> Void)? = nil) -> [UIViewController]? {
+    func pop2URL(_ url:URL,params:[String:Any] = [:], completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
         let action = HBRouterAction.init(url: url)
         action.addEntriesFromDictonary(params)
         return pop(action,completion: completion)
@@ -363,11 +363,13 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     //回退到当前导航栈中的某控制器
     @discardableResult
-    func pop(_ action:HBRouterAction,completion:(()->Void)? = nil) -> [UIViewController]? {
+    func pop(_ action:HBRouterAction,completion:((_ success:Bool)->Void)? = nil) -> [UIViewController]? {
         guard let navigationController = UIViewController.topMost?.navigationController else {
+            completion?(false)
             return nil
         }
         guard let target = matchTarget(action),let targetClass = target.targetClass else {
+            completion?(false)
             return nil
         }
         action.target = target
@@ -381,15 +383,18 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                     item.setRouterAction(action)
                 }
                 item.handleRouterAction(item.routeAction!)
-                let list = navigationController.popToViewController(item, animated: action.animation, completion: completion)
+                let list = navigationController.popToViewController(item, animated: action.animation) {
+                    completion?(true)
+                }
                 return  list
             }
         }
+        completion?(false)
         return nil
     }
     //回退到任意actions
     @discardableResult
-    func pop2Any(_ actions:[HBRouterAction],completion:(()->Void)? = nil) ->  [UIViewController]? {
+    func pop2Any(_ actions:[HBRouterAction],completion:((_ success:Bool)->Void)? = nil) ->  [UIViewController]? {
         for item in actions{
             if let items =  pop(item,completion: completion) {
                 return items

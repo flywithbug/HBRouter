@@ -94,12 +94,9 @@
         action.useExistPage = false;
         [HBRouter.shared openRouterAction:action];
     }else if(indexPath.row == 3){
-        [[HBRouter shared] pop2Path:@"vc_01_oc" params:@{} completion:^{
-            NSLog(@"popFinished");
+        [[HBRouter shared] pop2Path:@"vc_01_oc" params:@{} completion:^(BOOL success) {
+            NSLog(@"pop success:%@",@(success));
         }];
-//        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
-//        action.useExistPage = false;
-//        [HBRouter.shared pop]
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];
         [[HBRouter shared] openRouterAction:action];

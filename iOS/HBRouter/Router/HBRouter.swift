@@ -100,20 +100,20 @@ import UIKit
      }
      
      @discardableResult
-     public override func pop2Path(_ path: routerPath, params: [String : Any] = [:],completion: (() -> Void)? = nil) -> [UIViewController]? {
+     public override func pop2Path(_ path: routerPath, params: [String : Any] = [:],completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
          return super.pop2Path(path,params: params,completion: completion)
      }
 
     
     
     @discardableResult
-    public override func pop(_ action: HBRouterAction, completion: (() -> Void)? = nil) -> [UIViewController]? {
+    public override func pop(_ action: HBRouterAction, completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
         return super.pop(action,completion: completion)
     }
     
     
     @discardableResult
-    public override  func pop2URL(_ url: URL,params:[String:Any] = [:],completion: (() -> Void)? = nil) -> [UIViewController]? {
+    public override  func pop2URL(_ url: URL,params:[String:Any] = [:],completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
         return super.pop2URL(url,params: params,completion: completion)
     }
     
