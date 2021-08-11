@@ -87,7 +87,7 @@ class RouterUsage {
     static func matchPages(action:HBRouterAction) -> Any?  {
         let matchAction = HBRouterAction.init(path: "vc_02_oc")
         let array = HBRouter.shared().matchPages(HBRouterAction.init(path: "vc_02_oc"))
-        action.callBackBlock?(["match":matchAction.routerURLPattern(),"viewControllers":array])
+        action.callBackBlock?(["match":matchAction.routerURLPattern()!,"viewControllers":array!])
         return array
     }
     
@@ -189,8 +189,8 @@ extension RouterUsage{
     static func hbRouterPushtest(_ _action:HBRouterAction) -> Any?{
         var action = HBRouterAction.init(path: "vc_01_oc")
         action.animation = _action.animation
-        action.openCompleteBlock = { (success,value) in
-            print("isSuccess:\(success),value:\(value ?? "null")")
+        action.openCompleteBlock = { (response:HBRouterResponse) in
+            print("isSuccess:\(response.code == 0),value:\(response.data ?? "null")")
         }
         print(HBRouter.shared().open(action: action).debugDescription)
         print(HBRouter.shared().open(action: action).debugDescription)

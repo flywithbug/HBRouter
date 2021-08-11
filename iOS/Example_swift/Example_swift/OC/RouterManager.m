@@ -55,9 +55,10 @@
 + (void)actionTest{
     NSURL *url = [NSURL URLWithString:@"https:www.baidu.com"];
     HBRouterAction *action = [[HBRouterAction alloc]initWithUrl:url];
-    [action setOpenCompleteBlock:^(BOOL success,id any) {
-        
-    }];
+    
+//    [action setOpenCompleteBlock:^(hbr) {
+//
+//    }];
     
     [action addValue:@"1" key:@"a"];
     NSLog(@"params:%@",action.params);

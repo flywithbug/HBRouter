@@ -30,64 +30,6 @@ import UIKit
     }
     
     
-    @discardableResult
-    public func open(url:URL) -> Any? {
-        let action = HBRouterAction.init(url: url)
-        return openRouterAction(action)
-    }
-    
-    @discardableResult
-    public func open(url:URL,params:[String:Any]) -> Any? {
-        let action = HBRouterAction.init(url: url)
-        action.addEntriesFromDictonary(params)
-        return openRouterAction(action)
-    }
-    
-    @discardableResult
-    public func open(urlPattern:routerURLPattern) -> Any? {
-        let action = HBRouterAction.init(urlPattern: urlPattern)
-        return openRouterAction(action)
-    }
-    
-    @discardableResult
-    public func open(urlPattern:routerURLPattern,params:[String:Any]) -> Any? {
-        let action = HBRouterAction.init(urlPattern: urlPattern)
-        action.addEntriesFromDictonary(params)
-        return openRouterAction(action)
-    }
-    @discardableResult
-    public func open(action:HBRouterAction) -> Any? {
-        return openRouterAction(action)
-    }
-    @discardableResult
-    public func open(action:HBRouterAction,params:[String:Any]) -> Any? {
-        return openRouterAction(action,params: params)
-    }
-    @discardableResult
-    public func open(path:routerPath) -> Any? {
-        let action = HBRouterAction.init(path: path)
-        return openRouterAction(action)
-    }
-    @discardableResult
-    public func open(path:routerPath,params:[String:Any]) -> Any? {
-        let action = HBRouterAction.init(path: path)
-        action.addEntriesFromDictonary(params)
-        return openRouterAction(action)
-    }
-    @discardableResult
-    public func openRouterAction(_ action:HBRouterAction,params:[String:Any])  -> Any?{
-        action.addEntriesFromDictonary(params)
-        return openRouterAction(action)
-    }
-    
-    
-    
-    
-    @discardableResult
-    public override func openRouterAction(_ action: HBRouterAction) -> Any? {
-        return super.openRouterAction(action)
-    }
-    
     public override func registRouter(_ mapping:[routerPath:routerTarget],
                              bundleClass:AnyClass? = nil){
         super.registRouter(mapping, bundleClass: bundleClass)
@@ -146,20 +88,161 @@ import UIKit
     }
     
     
-    @objc
-    public override func matchPages(_ action: HBRouterAction) -> [UIViewController]? {
-        return super.matchPages(action)
+    
+    @discardableResult
+    public override func openRouterAction(_ action: HBRouterAction) -> Any? {
+        return super.openRouterAction(action)
+    }
+    
+     @discardableResult
+     public override func matchPages(_ action: HBRouterAction) -> [UIViewController]? {
+         return super.matchPages(action)
+     }
+     
+     @discardableResult
+     public override func pop2Path(_ path: routerPath, params: [String : Any] = [:],completion: (() -> Void)? = nil) -> [UIViewController]? {
+         return super.pop2Path(path,params: params,completion: completion)
+     }
+
+    
+    
+    @discardableResult
+    public override func pop(_ action: HBRouterAction, completion: (() -> Void)? = nil) -> [UIViewController]? {
+        return super.pop(action,completion: completion)
     }
     
     
-    override func pop2Any(_ actions: [HBRouterAction]) -> [UIViewController]? {
-        return super.pop2Any(actions)
+    @discardableResult
+    public override  func pop2URL(_ url: URL,params:[String:Any] = [:],completion: (() -> Void)? = nil) -> [UIViewController]? {
+        return super.pop2URL(url,params: params,completion: completion)
     }
-    override func pop2Path(_ urlPattern: routerURLPattern, params: [String : Any] = [:]) -> [UIViewController]? {
-        return super.pop2Path(urlPattern,params: params)
+    
+     
+     
+    
+}
+
+extension HBRouter{
+    
+    @discardableResult
+    public func pop2Path(_ path: routerPath) -> [UIViewController]? {
+        return super.pop2Path(path)
     }
-    override func pop(_ action: HBRouterAction) -> [UIViewController]? {
-        return super.pop(action)
+    
+    @discardableResult
+    public  func pop2URL(_ url: URL) -> [UIViewController]? {
+        return super.pop2URL(url)
+    }
+    
+    
+    @discardableResult
+    public func open(url:URL) -> Any? {
+        let action = HBRouterAction.init(url: url)
+        return openRouterAction(action)
+    }
+    
+    @discardableResult
+    public func open(url:URL,completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+        let action = HBRouterAction.init(url: url)
+        action.openCompleteBlock = completion
+        action.callBackBlock = callBack
+        return openRouterAction(action)
+    }
+    
+    
+    @discardableResult
+    public func open(url:URL,params:[String:Any]) -> Any? {
+        let action = HBRouterAction.init(url: url)
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+    
+    @discardableResult
+    public func open(url:URL,params:[String:Any],completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+        let action = HBRouterAction.init(url: url)
+        action.openCompleteBlock = completion
+        action.callBackBlock = callBack
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+    
+    
+    @discardableResult
+    public func open(_ path:routerPath,
+                     host:routerHost,
+                     scheme:routerScheme,
+                     params:[String:Any] = [:],
+                     completion:((_ response:HBRouterResponse)->Void)? = nil,
+                     callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+        
+        let action = HBRouterAction.init(scheme, host: host, path: path)
+        action.openCompleteBlock = completion
+        action.callBackBlock = callBack
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+    
+    
+//    @discardableResult
+//    public func open(urlPattern:routerURLPattern,completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+//        let action = HBRouterAction.init(urlPattern: urlPattern)
+//        action.openCompleteBlock = completion
+//        action.callBackBlock = callBack
+//        return openRouterAction(action)
+//    }
+    
+//    @discardableResult
+//    public func open(urlPattern:routerURLPattern,params:[String:Any]) -> Any? {
+//        let action = HBRouterAction.init(urlPattern: urlPattern)
+//        action.addEntriesFromDictonary(params)
+//        return openRouterAction(action)
+//    }
+//
+//
+//    @discardableResult
+//    public func open(urlPattern:routerURLPattern,params:[String:Any],completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+//        let action = HBRouterAction.init(urlPattern: urlPattern)
+//        action.openCompleteBlock = completion
+//        action.callBackBlock = callBack
+//        action.addEntriesFromDictonary(params)
+//        return openRouterAction(action)
+//    }
+    
+    
+    @discardableResult
+    public func open(action:HBRouterAction) -> Any? {
+        return openRouterAction(action)
+    }
+    @discardableResult
+    public func open(action:HBRouterAction,params:[String:Any]) -> Any? {
+        return openRouterAction(action,params: params)
+    }
+    @discardableResult
+    public func open(path:routerPath) -> Any? {
+        let action = HBRouterAction.init(path: path)
+        return openRouterAction(action)
+    }
+    
+    @discardableResult
+    public func open(path:routerPath,params:[String:Any] = [:]) -> Any? {
+        let action = HBRouterAction.init(path: path)
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+    
+    @discardableResult
+    public func open(path:routerPath,params:[String:Any] = [:],completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+        let action = HBRouterAction.init(path: path)
+        action.openCompleteBlock = completion
+        action.callBackBlock = callBack
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+    
+    @discardableResult
+    public func openRouterAction(_ action:HBRouterAction,params:[String:Any])  -> Any?{
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
     }
     
 }
@@ -179,13 +262,10 @@ extension UIViewController{
     }
     
     @discardableResult
-    @objc public func open(urlPattern:routerURLPattern) -> Any? {
-        let action = HBRouterAction.init(urlPattern: urlPattern)
-        return openRouterAction(action)
-    }
-    @discardableResult
-    @objc public func open(action:HBRouterAction) -> Any? {
-        return openRouterAction(action)
+    @objc public func open(url:URL,params:[String:Any] = [:]) -> UIViewController? {
+        let action = HBRouterAction.init(url: url)
+        action.addEntriesFromDictonary(params)
+        return HBRouter.shared().openRouterAction(action) as? UIViewController
     }
     
     @discardableResult
@@ -193,6 +273,24 @@ extension UIViewController{
         let action = HBRouterAction.init(path: path)
         return openRouterAction(action)
     }
+    
+    @discardableResult
+    @objc public func open(path:routerPath,params:[String:Any] = [:]) -> Any? {
+        let action = HBRouterAction.init(path: path)
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+    
+    @discardableResult
+    @objc public func open(action:HBRouterAction,params:[String:Any] = [:]) -> Any? {
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+    @discardableResult
+    @objc public func open(action:HBRouterAction) -> Any? {
+        return openRouterAction(action)
+    }
+    
     
     
 }

@@ -13,11 +13,25 @@ extension UINavigationController {
     
     @discardableResult
     @objc public func popViewController(animated: Bool,completion:(()->Void)? = nil) -> UIViewController?{
-        let viewController =  popViewController(animated: animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock{
+            ()in
             completion?()
         }
+        let viewController =  popViewController(animated: animated)
+        CATransaction.commit()
         return viewController
+    }
+    
+    public func popToViewController(_ viewController:UIViewController,animated:Bool = true,  completion: (() -> Void)? = nil) -> [UIViewController]?{
+        CATransaction.begin()
+        let  controllers = popToViewController(viewController, animated: animated)
+        CATransaction.setCompletionBlock{
+            ()in
+            completion?()
+        }
+        CATransaction.commit()
+        return controllers;
     }
     
     
@@ -78,6 +92,7 @@ extension UINavigationController {
         swizzleMethod(for: self, originalSelector: #selector(popToViewController(_:animated:)), swizzledSelector: #selector(hbr_popToViewController(_:animated:)))
         swizzleMethod(for: self, originalSelector: #selector(popToRootViewController(animated:)), swizzledSelector: #selector(hbr_popToRootViewController(animated:)))
     }
+    
 }
 
 

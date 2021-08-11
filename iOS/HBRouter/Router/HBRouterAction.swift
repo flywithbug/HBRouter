@@ -50,8 +50,8 @@ import UIKit
     public var animation:Bool = true
     
     //转场或者调用完成状态回调
-    private var _openStateBlock:((_ success:Bool,_ any:Any?)->Void)? = nil
-    public  var openCompleteBlock:((_ success:Bool,_ any:Any?)->Void)?{
+    private var _openStateBlock:((_ response:HBRouterResponse)->Void)? = nil
+    public  var openCompleteBlock:((_ response:HBRouterResponse)->Void)?{
         set{
             if _openStateBlock != nil {
                 #if DEBUG
@@ -161,14 +161,14 @@ import UIKit
         self.initt(url: _url)
     }
     
-    
-    
     private func initt(url:URL){
         self.url = url
         scheme = url.scheme
         host = url.host
         path = url.path
-        
+        if scheme == nil {
+            assert(false, "URL 格式不正确, 必须包含 scheme 示例：hb:// 或者 https:// ")
+        }
         
         guard let para = url.queryParameters else {
             return

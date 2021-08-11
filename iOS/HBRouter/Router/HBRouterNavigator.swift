@@ -348,16 +348,22 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     //示例：hb://host.com/path
     @discardableResult
-    func pop2Path(_ urlPattern:routerURLPattern, params:[String:Any] = [:]) ->  [UIViewController]? {
-        let action = HBRouterAction.init(urlPattern: urlPattern)
+    func pop2Path(_ path:routerPath, params:[String:Any] = [:], completion: (() -> Void)? = nil) ->  [UIViewController]? {
+        let action = HBRouterAction.init(path: path)
         action.addEntriesFromDictonary(params)
-        return pop(action)
+        return pop(action,completion: completion)
     }
     
+    @discardableResult
+    func pop2URL(_ url:URL,params:[String:Any] = [:], completion: (() -> Void)? = nil) -> [UIViewController]? {
+        let action = HBRouterAction.init(url: url)
+        action.addEntriesFromDictonary(params)
+        return pop(action,completion: completion)
+    }
     
     //回退到当前导航栈中的某控制器
     @discardableResult
-    func pop(_ action:HBRouterAction) -> [UIViewController]? {
+    func pop(_ action:HBRouterAction,completion:(()->Void)? = nil) -> [UIViewController]? {
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return nil
         }
@@ -375,16 +381,17 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                     item.setRouterAction(action)
                 }
                 item.handleRouterAction(item.routeAction!)
-                return  navigationController.popToViewController(item, animated: false)
+                let list = navigationController.popToViewController(item, animated: action.animation, completion: completion)
+                return  list
             }
         }
         return nil
     }
     //回退到任意actions
     @discardableResult
-    func pop2Any(_ actions:[HBRouterAction]) ->  [UIViewController]? {
+    func pop2Any(_ actions:[HBRouterAction],completion:(()->Void)? = nil) ->  [UIViewController]? {
         for item in actions{
-            if let items =  pop(item) {
+            if let items =  pop(item,completion: completion) {
                 return items
             }
         }
@@ -556,17 +563,17 @@ extension HBNavigator{
         if let url = action.externalURL() {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:]) { (success) in
-                    action.openCompleteBlock?(success,nil)
+                    action.openCompleteBlock?(HBRouterResponse.init(action))
                 }
             } else {
                 if UIApplication.shared.openURL(url) {
-                    action.openCompleteBlock?(true,nil)
+                    action.openCompleteBlock?(HBRouterResponse.init(action))
                 }else{
-                    action.openCompleteBlock?(false,nil)
+                    action.openCompleteBlock?(HBRouterResponse.init(action,code: -1))
                 }
             }
         }else{
-            action.openCompleteBlock?(false,nil)
+            action.openCompleteBlock?(HBRouterResponse.init(action,code: -1))
         }
     }
     
@@ -577,12 +584,14 @@ extension HBNavigator{
     //未能打开的Router回调
     func onMatchUnhandleRouterAction(_ action:HBRouterAction){
         self.deleage?.onMatchUnhandleRouterAction(action)
+        action.openCompleteBlock?(HBRouterResponse.init(action, data: nil, msg: "", code: -1))
     }
     
     //页面打开回调
     func onMatchRouterAction(_ action:HBRouterAction, any:Any?){
         self.deleage?.onMatchRouterAction(action, any:any)
-        action.openCompleteBlock?(true,any)
+        action.openCompleteBlock?(HBRouterResponse.init(action, data: any, msg: ""))
+
     }
     
     func loginStatus(_ action:HBRouterAction, completion: ((Bool) -> Void)?) -> Bool{

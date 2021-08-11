@@ -86,9 +86,12 @@
         [UserAccountManager share].loginState = NO;
         [self.navigationController popViewControllerAnimated:YES];
     }else if(indexPath.row == 1){
-        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
-        action.useExistPage = true;
-        [HBRouter.shared openRouterAction:action];
+        [HBRouter.shared openWithUrl:[NSURL URLWithString:@"hb://router.com/vc_02_oc"] completion:^(HBRouterResponse * _Nonnull response) {
+            NSLog(@"path:%@  success:%@",response.action.routerURLPattern,@(response.code == 0));
+        } callBack:^(id _Nullable value) {
+            NSLog(@"%@",value);
+        }];
+       
     }else if(indexPath.row == 2){
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
         action.useExistPage = false;

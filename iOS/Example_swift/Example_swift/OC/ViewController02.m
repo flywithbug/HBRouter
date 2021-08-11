@@ -65,6 +65,8 @@
         cell.textLabel.text = @"点击跳转到01页面：栈内唯一";
     }else if(indexPath.row == 2) {
         cell.textLabel.text = @"点击跳转到02页面";
+    }else if(indexPath.row == 3) {
+        cell.textLabel.text = @"pop到01页面";
     }else{
         cell.textLabel.text = @"点击跳转百度";
     }
@@ -91,6 +93,13 @@
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
         action.useExistPage = false;
         [HBRouter.shared openRouterAction:action];
+    }else if(indexPath.row == 3){
+        [[HBRouter shared] pop2Path:@"vc_01_oc" params:@{} completion:^{
+            NSLog(@"popFinished");
+        }];
+//        HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"vc_02_oc"];
+//        action.useExistPage = false;
+//        [HBRouter.shared pop]
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];
         [[HBRouter shared] openRouterAction:action];
