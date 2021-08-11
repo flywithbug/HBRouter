@@ -59,6 +59,7 @@ class FuncModuleViewController: UIViewController {
         view.backgroundColor = UIColor.white
         view.addSubview(collectView)
         title = "HBRouter"
+       
         // Do any additional setup after loading the view.
     }
    

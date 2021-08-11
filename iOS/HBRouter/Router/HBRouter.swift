@@ -165,6 +165,7 @@ extension HBRouter{
         let action = HBRouterAction.init(url: url)
         action.openCompleteBlock = completion
         action.callBackBlock = callBack
+      
         return openRouterAction(action)
     }
     

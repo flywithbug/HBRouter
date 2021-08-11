@@ -590,13 +590,14 @@ extension HBNavigator{
     func onMatchUnhandleRouterAction(_ action:HBRouterAction){
         self.deleage?.onMatchUnhandleRouterAction(action)
         action.openCompleteBlock?(HBRouterResponse.init(action, data: nil, msg: "", code: -1))
+        Dlog(action.routerURLPattern() ?? "")
     }
     
     //页面打开回调
     func onMatchRouterAction(_ action:HBRouterAction, any:Any?){
         self.deleage?.onMatchRouterAction(action, any:any)
         action.openCompleteBlock?(HBRouterResponse.init(action, data: any, msg: ""))
-
+        Dlog(action.routerURLPattern() ?? "")
     }
     
     func loginStatus(_ action:HBRouterAction, completion: ((Bool) -> Void)?) -> Bool{
