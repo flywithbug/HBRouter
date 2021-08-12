@@ -44,11 +44,11 @@ extension UserAccountManager:HBRouterDelegate {
     }
     
     func onMatchRouterAction(_ action: HBRouterAction, any: Any?) {
-        if let obj = any as? NSObject {
-            print("onMatchRouterAction:\(action.routerURLPattern() ?? "path is null"), \(obj.hash)")
-        }else{
-            print("onMatchRouterAction:\(action.routerURLPattern() ?? "path is null"), \(any.debugDescription)")
-        }
+//        if let obj = any as? NSObject {
+//            Dlog("onMatchRouterAction:\(action.routerURLPattern() ?? "path is null"), \(obj.hash)")
+//        }else{
+//            Dlog("onMatchRouterAction:\(action.routerURLPattern() ?? "path is null"), \(any.debugDescription)")
+//        }
        
     }
     func shouldOpenRouter(_ action: HBRouterAction) -> Bool {

@@ -464,7 +464,7 @@ extension HBNavigator {
     /// - Parameter action: 路由action
     /// - Returns: 返回调用对象, 若返回空则表示调用失败
     private func matchFactory(_ action:HBRouterAction) -> handlerFactory? {
-//        print("routerURLPattern::\(action.routerURLPattern() ?? "")")
+//        Dlog("routerURLPattern::\(action.routerURLPattern() ?? "")")
         if let scheme = action.scheme, let host = action.host,let path = action.path, let handle = handlerFactories["\(scheme)://\(host)/\(path)"] {
             return handle
         }

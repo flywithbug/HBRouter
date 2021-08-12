@@ -35,9 +35,30 @@ import Foundation
 
 
 
-public func Dlog(_ item: Any, _ file: String = #file, _ line: Int = #line, _ function: String = #function) {
+public func Dlog(_ value: Any, _ file: String = #file, _ line: Int = #line, _ function: String = #function) {
     #if DEBUG
-        print( "file:\(file)\tline:\(line)\t function:\(function)\n" , item)
+        var stringRepresentation: String?
+        if let value = value as? CustomDebugStringConvertible {
+            stringRepresentation = value.debugDescription
+        }
+        else if let value = value as? CustomStringConvertible {
+            stringRepresentation = value.description
+        }
+        else {
+            fatalError("gLog only works for values that conform to CustomDebugStringConvertible or CustomStringConvertible")
+        }
+        let gFormatter = DateFormatter()
+        gFormatter.dateFormat = "HH:mm:ss:SSS"
+        let timestamp = gFormatter.string(from: Date())
+        let queue = Thread.isMainThread ? "Main" : "BG"
+        let fileURL = NSURL(string: file)?.lastPathComponent ?? "Unknown file"
+        
+        if let string = stringRepresentation {
+            print("✅ \(timestamp) {\(queue)} \(fileURL) > \(function)[\(line)]: \(string)")
+        } else {
+            print("✅ \(timestamp) {\(queue)} \(fileURL) > \(function)[\(line)]: \(value)")
+        }
+
     #else
     #endif
 }

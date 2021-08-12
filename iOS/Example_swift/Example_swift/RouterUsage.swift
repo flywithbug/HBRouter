@@ -39,7 +39,7 @@ class RouterUsage {
     }
     
     static func handlerflutter(_ action:HBRouterAction) -> Any? {
-        print(action.url?.absoluteURL ?? "")
+        Dlog(action.url?.absoluteURL ?? "")
         return nil
     }
     
@@ -63,7 +63,7 @@ class RouterUsage {
     }
     
     static func handlerBridge(_ action:HBRouterAction) -> Any? {
-//        print("path:\(action.path ?? ""),host:\(action.host ?? "")")
+//        Dlog("path:\(action.path ?? ""),host:\(action.host ?? "")")
         if let callBackBlock = action.callBackBlock {
             callBackBlock("handlerBridge")
         }
@@ -99,7 +99,7 @@ class RouterUsage {
         var action = HBRouterAction.init(urlPattern: "https://www.baidu.com/s?wd=name&rsv_spt=1&rsv_iqid=0xaf313311006a4028&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=12&rsv_sug1=3&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2967&rsv_sug4=3153")
         action.addValue("网页跳转测试", key: "subTitle")
         action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
+            Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         
@@ -108,7 +108,7 @@ class RouterUsage {
             let action = HBRouterAction.init(urlPattern: item.key)
             action.addValue("已注册原生路由跳转测试", key: "subTitle")
             action.callBackBlock = { (value) in
-                print("\(value ?? "---")")
+                Dlog("\(value ?? "---")")
             }
             dataSource.append(action)
         }
@@ -130,7 +130,7 @@ class RouterUsage {
         var action = HBRouterAction.init(urlPattern: "bridge://hellobike/routerActionTest")
         action.addValue("基础功能测试，HBRouterAction参数获取", key: "subTitle")
         action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
+            Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         
@@ -138,7 +138,7 @@ class RouterUsage {
         action.animation = false
         action.addValue("原生连续跳转，关闭转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
+            Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         
@@ -146,7 +146,7 @@ class RouterUsage {
         action.animation = true
         action.addValue("原生连续跳转，打开转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
+            Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         
@@ -154,7 +154,7 @@ class RouterUsage {
         action.animation = false
         action.addValue("HBRouter 连续跳转测试,关闭转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
+            Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         
@@ -162,7 +162,7 @@ class RouterUsage {
         action.animation = true
         action.addValue("HBRouter 连续跳转测试，打开转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
-            print("\(value ?? "---")")
+            Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         
@@ -171,7 +171,7 @@ class RouterUsage {
         action.addValue("获取栈中页面", key: "subTitle")
         action.callBackBlock = { (value) in
             
-            print("\(value ?? "---")")
+            Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         return dataSource
@@ -190,17 +190,17 @@ extension RouterUsage{
         var action = HBRouterAction.init(path: "vc_01_oc")
         action.animation = _action.animation
         action.openCompleteBlock = { (response:HBRouterResponse) in
-            print("isSuccess:\(response.code == 0),value:\(response.data ?? "null")")
+            Dlog("isSuccess:\(response.code == 0),value:\(response.data ?? "null")")
         }
-        print(HBRouter.shared().open(action: action).debugDescription)
-        print(HBRouter.shared().open(action: action).debugDescription)
+        Dlog(HBRouter.shared().open(action: action).debugDescription)
+        Dlog(HBRouter.shared().open(action: action).debugDescription)
         
         action = HBRouterAction.init(path: "vc_02_oc")
         action.animation = _action.animation
-        print(HBRouter.shared().open(action: action).debugDescription)
-        print(HBRouter.shared().open(action: action).debugDescription)
-        print(HBRouter.shared().open(action: action).debugDescription)
-        print(HBRouter.shared().open(action: action).debugDescription)
+        Dlog(HBRouter.shared().open(action: action).debugDescription)
+        Dlog(HBRouter.shared().open(action: action).debugDescription)
+        Dlog(HBRouter.shared().open(action: action).debugDescription)
+        Dlog(HBRouter.shared().open(action: action).debugDescription)
         
         
         
@@ -222,12 +222,12 @@ extension RouterUsage{
     }
     static func routerActionTest(_ action:HBRouterAction) -> Any?{
         
-        print("==============================routerActionTest==============================")
+        Dlog("==============================routerActionTest==============================")
         
         var scheme = "https://"
-        print(scheme)
+        Dlog(scheme)
         scheme = String(scheme.prefix(scheme.count - 3))
-        print(scheme)
+        Dlog(scheme)
         
         
         
@@ -235,31 +235,31 @@ extension RouterUsage{
         
         var url:URL = URL.init(string: "http://www.baidu.com/path/home/page1?abc=1&a=10")!
         url.appendQueryParameters(["url":"https://www.baidu.com?c=2302322aaaa&d=4"])
-        print(url.scheme ?? "");
-        print(url.host ?? "");
-        print(url.path );
-        print(url.pathComponents );
-        print(url.relativePath)
-        print(url.absoluteString)
-        print(url.deletingAllPathComponents())
+        Dlog(url.scheme ?? "");
+        Dlog(url.host ?? "");
+        Dlog(url.path );
+        Dlog(url.pathComponents );
+        Dlog(url.relativePath)
+        Dlog(url.absoluteString)
+        Dlog(url.deletingAllPathComponents())
         
-        print(url.queryParameters as Any)
+        Dlog(url.queryParameters as Any)
         let action:HBRouterAction = HBRouterAction(url: url)
         
-        print( action.stringValue("url") ?? "")
+        Dlog( action.stringValue("url") ?? "")
         
-        print(action.scheme ?? "")
-        print(action.host ?? "")
-        print(action.path ?? "")
-        print(action.params)
+        Dlog(action.scheme ?? "")
+        Dlog(action.host ?? "")
+        Dlog(action.path ?? "")
+        Dlog(action.params)
 
-        print( action.stringValue("a") ?? "")
-        print( action.intValue("a") ?? "")
-        print( action.boolValue("a") ?? "")
-        print( action.numberValue("a") ?? "")
-        print( action.doubleValue("a") ?? "")
+        Dlog( action.stringValue("a") ?? "")
+        Dlog( action.intValue("a") ?? "")
+        Dlog( action.boolValue("a") ?? "")
+        Dlog( action.numberValue("a") ?? "")
+        Dlog( action.doubleValue("a") ?? "")
         
-        print("==============================routerActionTest==============================")
+        Dlog("==============================routerActionTest==============================")
 
         return true
     }
