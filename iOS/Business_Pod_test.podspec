@@ -12,27 +12,33 @@ def self.smart_version
 end
 
 Pod::Spec.new do |s|
-  s.name             = 'HBRouter'
+  s.name             = 'Business_Pod_test'
   s.version          = smart_version
   s.summary          = 'app '
 
 
   s.description      = <<-DESC
-        app 
+        app app
                        DESC
 
-  s.homepage         = 'http://gitlab.hellobike.cn/Torrent/HBRouter.git'
-  s.license          = 'MIT'
-  s.author           = { 'flywithbug' => 'chengerfeng08824@hellobike.com' }
-  s.source           = { :git => 'http://gitlab.hellobike.cn/Torrent/HBRouter.git', :tag => s.version }
+  s.homepage         = 'homepage'
+  s.license          = { :type => "MIT", :file => "LICENSE" }
+  s.author           = { 'flywithbug' => '' }
+  s.source           = { :git => 't', :tag => s.version }
 
   s.ios.deployment_target = '9.0'
   s.static_framework = true
 
-  s.frameworks = 'UIKit'
+  s.frameworks       = 'UIKit', 'Foundation'
 
-  s.source_files = 'HBRouter/Classes/**/*.{h,m}'
+
+  s.subspec 'Business_Pod_test' do |ss|
+    ss.source_files = ['Business_Pod_test/**/*']
+  end
   
-
+  
+  s.dependency 'HBRouter'
+  
+  s.ios.deployment_target = "9.0"
 
 end

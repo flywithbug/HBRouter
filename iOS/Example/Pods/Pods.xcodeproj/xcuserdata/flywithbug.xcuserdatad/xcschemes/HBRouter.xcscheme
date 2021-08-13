@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BB748D3000FB8D009A5A00D5F5F07A8F"
-               BuildableName = "HBRouter"
+               BuildableName = "HBRouter.framework"
                BlueprintName = "HBRouter"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

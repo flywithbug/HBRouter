@@ -1,16 +1,18 @@
 PODS:
-  - HBRouter (0.0.1)
+  - HBRouter (0.0.1):
+    - HBRouter/HBRouter (= 0.0.1)
+  - HBRouter/HBRouter (0.0.1)
 
 DEPENDENCIES:
-  - HBRouter (from `../`)
+  - HBRouter (from `../../`)
 
 EXTERNAL SOURCES:
   HBRouter:
-    :path: "../"
+    :path: "../../"
 
 SPEC CHECKSUMS:
-  HBRouter: 7a5f11e25d24ec882e923d4d2e221eee072d4d3e
+  HBRouter: 8509cb1f13d0fc73a5764135044f805aa64c094f
 
-PODFILE CHECKSUM: 83fecd3732798f0f824b6e9dd8c87ac13eaaa01f
+PODFILE CHECKSUM: dc20dd125a4c3ea65127812c6be33c32ab0ec050
 
 COCOAPODS: 1.10.0
