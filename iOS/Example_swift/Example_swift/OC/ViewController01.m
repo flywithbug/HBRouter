@@ -66,6 +66,8 @@
         cell.textLabel.text = @"点击跳转到02页面：新开页面，栈内多开";
     }else if(indexPath.row == 3) {
         cell.textLabel.text = @"跳转home_swift页面";
+    }else if(indexPath.row == 4) {
+        cell.textLabel.text = @"closePage vc_02_oc";
     }else{
         cell.textLabel.text = @"点击跳转百度";
     }
@@ -100,6 +102,8 @@
         HBRouterAction *action = [[HBRouterAction alloc]initWithPath:@"home_swift"];
         action.useExistPage = false;
         [HBRouter.shared openRouterAction:action];
+    }else if(indexPath.row == 4){
+        [HBRouter.shared closePageWithPath:@"vc_02_oc"];
     }else{
         HBRouterAction *action =   [[HBRouterAction alloc]initWithUrlPattern:@"https://www.baidu.com"];
         [[HBRouter shared] openRouterAction:action];

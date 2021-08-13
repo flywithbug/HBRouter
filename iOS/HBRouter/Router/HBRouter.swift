@@ -122,8 +122,8 @@ import UIKit
     
     
     @discardableResult
-    public override func pop(_ action: HBRouterAction, completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
-        return super.pop(action,completion: completion)
+    public override func pop2Action(_ action: HBRouterAction, completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
+        return super.pop2Action(action,completion: completion)
     }
     
     
@@ -132,8 +132,17 @@ import UIKit
         return super.pop2URL(url,params: params,completion: completion)
     }
     
-     
-     
+    /// 关闭栈内路由匹配成功的控制器，如果只有一个根控制器，则不返回
+    /// - Parameter path: 路由path
+    /// - Returns: 被移除的控制器
+    @discardableResult
+    public override func closePage(path: routerPath) -> [UIViewController]? {
+        return super.closePage(path: path)
+    }
+    @discardableResult
+    public override func closePage(urlPattern: routerURLPattern) -> [UIViewController]? {
+        return super.closePage(urlPattern: urlPattern)
+    }
     
 }
 

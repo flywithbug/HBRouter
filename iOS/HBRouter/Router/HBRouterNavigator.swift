@@ -346,24 +346,25 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         return true
     }
     
-    //示例：hb://host.com/path
+    //示例：path, 会使用默认的scheme 和 host
+    //若scheme不是默认的，请使用pop2URL
     @discardableResult
     func pop2Path(_ path:routerPath, params:[String:Any] = [:], completion: ((_ success:Bool) -> Void)? = nil) ->  [UIViewController]? {
         let action = HBRouterAction.init(path: path)
         action.addEntriesFromDictonary(params)
-        return pop(action,completion: completion)
+        return pop2Action(action,completion: completion)
     }
     
     @discardableResult
     func pop2URL(_ url:URL,params:[String:Any] = [:], completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
         let action = HBRouterAction.init(url: url)
         action.addEntriesFromDictonary(params)
-        return pop(action,completion: completion)
+        return pop2Action(action,completion: completion)
     }
     
     //回退到当前导航栈中的某控制器
     @discardableResult
-    func pop(_ action:HBRouterAction,completion:((_ success:Bool)->Void)? = nil) -> [UIViewController]? {
+    func pop2Action(_ action:HBRouterAction,completion:((_ success:Bool)->Void)? = nil) -> [UIViewController]? {
         guard let navigationController = UIViewController.topMost?.navigationController else {
             completion?(false)
             return nil
@@ -392,11 +393,76 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         completion?(false)
         return nil
     }
+    
+    
+    
+    ///关闭导航栈中匹配到的路由
+    /// - Parameter path: path   使用默认scheme和host
+    /// - Returns: 返回被关闭的控制器
+    @discardableResult
+    func closePage(path:routerPath) -> [UIViewController]? {
+        let action = HBRouterAction.init(path: path)
+        return closePage(action: action)
+    }
+    
+    /// 关闭导航栈中匹配到的路由
+    /// - Parameter urlPattern: hb://router.com/path
+    /// - Returns: 返回被关闭的控制器
+    @discardableResult
+    func closePage(urlPattern:routerURLPattern) -> [UIViewController]? {
+        let action = HBRouterAction.init(urlPattern: urlPattern)
+        return closePage(action: action)
+    }
+    
+    //只关闭当前导航栈中匹配的路由的所有页面,
+    @discardableResult
+    func closePage(action:HBRouterAction) -> [UIViewController]? {
+        guard let navigationController = UIViewController.topMost?.navigationController else {
+            return nil
+        }
+        guard let target = matchTarget(action),let targetClass = target.targetClass else {
+            return nil
+        }
+        action.target = target
+        var viewControllers:[UIViewController] = navigationController.viewControllers
+        var removeViewControllers:[UIViewController] = []
+        var index = viewControllers.count
+        
+        for item in navigationController.viewControllers.reversed() {
+            index = index - 1
+            if item.isKind(of: targetClass) {
+                //参数回传
+                if item.routeAction != nil {
+                    item.routeAction?.addEntriesFromDictonary(action.params)
+                }else{
+                    item.setRouterAction(action)
+                }
+                item.handleRouterAction(item.routeAction!)
+                if viewControllers.count > 1 {
+                    viewControllers.remove(at: index)
+                    item.viewWillDisappear(false)
+                    item.viewDidDisappear(false)
+                    removeViewControllers.append(item)
+                }else{
+                    assert(false, "根视图不能被移除")
+                }
+            }
+        }
+        if removeViewControllers.count > 0 {
+            navigationController.setViewControllers(viewControllers, animated: false)
+            return removeViewControllers
+        }else{
+            return nil
+        }
+    }
+    
+    
+    
     //回退到任意actions
     @discardableResult
     func pop2Any(_ actions:[HBRouterAction],completion:((_ success:Bool)->Void)? = nil) ->  [UIViewController]? {
         for item in actions{
-            if let items =  pop(item,completion: completion) {
+            if let items =  pop2Action(item,completion: completion) {
                 return items
             }
         }
