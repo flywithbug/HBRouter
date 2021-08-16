@@ -278,7 +278,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             return (nil,false)
         }
        
-        
         if action.options.contains(.present) || action.option == .present{
             if !present(action, viewController: viewController)  {
                 return (viewController,false)
@@ -333,12 +332,18 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         
         var _viewController = viewController
         if action.options.contains(.wrap_nc) || action.wrapNavgClass != nil {
-            if action.wrapNavgClass != nil && action.wrapNavgClass !=  self.wrapNavgClass{
+            if action.wrapNavgClass != nil{
                 _viewController = action.wrapNavgClass!.init(rootViewController: viewController)
             }else{
                 _viewController = wrapNavgClass.init(rootViewController: viewController)
             }
         }
+        if #available(iOS 13.0, *) {
+            if action.options.contains(.fullScreen) {
+                _viewController.modalPresentationStyle = .fullScreen
+            }
+        }
+        
         navigationController.present(_viewController, animated: action.animation)
         action.from = vc
         action.current = viewController

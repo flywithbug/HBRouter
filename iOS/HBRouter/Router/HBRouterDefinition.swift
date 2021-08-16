@@ -23,12 +23,11 @@ import Foundation
 @objc public enum  HBRouterOption : Int{
     case push = 0
     case present //优先级最高
-    
     //present时添加导航控制器
     case wrap_nc
     
     //强制全屏
-    case fullScreen
+    case fullScreen //搜否全屏，默认使用系统设置
     
 }
 
