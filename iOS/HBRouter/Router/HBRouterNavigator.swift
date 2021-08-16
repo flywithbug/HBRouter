@@ -78,13 +78,13 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     /// - Parameters:
     ///   - mapping: 路由表映射关系
     ///   - bundleClass: 映射对象所在 bundleClass
-    func registRouter(_ mapping:[routerPath:routerTarget],
+    public func registRouter(_ mapping:[routerPath:routerTarget],
                              bundleClass:AnyClass? = nil){
         let bundleName = HBBundleNameFromClass(_class: bundleClass)
         registRouter(mapping, bundle: bundleName)
     }
     
-    func registRouter(_ mapping:[routerPath:routerTarget],
+   public func registRouter(_ mapping:[routerPath:routerTarget],
                                 bundle:routerBundle? = nil){
         #if DEBUG
         if HBRouterMCache.shared().defaultRouterHost  == nil {

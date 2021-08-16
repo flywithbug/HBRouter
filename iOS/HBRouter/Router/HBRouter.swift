@@ -35,14 +35,14 @@ import UIKit
     }
     
     
-    /// 注册路由表
+    /// 注册路由表 Note 
     /// - Parameters:
     ///   - mapping: 路由表map
     ///   - bundleClass: 路由表所属bundle，swift组件需要传
-    public override func registRouter(_ mapping:[routerPath:routerTarget],
-                             bundleClass:AnyClass? = nil){
-        super.registRouter(mapping, bundleClass: bundleClass)
-    }
+//    public override func registRouter(_ mapping:[routerPath:routerTarget],
+//                             bundleClass:AnyClass? = nil){
+//        super.registRouter(mapping, bundleClass: bundleClass)
+//    }
     
     
     /// 注册路由表
@@ -211,30 +211,30 @@ extension HBRouter{
     }
     
     
-//    @discardableResult
-//    public func open(urlPattern:routerURLPattern,completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
-//        let action = HBRouterAction.init(urlPattern: urlPattern)
-//        action.openCompleteBlock = completion
-//        action.callBackBlock = callBack
-//        return openRouterAction(action)
-//    }
+    @discardableResult
+    public func open(urlPattern:routerURLPattern,completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+        let action = HBRouterAction.init(urlPattern: urlPattern)
+        action.openCompleteBlock = completion
+        action.callBackBlock = callBack
+        return openRouterAction(action)
+    }
     
-//    @discardableResult
-//    public func open(urlPattern:routerURLPattern,params:[String:Any]) -> Any? {
-//        let action = HBRouterAction.init(urlPattern: urlPattern)
-//        action.addEntriesFromDictonary(params)
-//        return openRouterAction(action)
-//    }
-//
-//
-//    @discardableResult
-//    public func open(urlPattern:routerURLPattern,params:[String:Any],completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
-//        let action = HBRouterAction.init(urlPattern: urlPattern)
-//        action.openCompleteBlock = completion
-//        action.callBackBlock = callBack
-//        action.addEntriesFromDictonary(params)
-//        return openRouterAction(action)
-//    }
+    @discardableResult
+    public func open(urlPattern:routerURLPattern,params:[String:Any]) -> Any? {
+        let action = HBRouterAction.init(urlPattern: urlPattern)
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
+
+
+    @discardableResult
+    public func open(urlPattern:routerURLPattern,params:[String:Any],completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
+        let action = HBRouterAction.init(urlPattern: urlPattern)
+        action.openCompleteBlock = completion
+        action.callBackBlock = callBack
+        action.addEntriesFromDictonary(params)
+        return openRouterAction(action)
+    }
     
     
     @discardableResult

@@ -25,15 +25,21 @@ class RouterUsage {
     }
     
     public static func registRouterMapping(){
+        
+        HBRouter.shared().registRouter(["home_swift":"ViewController",
+                                        "vc_01_oc":"ViewController01",
+                                        "login":"LoginViewController",], bundleClass: RouterUsage.self)
+        //注册另一个bundle中的路由
         HBRouter.shared().registRouter(HBRouter.shared().defaultRouterScheme,
                                         mapping:
-                                            ["home_swift":"ViewController"
-                                             ,"vc_01_oc":"ViewController01",
-                                             "login":"LoginViewController",
+                                            [
+                                             "bvc_02_swift":"BViewController02",
                                             ],
-                                        bundle:   HBRouterAppName ?? "Example_swift",
+                                        bundle:   "Business_Pod_test",
                                         host:     HBRouter.shared().defaultRouterHost,
                                         targetType:.controller)
+        
+        
         RouterManager.registRouter()
         BRouterManager.registRouter()
     }

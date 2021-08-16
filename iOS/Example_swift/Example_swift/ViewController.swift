@@ -38,7 +38,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = routeAction?.stringValue("title")
+        self.title = routeAction?.stringValue("title") ?? "swift_home"
         view.addSubview(tableView)
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.white
