@@ -70,7 +70,6 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     private var checkInBlockModesemaphore = DispatchSemaphore.init(value: 1)
     
     //路由表 元数据
-    public private(set)  var routerTargetMapping = [routerScheme: [routerPath:HBRouterTarget]]()
     //路由表 生成
     public private(set) var routerMapping = [routerURLPattern:HBRouterTarget]()
     
@@ -146,22 +145,35 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         
         for map in mapping{
-            var rMap = routerTargetMapping[map.key] ?? [routerPath:HBRouterTarget]()
             for item in map.value{
                 let target = HBRouterTarget.init(scheme: map.key, host: _host, path: item.key, target: item.value, bundle: bundle,targetType: targetType)
                 #if DEBUG
-                if let val = rMap[target.path] {
+                if let val = routerMapping[target.routerURLPattern()] {
                     assert(false, "该路由path:\(target.path),target\(target.target)已被注册为target:\(val.target),请检查路由表:")
                 }
                 #else
                 #endif
                 routerMapping[target.routerURLPattern()] = target
-                rMap[target.scheme] = target
             }
-            routerTargetMapping[map.key] = rMap
         }
     }
     
+    
+   public func registeRouter(_ targets:[HBRouterTarget])  {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        for target in targets{
+            #if DEBUG
+            if let val = routerMapping[target.routerURLPattern()] {
+                assert(false, "该路由path:\(target.path),target\(target.target)已被注册为target:\(val.target),请检查路由表:")
+            }
+            #else
+            #endif
+            routerMapping[target.routerURLPattern()] = target
+        }
+    }
     
     /// 自行处理openAction操作
     /// - Parameters:

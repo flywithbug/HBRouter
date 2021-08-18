@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		B43128BA26B80604008CE8C8 /* HBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43128B926B80604008CE8C8 /* HBBaseNavigationController.m */; };
 		B450E26E26AFAEF800862A0E /* RouterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E26D26AFAEF800862A0E /* RouterManager.m */; };
 		B450E27226AFB00300862A0E /* ViewController02.m in Sources */ = {isa = PBXBuildFile; fileRef = B450E27126AFB00300862A0E /* ViewController02.m */; };
+		B476BB3D26CD331F0018AAC1 /* ViewController03.m in Sources */ = {isa = PBXBuildFile; fileRef = B476BB3C26CD331F0018AAC1 /* ViewController03.m */; };
 		B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487A28726946B36007DDF21 /* AppDelegate.swift */; };
 		B487A28C26946B36007DDF21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487A28B26946B36007DDF21 /* ViewController.swift */; };
 		B487A29126946B39007DDF21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B487A29026946B39007DDF21 /* Assets.xcassets */; };
@@ -38,6 +39,8 @@
 		B450E26D26AFAEF800862A0E /* RouterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouterManager.m; sourceTree = "<group>"; };
 		B450E27026AFB00300862A0E /* ViewController02.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController02.h; sourceTree = "<group>"; };
 		B450E27126AFB00300862A0E /* ViewController02.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController02.m; sourceTree = "<group>"; };
+		B476BB3B26CD331F0018AAC1 /* ViewController03.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController03.h; sourceTree = "<group>"; };
+		B476BB3C26CD331F0018AAC1 /* ViewController03.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController03.m; sourceTree = "<group>"; };
 		B487A28426946B36007DDF21 /* Example_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B487A28726946B36007DDF21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B487A28B26946B36007DDF21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 				B42DB8E426AADDA0002B1C99 /* ViewController01.m */,
 				B450E27026AFB00300862A0E /* ViewController02.h */,
 				B450E27126AFB00300862A0E /* ViewController02.m */,
+				B476BB3B26CD331F0018AAC1 /* ViewController03.h */,
+				B476BB3C26CD331F0018AAC1 /* ViewController03.m */,
 				B450E26C26AFAEF800862A0E /* RouterManager.h */,
 				B450E26D26AFAEF800862A0E /* RouterManager.m */,
 				B43128B826B80604008CE8C8 /* HBBaseNavigationController.h */,
@@ -255,6 +260,7 @@
 				B4D822F726A957AA006DEA9D /* RouterUsage.swift in Sources */,
 				B487A28826946B36007DDF21 /* AppDelegate.swift in Sources */,
 				B4D822FE26A95F9B006DEA9D /* RouterDefinition.swift in Sources */,
+				B476BB3D26CD331F0018AAC1 /* ViewController03.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

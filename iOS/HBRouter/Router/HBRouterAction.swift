@@ -381,7 +381,7 @@ extension HBRouterAction{
     ///   - target: 目标类
     ///   - bundle: 目标类所在库的库名
     ///   - targetType: 目标类能力类型
-    init(scheme:String,host:String,path:String,target:String,bundle:String,targetType:HBTargetType = .undefined) {
+    public init(scheme:String,host:String,path:String,target:String,bundle:String,targetType:HBTargetType = .undefined) {
         self.scheme = scheme
         if scheme.hasSuffix("://") {
             self.scheme = String(scheme.prefix(scheme.count - 3))
@@ -427,6 +427,105 @@ extension HBRouterAction{
            
         }
     }
+    
+    
+    // objective-c 的bundle 为空字符
+    public init(path:String,target:String,bundle:String) {
+        self.scheme = HBRouterMCache.shared().defaultRouterScheme
+        if scheme.hasSuffix("://") {
+            self.scheme = String(scheme.prefix(scheme.count - 3))
+        }else if scheme.contains("://"){
+            assert(false, "格式不正确")
+        }
+        self.host =  HBRouterMCache.shared().defaultRouterHost
+        if host.hasSuffix("/") {
+            self.host = String(host.prefix(host.count - 1))
+        }else if host.contains("/"){
+            assert(false, "格式不正确")
+        }
+        self.path = path
+        if path.hasSuffix("/") {
+            self.path = String(self.path.prefix(self.path.count - 1))
+        }
+        if !path.hasPrefix("/"){
+            self.path = "/\(self.path)"
+        }
+        self.target = target
+        self.bundle = bundle
+        self.targetType = .undefined
+        
+        super.init()
+        
+        if let _url = URL.init(string: routerURLPattern()) {
+            self.url = _url
+        }else{
+           assert(false, "\(routerURLPattern()) 注册规则(scheme://host/path)不正确，请检查注册元数据")
+        }
+        if let target =  HBClassFromString(string: target,bundle: bundle){
+            self.targetClass = target
+            if targetType == .undefined {
+                if self.targetClass is UIViewController.Type{
+                    self.targetType = .controller
+                }
+            }
+        }else{
+            #if DEBUG
+            assert(false, "target 类型无法获取，请检查注册对象")
+            #else
+            #endif
+           
+        }
+    }
+    
+    
+    // objective-c 的bundle 为空字符
+    public init(path:String,target:String) {
+        self.scheme = HBRouterMCache.shared().defaultRouterScheme
+        if scheme.hasSuffix("://") {
+            self.scheme = String(scheme.prefix(scheme.count - 3))
+        }else if scheme.contains("://"){
+            assert(false, "格式不正确")
+        }
+        self.host =  HBRouterMCache.shared().defaultRouterHost
+        if host.hasSuffix("/") {
+            self.host = String(host.prefix(host.count - 1))
+        }else if host.contains("/"){
+            assert(false, "格式不正确")
+        }
+        self.path = path
+        if path.hasSuffix("/") {
+            self.path = String(self.path.prefix(self.path.count - 1))
+        }
+        if !path.hasPrefix("/"){
+            self.path = "/\(self.path)"
+        }
+        self.target = target
+        self.bundle = ""
+        self.targetType = .undefined
+        
+        super.init()
+        
+        if let _url = URL.init(string: routerURLPattern()) {
+            self.url = _url
+        }else{
+           assert(false, "\(routerURLPattern()) 注册规则(scheme://host/path)不正确，请检查注册元数据")
+        }
+        if let target =  HBClassFromString(string: target,bundle: bundle){
+            self.targetClass = target
+            if targetType == .undefined {
+                if self.targetClass is UIViewController.Type{
+                    self.targetType = .controller
+                }
+            }
+        }else{
+            #if DEBUG
+            assert(false, "target 类型无法获取，请检查注册对象")
+            #else
+            #endif
+           
+        }
+    }
+    
 }
 
 

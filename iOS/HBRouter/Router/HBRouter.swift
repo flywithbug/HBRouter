@@ -78,6 +78,10 @@ import UIKit
     }
     
     
+    public override func registeRouter(_ targets: [HBRouterTarget]) {
+        super.registeRouter(targets)
+    }
+    
     /// 自行处理openAction操作
     /// - Parameters:
     ///   - urlPatterns: hb://router.com/path  hb://router.com  hb://  hb

@@ -49,6 +49,7 @@
                             bundle:@""
                               host:@"router.com" targetType:HBTargetTypeController];
     
+    [[HBRouter shared]registeRouter:@[[[HBRouterTarget alloc]initWithPath:@"vc_03_oc" target:@"ViewController03"]]];
 }
 
 

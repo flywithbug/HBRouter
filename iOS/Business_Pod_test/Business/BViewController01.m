@@ -24,7 +24,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.systemBlueColor;
-    self.title = @"bvc_02_oc";
+    self.title = @"bvc_01_oc";
+}
+- (BOOL)shouldAutorotate{
+    return  YES;
+}
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return  UIInterfaceOrientationMaskAll;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    return  UIInterfaceOrientationPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationLandscapeRight;
 }
 
 @end
