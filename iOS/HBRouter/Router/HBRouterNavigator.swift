@@ -44,7 +44,10 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     }
     public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
     
+   
     private weak var _deleage:HBRouterDelegate?
+    
+    @objc
     public weak var deleage:HBRouterDelegate?{
         set{
             if _deleage != nil {
@@ -60,6 +63,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
     }
 
+    @objc
     public func setDefault(_ scheme:routerScheme,host:routerHost) {
         HBRouterMCache.shared().setDefault(scheme,host:host)
     }
@@ -71,6 +75,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     
     //路由表 元数据
     //路由表 生成
+    @objc
     public private(set) var routerMapping = [routerURLPattern:HBRouterTarget]()
     
     /// 路由表注册
