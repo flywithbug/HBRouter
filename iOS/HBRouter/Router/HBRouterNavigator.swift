@@ -8,11 +8,6 @@
 import UIKit
 
 
-
-//public let HBRouterDefaultHost = "router.com"
-//public let HBRouterDefaultScheme = "hb"
-
-
 //不附带参数
 //scheme://host.com/path  && scheme://host.com
 public typealias routerURLPattern = String
@@ -31,6 +26,7 @@ public typealias routerBundle = String
 public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
 
 //注册自定义返回Controller
+
 public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewController?
 
 
@@ -42,13 +38,17 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         
         HBRSwizzleManager.shared()
     }
+    
+    
+    /// 默认导航控制器类（present 页面时使用）
     public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
     
    
     private weak var _deleage:HBRouterDelegate?
     
-    @objc
-    public weak var deleage:HBRouterDelegate?{
+    
+    /// 协议代理
+    @objc public weak var deleage:HBRouterDelegate?{
         set{
             if _deleage != nil {
                 #if DEBUG
@@ -63,20 +63,25 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
     }
 
-    @objc
-    public func setDefault(_ scheme:routerScheme,host:routerHost) {
+    
+    /// 设置默认 schem和host
+    /// - Parameters:
+    ///   - scheme: 示例：hb
+    ///   - host: router.com
+    @objc public func setDefault(_ scheme:routerScheme,host:routerHost) {
         HBRouterMCache.shared().setDefault(scheme,host:host)
     }
     
     let lock:NSLock = NSLock.init()
+    
+    
     private var handlerFactories = [routerURLPattern: handlerFactory]()
     private var viewControllerFactories = [routerURLPattern:viewControllerFactory]()
     private var checkInBlockModesemaphore = DispatchSemaphore.init(value: 1)
     
-    //路由表 元数据
-    //路由表 生成
-    @objc
-    public private(set) var routerMapping = [routerURLPattern:HBRouterTarget]()
+
+    /// 注册的所有路由表 元数据
+    @objc public private(set) var routerMapping = [routerURLPattern:HBRouterTarget]()
     
     /// 路由表注册
     /// - Parameters:

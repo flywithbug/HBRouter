@@ -32,16 +32,6 @@ import Foundation
     }
     
     
-//    private var handlerFactories = [routerURLPattern: handlerFactory]()
-//    private var viewControllerFactories = [routerURLPattern:viewControllerFactory]()
-//    //路由表 元数据
-//    public  var routerTargetMapping = [routerScheme: [routerPath:HBRouterTarget]]()
-//    //路由表 生成
-//    public var routerMapping = [routerURLPattern:HBRouterTarget]()
-    
-    
-    
-    
     
     
     

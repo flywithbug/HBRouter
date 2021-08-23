@@ -34,6 +34,7 @@ import UIKit
     
     public private(set) var params = [String:Any]()
     
+    
     //作为外部链接打开
     public var openExternal:Bool = false
     
@@ -48,6 +49,7 @@ import UIKit
     
     //转场动画
     public var animation:Bool = true
+    public var needLogin:Bool = false
     
     //转场或者调用完成状态回调
     private var _openStateBlock:((_ response:HBRouterResponse)->Void)? = nil
@@ -557,7 +559,7 @@ extension UIViewController {
     }
     
     @objc
-    public func setRouterAction(_ routeAction:HBRouterAction) {
+    func setRouterAction(_ routeAction:HBRouterAction) {
         self.routeAction = routeAction
         self.routeURLPattern = routeAction.routerURLPattern()
     }
