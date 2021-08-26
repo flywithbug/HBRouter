@@ -37,7 +37,7 @@ public func HBBundleNameFromClass(_class: AnyClass?) -> String? {
     guard let _class = _class else {
         return nil
     }
-        let splits =  NSStringFromClass(_class).split(separator: ".")
+    let splits =  NSStringFromClass(_class).split(separator: ".")
     if splits.count == 2{
         let bundleName = String(splits[0])
         return bundleName

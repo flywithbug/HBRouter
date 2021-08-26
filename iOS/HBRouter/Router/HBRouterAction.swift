@@ -11,9 +11,26 @@ import UIKit
 
 @objcMembers  open class HBRouterAction:NSObject {
     //默认转场为push
-    public var options:[HBRouterOption] = [.push]
-    private var _option:HBRouterOption = .push
+    public var options:[HBRouterOption] = HBRouterMCache.shared().options
     
+    
+    /// 设置转场动画类型
+    /// - Parameters:
+    ///   - modal: push or present
+    ///   - animation: 是否有动画
+    ///   - fullScreen: 是否全屏 iOS13之后
+    ///   - wrap_nac: 是否添加导航栏
+    public func setTransition(_ modal:HBRouterOption = .push, animation:Bool = true, fullScreen:Bool = true,wrap_nac:Bool = true){
+        options = [modal]
+        if fullScreen {
+            options.append(.fullScreen)
+        }
+        if wrap_nac {
+            options.append(.wrap_nc)
+        }
+    }
+    
+    private var _option:HBRouterOption = .push
     public var option:HBRouterOption {
         set{
             if newValue != _option {
@@ -418,7 +435,7 @@ extension HBRouterAction{
             self.targetClass = target
             if targetType == .undefined {
                 if self.targetClass is UIViewController.Type{
-                    self.targetType = .controller
+                    self.targetType = .native
                 }
             }
         }else{
@@ -467,7 +484,7 @@ extension HBRouterAction{
             self.targetClass = target
             if targetType == .undefined {
                 if self.targetClass is UIViewController.Type{
-                    self.targetType = .controller
+                    self.targetType = .native
                 }
             }
         }else{
@@ -516,7 +533,7 @@ extension HBRouterAction{
             self.targetClass = target
             if targetType == .undefined {
                 if self.targetClass is UIViewController.Type{
-                    self.targetType = .controller
+                    self.targetType = .native
                 }
             }
         }else{

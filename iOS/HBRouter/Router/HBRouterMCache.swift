@@ -9,6 +9,8 @@ import Foundation
 
 
 
+
+//默认配置
 @objcMembers class  HBRouterMCache: NSObject {
     private static let shareInstance = HBRouterMCache()
     private override init() {
@@ -17,7 +19,10 @@ import Foundation
     public static func shared() -> HBRouterMCache{
         return shareInstance
     }
-
+     
+    public var options:[HBRouterOption] = [.push,.fullScreen]
+    
+    
     public private(set)  var defaultRouterHost:String!
     public private(set)  var defaultRouterScheme:String!
     public func setDefault(_ scheme:routerScheme,host:routerHost) {
