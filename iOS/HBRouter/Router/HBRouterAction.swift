@@ -20,12 +20,17 @@ import UIKit
     ///   - animation: 是否有动画
     ///   - fullScreen: 是否全屏 iOS13之后
     ///   - wrap_nac: 是否添加导航栏
-    public func setTransition(_ modal:HBRouterOption = .push, animation:Bool = true, fullScreen:Bool = true,wrap_nac:Bool = true){
+    public func setTransition(_ modal:HBRouterOption = .push, animation:Bool = true, fullScreen:Bool = true,wrap_nc:Bool = true){
+        if modal != .push && modal != .present {
+            assert(false, "modal 必须为 push or present")
+        }
         options = [modal]
+        self.fullScreen = fullScreen
+        self.wrap_nc = wrap_nc
         if fullScreen {
             options.append(.fullScreen)
         }
-        if wrap_nac {
+        if wrap_nc {
             options.append(.wrap_nc)
         }
     }
@@ -33,9 +38,25 @@ import UIKit
     private var _option:HBRouterOption = .push
     public var option:HBRouterOption {
         set{
+            
             if newValue != _option {
+                options.removeAll()
                 options.removeAll { (opt) -> Bool in
                     return opt == _option
+                }
+                if self.fullScreen {
+                    options.append(.fullScreen)
+                }else{
+                    options.removeAll { (opt) -> Bool in
+                        return opt == .fullScreen
+                    }
+                }
+                if self.wrap_nc {
+                    options.append(.wrap_nc)
+                }else{
+                    options.removeAll { (opt) -> Bool in
+                        return opt == .wrap_nc
+                    }
                 }
                 options.append(newValue)
             }
@@ -50,6 +71,10 @@ import UIKit
     public var wrapNavgClass:UINavigationController.Type?
     
     public private(set) var params = [String:Any]()
+   
+    
+    public var fullScreen:Bool = true
+    public var wrap_nc:Bool = true
     
     
     //作为外部链接打开
@@ -57,7 +82,7 @@ import UIKit
     
     //使用导航栈内已存在页面
     public var useExistPage:Bool = false
-    
+  
     //控制器链路
     public weak var from:UIViewController?
     public weak var current:UIViewController?

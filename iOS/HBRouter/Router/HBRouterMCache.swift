@@ -20,7 +20,7 @@ import Foundation
         return shareInstance
     }
      
-    public var options:[HBRouterOption] = [.push,.fullScreen]
+    public var options:[HBRouterOption] = [.push]
     
     
     public private(set)  var defaultRouterHost:String!

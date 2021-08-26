@@ -26,7 +26,7 @@ import Foundation
     case wrap_nc
     
     //强制全屏
-    case fullScreen //搜否全屏，默认使用系统设置
+    case fullScreen //是否全屏，默认使用系统设置
     
 }
 
