@@ -113,11 +113,52 @@ import UIKit
         return super.openRouterAction(action)
     }
     
-     @discardableResult
-     public override func matchPages(_ action: HBRouterAction) -> [UIViewController]? {
-         return super.matchPages(action)
-     }
-     
+//     @discardableResult
+//     public override func matchPages(_ action: HBRouterAction) -> [UIViewController]? {
+//         return super.matchPages(action)
+//     }
+    public func matchPages(path:routerPath)-> [UIViewController]?{
+        return super.matchPages(HBRouterAction.init(path: path));
+    }
+    
+//    public func matchPages(urlPattern:routerURLPattern)-> [UIViewController]?{
+//        return super.matchPages(HBRouterAction.init(urlPattern: urlPattern))
+//    }
+    
+    
+    /// 获取当前导航栈中的控制器对象
+    /// - Parameters:
+    ///   - path: home/v1/user
+    ///   - host: router.com
+    ///   - scheme: hb://
+    /// - Returns: 匹配到的控制器对象
+    @discardableResult
+    public func matchPages(path:routerPath,host:routerHost,scheme:routerScheme)-> [UIViewController]?{
+        return super.matchPages(HBRouterAction.init(scheme, host: host, path: path))
+    }
+    
+    
+//    override func matchLatestPage(_ action: HBRouterAction) -> UIViewController? {
+//        return super.matchLatestPage(action)
+//    }
+    public func matchLatestPage(path:routerPath) -> UIViewController?{
+        return super.matchLatestPage(HBRouterAction.init(path: path))
+    }
+    public func matchLatestPage(path:routerPath,host:routerHost,scheme:routerScheme) -> UIViewController?{
+        return super.matchLatestPage(HBRouterAction.init(scheme,host: host,path: path))
+    }
+    
+    public func transfer2LatestPage(path:routerPath,params:[String:Any],completion: ((_ success:Bool) -> Void)? = nil){
+        guard  let callback = matchLatestPage(path: path)?.routeAction?.callBackBlock else {
+            completion?(false)
+            return
+        }
+        callback(params)
+        completion?(true)
+    }
+    
+    
+    
      @discardableResult
      public override func pop2Path(_ path: routerPath, params: [String : Any] = [:],completion: ((_ success:Bool) -> Void)? = nil) -> [UIViewController]? {
          return super.pop2Path(path,params: params,completion: completion)

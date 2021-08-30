@@ -601,8 +601,25 @@ extension HBNavigator {
         return navigationController.viewControllers.filter { (item) -> Bool in
             return item.isKind(of: targetClass)
         }
-        
     }
+    
+    @objc
+    func matchLatestPage(_ action:HBRouterAction) -> UIViewController? {
+        guard let navigationController = UIViewController.topMost?.navigationController else {
+            return nil
+        }
+        guard  let target = matchTarget(action),let targetClass = target.targetClass else {
+            return nil
+        }
+        action.target = target
+        for item in navigationController.viewControllers{
+            if item.isKind(of: targetClass) {
+                return item
+            }
+        }
+        return nil
+    }
+    
 }
 
 

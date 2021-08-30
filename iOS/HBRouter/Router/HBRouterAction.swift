@@ -280,6 +280,12 @@ extension HBRouterAction{
         self.params[key!] = value
     }
     
+    public func removeValue(key:String?){
+        if key == nil {
+            return
+        }
+        self.params.removeValue(forKey: key!)
+    }
     public func any(_ key:String)-> Any?{
         return self.params[key]
     }
