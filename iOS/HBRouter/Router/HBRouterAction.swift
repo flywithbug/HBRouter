@@ -19,7 +19,7 @@ import UIKit
     ///   - modal: push or present
     ///   - animation: 是否有动画
     ///   - fullScreen: 是否全屏 iOS13之后
-    ///   - wrap_nac: 是否添加导航栏
+    ///   - wrap_nc: bool  是否添加导航栏
     public func setTransition(_ modal:HBRouterOption = .push, animation:Bool = true, fullScreen:Bool = true,wrap_nc:Bool = true){
         if modal != .push && modal != .present {
             assert(false, "modal 必须为 push or present")
@@ -93,19 +93,36 @@ import UIKit
     public var animation:Bool = true
     public var needLogin:Bool = false
     
+    //页面内消息接收
+//    private var _messageReceivingBlock:((_ response:HBRouterResponse)->Void)? = nil
+//    public  var messageReceivingBlock:((_ response:HBRouterResponse)->Void)?{
+//        set{
+//            #if DEBUG
+//            if _messageReceivingBlock  != nil{
+//                //容错处理，避免多处设置回调
+//                assert(false, "此回调只能设置一次，请检查代码")
+//            }
+//            #else
+//            #endif
+//            _messageReceivingBlock = newValue
+//        }
+//        get{
+//            return _messageReceivingBlock
+//        }
+//    }
+    
+    
     //转场或者调用完成状态回调
     private var _openStateBlock:((_ response:HBRouterResponse)->Void)? = nil
     public  var openCompleteBlock:((_ response:HBRouterResponse)->Void)?{
         set{
-            if _openStateBlock != nil {
-                #if DEBUG
-                if self.openCompleteBlock != nil {
-                    //容错处理，避免多处设置回调
-                    assert(false, "此回调只能设置一次，请检查代码")
-                }
-                #else
-                #endif
+            #if DEBUG
+            if _openStateBlock  != nil{
+                //容错处理，避免多处设置回调
+                assert(false, "此回调只能设置一次，请检查代码")
             }
+            #else
+            #endif
             _openStateBlock = newValue
         }
         get{
@@ -116,15 +133,14 @@ import UIKit
     private var _callBackBlock:((_ value:Any?)->Void)? = nil
     public var callBackBlock:((_ value:Any?)->Void)? {
         set{
+            #if DEBUG
             if _callBackBlock  != nil{
-                #if DEBUG
-                if self.callBackBlock != nil {
-                    //容错处理，避免多处设置回调
-                    assert(false, "此回调只能设置一次，请检查代码")
-                }
-                #else
-                #endif
+                //容错处理，避免多处设置回调
+                assert(false, "此回调只能设置一次，请检查代码")
             }
+            #else
+            #endif
+            
             _callBackBlock = newValue
         }
         get {
@@ -195,14 +211,25 @@ import UIKit
     //hb://
     public  init(urlPattern:routerURLPattern){
         super.init()
-        if urlPattern.components(separatedBy: "://").count != 2 {
-            assert(false, "不符合 urlPatter规则")
+        
+        if !urlPattern.contains("://") {
+            guard let _url = URL.init(string: "\(urlPattern)://") else {
+                assert(false, "不符合 urlPatter规则")
+                return
+            }
+            self.initt(url: _url)
+        }else{
+            if urlPattern.components(separatedBy: "://").count != 2 {
+                assert(false, "不符合 urlPatter规则")
+            }
+            guard let _url = URL.init(string: urlPattern) else {
+                assert(false, "不符合 urlPatter规则")
+                return
+            }
+            self.initt(url: _url)
         }
-        guard let _url = URL.init(string: urlPattern) else {
-            assert(false, "不符合 urlPatter规则")
-            return
-        }
-        self.initt(url: _url)
+        
+        
     }
     
     private func initt(url:URL){
@@ -248,6 +275,10 @@ import UIKit
         }
         return url
     }
+    
+    public func toString() -> String{
+        return "\(routerURLPattern() ?? "-")\nparams:\(params)"
+    }
 }
 
 
@@ -270,6 +301,8 @@ extension HBRouterAction{
         }
        
     }
+    
+    
     
     //any nil时，删除对应Key的Value值
 
@@ -612,10 +645,6 @@ extension UIViewController {
         self.routeURLPattern = routeAction.routerURLPattern()
     }
     
-//    @objc
-//    func setRouterURLPattern(routerURLPattern:String) {
-//        self.routerURLPattern = routerURLPattern
-//    }
 }
 
 

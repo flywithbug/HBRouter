@@ -63,6 +63,7 @@ extension UINavigationController {
         let viewController = hbr_popViewController(animated: animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
             self.hbr_inAnimating = false
+            HBRouter.shared().flushStackActions()
         }
         return viewController
     }
@@ -72,6 +73,7 @@ extension UINavigationController {
         let viewControllers = hbr_popToViewController(viewController, animated: animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
             self.hbr_inAnimating = false
+            HBRouter.shared().flushStackActions()
         }
         return viewControllers
     }
@@ -81,10 +83,10 @@ extension UINavigationController {
         let viewControllers = hbr_popToRootViewController(animated: animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.4 : 0.1)) {
             self.hbr_inAnimating = false
+            HBRouter.shared().flushStackActions()
         }
         return viewControllers
     }
-    
     
     @objc static func initializeNavSwizzleMethod(){
         swizzleMethod(for: self, originalSelector: #selector(pushViewController(_:animated:)), swizzledSelector: #selector(hbr_pushViewController(_:animated:)))

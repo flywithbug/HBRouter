@@ -10,13 +10,12 @@ import Foundation
 @objc public enum HBTargetType:Int {
     //未定义
     case undefined  = 0
-   
     //原生
-    case native = 1   //路由
-
+    case native = 1
     //flutter
-    case flutter = 2   //路由
-    case bridge     = 3    //功能调用
+    case flutter = 2
+    //路由
+    case bridge     = 3
 }
 
 @objc public enum  HBRouterOption : Int{
@@ -26,7 +25,7 @@ import Foundation
     case wrap_nc
     
     //强制全屏
-    case fullScreen //是否全屏，默认使用系统设置
+    case fullScreen
     
 }
 

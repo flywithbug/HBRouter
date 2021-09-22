@@ -21,11 +21,10 @@ import Foundation
     }
      
     public var options:[HBRouterOption] = [.push]
-    
-    
+   
     public private(set)  var defaultRouterHost:String!
     public private(set)  var defaultRouterScheme:String!
-    public func setDefault(_ scheme:routerScheme,host:routerHost) {
+    func setDefault(_ scheme:routerScheme,host:routerHost) {
         if defaultRouterHost != nil || defaultRouterScheme != nil  {
             #if DEBUG
             assert(false, "HBRouter::::重复设置 默认host和scheme......")
@@ -35,6 +34,21 @@ import Foundation
         defaultRouterHost = host
         defaultRouterScheme = scheme
     }
+    
+    public private(set)  var defaultFlutterRouterHost:String!
+    public private(set)  var defaultFlutterScheme:String!
+    func setDefaultFlutter(_ scheme:routerScheme,host:routerHost) {
+        if defaultFlutterScheme != nil || defaultFlutterRouterHost != nil  {
+            #if DEBUG
+            assert(false, "FlutterRouter::::重复设置 默认host和scheme......")
+            #else
+            #endif
+        }
+        defaultFlutterRouterHost = host
+        defaultFlutterScheme = scheme
+    }
+    
+    
     
     
     

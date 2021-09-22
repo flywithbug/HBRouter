@@ -14,7 +14,6 @@ extension UIViewController{
     /// - Returns: 判断是否可以打开页面 false 时，不能打开该页面
     @discardableResult
     @objc open func handleRouterAction(_ action:HBRouterAction) ->Bool{
-        
         return true
     }
     
@@ -30,6 +29,10 @@ extension UIViewController{
     //是否允许侧滑返回- 默认允许
     @objc open func canSlideBack() -> Bool{
         return true
+    }
+    
+    @objc open func receiveMessage(_ params:[String:Any] = [:]){
+        
     }
     
    
@@ -63,6 +66,7 @@ extension UIViewController{
         hbr_dismiss(animated: flag) { [weak self] () in
             self?.hbr_inAnimating = false
             completion?()
+            HBRouter.shared().flushStackActions()
         }
     }
     

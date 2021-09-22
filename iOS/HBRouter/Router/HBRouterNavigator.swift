@@ -39,7 +39,21 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         HBRSwizzleManager.shared()
     }
     
+    //栈内actions
+    public var stackActions:[HBRouterAction] = [];
     
+    //更新栈内action数据
+    public func flushStackActions()  {
+        let length = stackActions.count
+        if(length == 0){
+            return;
+        }
+        for i in (0...length-1).reversed(){
+            if(stackActions[i].current == nil){
+                stackActions.remove(at: i)
+            }
+        }
+    }
     /// 默认导航控制器类（present 页面时使用）
     public var wrapNavgClass:UINavigationController.Type = UINavigationController.self
     
@@ -64,13 +78,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
     }
 
     
-    /// 设置默认 schem和host
-    /// - Parameters:
-    ///   - scheme: 示例：hb
-    ///   - host: router.com
-    @objc public func setDefault(_ scheme:routerScheme,host:routerHost) {
-        HBRouterMCache.shared().setDefault(scheme,host:host)
-    }
+    
     
     let lock:NSLock = NSLock.init()
     
@@ -299,7 +307,13 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         guard let viewController = matchTargetController(action) else {
             return (nil,false)
         }
-       
+        
+        viewController.setRouterAction(action)
+        
+        //判断是否可以打开该页面
+        if !viewController.handleRouterAction(action) {
+            return (viewController,false)
+        }
         if action.options.contains(.present) || action.option == .present{
             if !present(action, viewController: viewController)  {
                 return (viewController,false)
@@ -311,11 +325,11 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         }
         success = true
         onMatchRouterAction(action, any: viewController)
-        viewController.setRouterAction(action)
-        viewController.handleRouterAction(action)
-        
+        //栈内数据
+        stackActions.append(action);
         return (viewController,true)
     }
+    
    
     
     func push(_ action:HBRouterAction,viewController:UIViewController) -> Bool {
@@ -475,6 +489,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 }
             }
         }
+        flushStackActions()
         if removeViewControllers.count > 0 {
             navigationController.setViewControllers(viewControllers, animated: false)
             return removeViewControllers
@@ -543,6 +558,7 @@ extension HBNavigator {
                 }
             }
         }
+        
         let viewController = targetClass.init()
         viewController.setRouterAction(action)
         return viewController
@@ -594,11 +610,16 @@ extension HBNavigator {
         guard let navigationController = UIViewController.topMost?.navigationController else {
             return nil
         }
+        
         guard  let target = matchTarget(action),let targetClass = target.targetClass else {
             return nil
         }
         action.target = target
+        
         return navigationController.viewControllers.filter { (item) -> Bool in
+            if let itemAction = item.routeAction{
+                return itemAction.routerURLPattern() ==  action.routerURLPattern()
+            }
             return item.isKind(of: targetClass)
         }
     }
@@ -613,6 +634,9 @@ extension HBNavigator {
         }
         action.target = target
         for item in navigationController.viewControllers{
+            if let itemAction = item.routeAction, itemAction.routerURLPattern() == action.routerURLPattern(){
+                return item
+            }
             if item.isKind(of: targetClass) {
                 return item
             }
@@ -620,6 +644,16 @@ extension HBNavigator {
         return nil
     }
     
+    
+    @objc
+    func matchPages(targetClass:AnyClass) -> [UIViewController]? {
+        guard let navigationController = UIViewController.topMost?.navigationController else {
+            return nil
+        }
+        return navigationController.viewControllers.filter { (item) -> Bool in
+            return item.isKind(of: targetClass)
+        }
+    }
 }
 
 

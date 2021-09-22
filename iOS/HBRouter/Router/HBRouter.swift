@@ -33,7 +33,31 @@ import UIKit
             return HBRouterMCache.shared().defaultRouterScheme
         }
     }
+    /// 设置默认 schem和host
+    /// - Parameters:
+    ///   - scheme: 示例：hb
+    ///   - host: router.com
+     public func setDefault(_ scheme:routerScheme,host:routerHost) {
+        HBRouterMCache.shared().setDefault(scheme,host:host)
+    }
     
+    
+    //用于注册flutter router相关
+    public var defaultFlutterRouterHost:String{
+        get {
+            return HBRouterMCache.shared().defaultFlutterRouterHost ?? "router.com"
+        }
+    }
+    public  var defaultFlutterScheme:String{
+        get {
+            return HBRouterMCache.shared().defaultFlutterScheme ?? "flutter"
+        }
+    }
+    
+    
+    public func setDefaultFlutter(_ scheme:routerScheme,host:routerHost){
+        HBRouterMCache.shared().setDefaultFlutter(scheme, host: host)
+    }
     
     /// 注册路由表 Note 
     /// - Parameters:
@@ -148,6 +172,10 @@ import UIKit
         return super.matchLatestPage(HBRouterAction.init(scheme,host: host,path: path))
     }
     
+    public override func matchPages(targetClass: AnyClass) -> [UIViewController]? {
+        return super.matchPages(targetClass: targetClass)
+    }
+    
     public func transfer2LatestPage(path:routerPath,params:[String:Any],completion: ((_ success:Bool) -> Void)? = nil){
         guard  let callback = matchLatestPage(path: path)?.routeAction?.callBackBlock else {
             completion?(false)
@@ -218,8 +246,57 @@ extension HBRouter{
         let action = HBRouterAction.init(url: url)
         action.openCompleteBlock = completion
         action.callBackBlock = callBack
-      
         return openRouterAction(action)
+    }
+    
+    
+    /// 发送消息给栈内任意匹配到path的页面
+    /// - Parameters:
+    ///   - urlPattern: hb://router.com/path
+    ///   - params:{"a":"b"}
+    func sendMessage(urlPattern:routerURLPattern,
+                     params:[String:Any] = [:])  {
+        let action = HBRouterAction.init(urlPattern: urlPattern)
+        action.addEntriesFromDictonary(params)
+        sendMessage(action: action)
+        
+        
+    }
+    func sendMessage(path:routerPath,
+                     params:[String:Any] = [:])  {
+        let action = HBRouterAction.init(path: path)
+        action.addEntriesFromDictonary(params)
+        sendMessage(action: action)
+
+        
+    }
+    
+    func sendMessage(path:routerPath,
+                     host:routerHost,
+                     scheme:routerScheme,
+                     params:[String:Any] = [:])  {
+        let action = HBRouterAction.init(scheme, host: host, path: path)
+        action.addEntriesFromDictonary(params)
+        sendMessage(action: action)
+    }
+    
+    func sendMessage(action:HBRouterAction,params:[String:Any] = [:])  {
+//        UIViewController.topMost
+//        var loop:Bool = true
+//        while loop {
+//
+//
+//
+//
+//
+//
+//        }
+        
+        
+        
+        
+        
+        
     }
     
     
