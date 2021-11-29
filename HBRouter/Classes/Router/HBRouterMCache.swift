@@ -35,19 +35,6 @@ import Foundation
         defaultRouterScheme = scheme
     }
     
-    public private(set)  var defaultFlutterRouterHost:String!
-    public private(set)  var defaultFlutterScheme:String!
-    func setDefaultFlutter(_ scheme:routerScheme,host:routerHost) {
-        if defaultFlutterScheme != nil || defaultFlutterRouterHost != nil  {
-            #if DEBUG
-            assert(false, "FlutterRouter::::重复设置 默认host和scheme......")
-            #else
-            #endif
-        }
-        defaultFlutterRouterHost = host
-        defaultFlutterScheme = scheme
-    }
-    
     
     
     

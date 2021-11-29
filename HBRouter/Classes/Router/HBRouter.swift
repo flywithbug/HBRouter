@@ -43,21 +43,21 @@ import UIKit
     
     
     //用于注册flutter router相关
-    public var defaultFlutterRouterHost:String{
-        get {
-            return HBRouterMCache.shared().defaultFlutterRouterHost ?? "router.com"
-        }
-    }
-    public  var defaultFlutterScheme:String{
-        get {
-            return HBRouterMCache.shared().defaultFlutterScheme ?? "flutter"
-        }
-    }
+//    public var defaultFlutterRouterHost:String{
+//        get {
+//            return HBRouterMCache.shared().defaultFlutterRouterHost ?? "router.com"
+//        }
+//    }
+//    public  var defaultFlutterScheme:String{
+//        get {
+//            return HBRouterMCache.shared().defaultFlutterScheme ?? "flutter"
+//        }
+//    }
     
     
-    public func setDefaultFlutter(_ scheme:routerScheme,host:routerHost){
-        HBRouterMCache.shared().setDefaultFlutter(scheme, host: host)
-    }
+//    public func setDefaultFlutter(_ scheme:routerScheme,host:routerHost){
+//        HBRouterMCache.shared().setDefaultFlutter(scheme, host: host)
+//    }
     
     /// 注册路由表 Note 
     /// - Parameters:

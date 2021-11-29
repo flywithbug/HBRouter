@@ -499,7 +499,7 @@ extension HBRouterAction{
             self.targetClass = target
             if targetType == .undefined {
                 if self.targetClass is UIViewController.Type{
-                    self.targetType = .native
+                    self.targetType = .controller
                 }
             }
         }else{
@@ -548,7 +548,7 @@ extension HBRouterAction{
             self.targetClass = target
             if targetType == .undefined {
                 if self.targetClass is UIViewController.Type{
-                    self.targetType = .native
+                    self.targetType = .controller
                 }
             }
         }else{
@@ -597,7 +597,7 @@ extension HBRouterAction{
             self.targetClass = target
             if targetType == .undefined {
                 if self.targetClass is UIViewController.Type{
-                    self.targetType = .native
+                    self.targetType = .controller
                 }
             }
         }else{

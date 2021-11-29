@@ -37,7 +37,7 @@ class RouterUsage {
                                             ],
                                         bundle:   "Business_Pod_test",
                                         host:     HBRouter.shared().defaultRouterHost,
-                                        targetType:.controller)
+                                        targetType:.undefined)
         
         
         RouterManager.registRouter()
@@ -91,9 +91,8 @@ class RouterUsage {
     }
     
     static func matchPages(action:HBRouterAction) -> Any?  {
-        let matchAction = HBRouterAction.init(path: "vc_02_oc")
-        let array = HBRouter.shared().matchPages(HBRouterAction.init(path: "vc_02_oc"))
-        action.callBackBlock?(["match":matchAction.routerURLPattern()!,"viewControllers":array!])
+        let array = HBRouter.shared().matchPages(path: action.path ?? "vc_02_oc")
+        action.callBackBlock?(["match":action.routerURLPattern()!,"viewControllers":array!])
         return array
     }
     

@@ -11,11 +11,13 @@ import Foundation
     //未定义
     case undefined  = 0
     //原生
-    case native = 1
-    //flutter
-    case flutter = 2
-    //路由
-    case bridge     = 3
+    case controller = 1
+    
+    //bridge调用 
+    case bridge     = 2
+    
+    
+
 }
 
 @objc public enum  HBRouterOption : Int{
