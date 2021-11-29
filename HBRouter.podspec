@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
   s.swift_version    = "5.0"
   
   s.subspec 'HBRouter' do |ss|
-    ss.source_files = ['iOS/HBRouter/**/*']
+    ss.source_files = ['HBRouter/Classes/**/*']
   end
   
   
