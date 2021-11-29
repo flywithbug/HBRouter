@@ -1,0 +1,6 @@
+framework module Business_Pod_test {
+  umbrella header "Business_Pod_test-umbrella.h"
+
+  export *
+  module * { export * }
+}

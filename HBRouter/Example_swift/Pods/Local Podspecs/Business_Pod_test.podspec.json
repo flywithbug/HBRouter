@@ -1,0 +1,39 @@
+{
+  "name": "Business_Pod_test",
+  "version": "0.0.1-SNAPSHOT",
+  "summary": "app",
+  "description": "app app",
+  "homepage": "homepage",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "flywithbug": ""
+  },
+  "source": {
+    "git": "t",
+    "tag": "0.0.1-SNAPSHOT"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "static_framework": true,
+  "frameworks": [
+    "UIKit",
+    "Foundation"
+  ],
+  "dependencies": {
+    "HBRouter": [
+
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Business_Pod_test",
+      "source_files": [
+        "Business_Pod_test/**/*"
+      ]
+    }
+  ]
+}
