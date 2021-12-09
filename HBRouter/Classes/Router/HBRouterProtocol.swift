@@ -10,7 +10,7 @@ import Foundation
 
 
 @objc
-public protocol HBRouterDelegate:class {
+public protocol HBRouterDelegate:AnyObject {
     
     //router权限校验及调用生命周期
     //登录态判断及状态回调

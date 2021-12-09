@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserAccountManager.share()
         RouterUsage.registerHandler()
         RouterUsage.registRouterMapping()
+        
+        
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

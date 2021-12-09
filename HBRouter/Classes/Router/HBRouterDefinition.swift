@@ -12,10 +12,8 @@ import Foundation
     case undefined  = 0
     //原生
     case controller = 1
-    
     //bridge调用 
     case bridge     = 2
-    
     
 
 }

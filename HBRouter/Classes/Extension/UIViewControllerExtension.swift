@@ -17,6 +17,13 @@ extension UIViewController{
         return true
     }
     
+    //处理其他页面回传的参数
+    @objc open func handleRouterParams(_ params:[String:Any]) {
+       
+    }
+  
+  
+    
     @objc open class func needsLogin(_ action:HBRouterAction) ->Bool{
         return false
     }
