@@ -424,7 +424,9 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
                 }else{
                     item.setRouterAction(action)
                 }
+                //TODo
                 item.handleRouterAction(item.routeAction!)
+//                item.handleRouterParams(action.params)
                 let list = navigationController.popToViewController(item, animated: action.animation) {
                     completion?(true)
                 }

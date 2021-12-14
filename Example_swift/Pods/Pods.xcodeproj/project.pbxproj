@@ -26,7 +26,6 @@
 		46EB2E00000570 /* HBRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000001F0 /* HBRouter.swift */; };
 		46EB2E00000580 /* HBRouterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000200 /* HBRouterAction.swift */; };
 		46EB2E00000590 /* HBRouterDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000210 /* HBRouterDefinition.swift */; };
-		46EB2E000005A0 /* HBRouterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000220 /* HBRouterDelegate.swift */; };
 		46EB2E000005B0 /* HBRouterMCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000230 /* HBRouterMCache.swift */; };
 		46EB2E000005C0 /* HBRouterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000240 /* HBRouterModels.swift */; };
 		46EB2E000005D0 /* HBRouterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000250 /* HBRouterNavigator.swift */; };
@@ -64,8 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		175AD9CF44FE053D2792F803DD56A5B9 /* Pods_Example_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Example_swift.framework; path = "Pods-Example_swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		46EB2E000000D0 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		175AD9CF44FE053D2792F803DD56A5B9 /* Pods_Example_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46EB2E000000D0 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		46EB2E000000F0 /* BRouterManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BRouterManager.h; path = Business_Pod_test/BRouterManager.h; sourceTree = "<group>"; };
 		46EB2E00000100 /* BRouterManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BRouterManager.m; path = Business_Pod_test/BRouterManager.m; sourceTree = "<group>"; };
 		46EB2E00000120 /* Business_Pod_test.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Business_Pod_test.h; sourceTree = "<group>"; };
@@ -81,13 +80,12 @@
 		46EB2E000001F0 /* HBRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouter.swift; sourceTree = "<group>"; };
 		46EB2E00000200 /* HBRouterAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterAction.swift; sourceTree = "<group>"; };
 		46EB2E00000210 /* HBRouterDefinition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterDefinition.swift; sourceTree = "<group>"; };
-		46EB2E00000220 /* HBRouterDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterDelegate.swift; sourceTree = "<group>"; };
 		46EB2E00000230 /* HBRouterMCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterMCache.swift; sourceTree = "<group>"; };
 		46EB2E00000240 /* HBRouterModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterModels.swift; sourceTree = "<group>"; };
 		46EB2E00000250 /* HBRouterNavigator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterNavigator.swift; sourceTree = "<group>"; };
 		46EB2E00000260 /* HBRouterProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterProtocol.swift; sourceTree = "<group>"; };
-		46EB2E00000280 /* Business_Pod_test.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = Business_Pod_test.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		46EB2E000002A0 /* HBRouter.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = HBRouter.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		46EB2E00000280 /* Business_Pod_test.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = Business_Pod_test.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		46EB2E000002A0 /* HBRouter.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = HBRouter.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		46EB2E00000350 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		46EB2E000003F0 /* Business_Pod_test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Business_Pod_test.debug.xcconfig; sourceTree = "<group>"; };
 		46EB2E00000400 /* Business_Pod_test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Business_Pod_test.release.xcconfig; sourceTree = "<group>"; };
@@ -113,8 +111,8 @@
 		46EB2E000007D0 /* Pods-Example_swift-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Example_swift-acknowledgements.plist"; sourceTree = "<group>"; };
 		46EB2E000007E0 /* Pods-Example_swift-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Example_swift-acknowledgements.markdown"; sourceTree = "<group>"; };
 		46EB2E000007F0 /* Pods-Example_swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Example_swift-dummy.m"; sourceTree = "<group>"; };
-		9745BAC5B008D9AEB795877B5D12D292 /* Business_Pod_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Business_Pod_test.framework; path = Business_Pod_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A18AAD31D46977481793C17B4E45A12A /* HBRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HBRouter.framework; path = HBRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9745BAC5B008D9AEB795877B5D12D292 /* Business_Pod_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Business_Pod_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A18AAD31D46977481793C17B4E45A12A /* HBRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HBRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +263,6 @@
 				46EB2E000001F0 /* HBRouter.swift */,
 				46EB2E00000200 /* HBRouterAction.swift */,
 				46EB2E00000210 /* HBRouterDefinition.swift */,
-				46EB2E00000220 /* HBRouterDelegate.swift */,
 				46EB2E00000230 /* HBRouterMCache.swift */,
 				46EB2E00000240 /* HBRouterModels.swift */,
 				46EB2E00000250 /* HBRouterNavigator.swift */,
@@ -511,7 +508,6 @@
 				46EB2E00000570 /* HBRouter.swift in Sources */,
 				46EB2E00000580 /* HBRouterAction.swift in Sources */,
 				46EB2E00000590 /* HBRouterDefinition.swift in Sources */,
-				46EB2E000005A0 /* HBRouterDelegate.swift in Sources */,
 				46EB2E000005B0 /* HBRouterMCache.swift in Sources */,
 				46EB2E000005C0 /* HBRouterModels.swift in Sources */,
 				46EB2E000005D0 /* HBRouterNavigator.swift in Sources */,

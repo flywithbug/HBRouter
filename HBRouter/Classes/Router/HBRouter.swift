@@ -176,14 +176,15 @@ import UIKit
         return super.matchPages(targetClass: targetClass)
     }
     
-    public func transfer2LatestPage(path:routerPath,params:[String:Any],completion: ((_ success:Bool) -> Void)? = nil){
-        guard  let callback = matchLatestPage(path: path)?.routeAction?.callBackBlock else {
-            completion?(false)
-            return
-        }
-        callback(params)
-        completion?(true)
-    }
+    //传递参数给最近匹配到的页面
+//    public func transfer2LatestPage(path:routerPath,params:[String:Any],completion: ((_ success:Bool) -> Void)? = nil){
+//        guard  let vc = matchLatestPage(path: path) else {
+//            completion?(false)
+//            return
+//        }
+////        vc.routeAction?.addEntriesFromDictonary(<#T##entries: [String : Any]##[String : Any]#>)
+//        completion?(true)
+//    }
     
     
     

@@ -14,7 +14,7 @@ post_install do |installer|
 end
 
 target "HBRouter" do
-  pod 'HBRouter' , :path => '../../'  
+  pod 'HBRouter' , :path => '../'  
 
 
 

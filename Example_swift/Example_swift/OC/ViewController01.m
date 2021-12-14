@@ -14,9 +14,11 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, copy) NSDictionary *dic;
 @end
 
 @implementation ViewController01
+
 
 
 - (BOOL)canSlideBack{
@@ -33,6 +35,17 @@
 }
 
 
+- (BOOL)handleRouterAction:(HBRouterAction *)action{
+    return YES;
+}
+- (NSDictionary *)readLocalFileWithName:(NSString *)name {
+    // 获取文件路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"json"];
+    // 将文件数据化
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    // 对数据进行JSON格式化并返回字典形式
+    return [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+}
 
 
 - (void)viewDidLoad {
@@ -49,6 +62,9 @@
 
     
     
+    
+    
+    
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -58,6 +74,9 @@
     }
     cell.detailTextLabel.text = @"";
     if (indexPath.row == 0) {
+        
+       
+
         cell.textLabel.text = @"点击退出登录态,并pop当前页面";
     }else if(indexPath.row == 1) {
         cell.textLabel.text = @"点击跳转到02页面：";
@@ -84,6 +103,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+//    _dic = [self readLocalFileWithName:@"temp"];
+//    NSLog(@"%ld", _dic.allKeys.count);
+//
+//    NSLog(@"%zd", malloc_size((__bridge const void *)_dic));
+//    return;;
     if (indexPath.row == 0) {
         [UserAccountManager share].loginState = NO;
         [self.navigationController popViewControllerAnimated:YES];
