@@ -1,6 +1,6 @@
 {
   "name": "HBRouter",
-  "version": "0.0.1-SNAPSHOT",
+  "version": "0.0.3",
   "summary": "app",
   "description": "app",
   "homepage": "http://gitlab.hellobike.cn/Torrent/HBRouter.git",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "http://gitlab.hellobike.cn/Torrent/HBRouter.git",
-    "tag": "0.0.1-SNAPSHOT"
+    "tag": "0.0.3"
   },
   "platforms": {
     "ios": "9.0"

@@ -1,6 +1,6 @@
 {
   "name": "Business_Pod_test",
-  "version": "0.0.1-SNAPSHOT",
+  "version": "0.0.3",
   "summary": "app",
   "description": "app app",
   "homepage": "homepage",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "t",
-    "tag": "0.0.1-SNAPSHOT"
+    "tag": "0.0.3"
   },
   "platforms": {
     "ios": "9.0"
