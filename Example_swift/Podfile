@@ -23,7 +23,7 @@ end
 target "Example_swift" do
   pod 'HBRouter'  , :path => '../' #'0.0.1-SNAPSHOT'
   
-  pod 'Business_Pod_test' , :path => '../'
+  pod 'Business_Pod_test' , :path => '../test/'
 
 
 end
