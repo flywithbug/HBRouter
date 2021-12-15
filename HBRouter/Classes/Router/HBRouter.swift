@@ -251,54 +251,55 @@ extension HBRouter{
     }
     
     
+    //TODO
     /// 发送消息给栈内任意匹配到path的页面
     /// - Parameters:
     ///   - urlPattern: hb://router.com/path
     ///   - params:{"a":"b"}
-    func sendMessage(urlPattern:routerURLPattern,
-                     params:[String:Any] = [:])  {
-        let action = HBRouterAction.init(urlPattern: urlPattern)
-        action.addEntriesFromDictonary(params)
-        sendMessage(action: action)
-        
-        
-    }
-    func sendMessage(path:routerPath,
-                     params:[String:Any] = [:])  {
-        let action = HBRouterAction.init(path: path)
-        action.addEntriesFromDictonary(params)
-        sendMessage(action: action)
-
-        
-    }
-    
-    func sendMessage(path:routerPath,
-                     host:routerHost,
-                     scheme:routerScheme,
-                     params:[String:Any] = [:])  {
-        let action = HBRouterAction.init(scheme, host: host, path: path)
-        action.addEntriesFromDictonary(params)
-        sendMessage(action: action)
-    }
-    
-    func sendMessage(action:HBRouterAction,params:[String:Any] = [:])  {
-//        UIViewController.topMost
-//        var loop:Bool = true
-//        while loop {
+//    func sendMessage(urlPattern:routerURLPattern,
+//                     params:[String:Any] = [:])  {
+//        let action = HBRouterAction.init(urlPattern: urlPattern)
+//        action.addEntriesFromDictonary(params)
+//        sendMessage(action: action)
+//
+//
+//    }
+//    func sendMessage(path:routerPath,
+//                     params:[String:Any] = [:])  {
+//        let action = HBRouterAction.init(path: path)
+//        action.addEntriesFromDictonary(params)
+//        sendMessage(action: action)
+//
+//
+//    }
+//
+//    func sendMessage(path:routerPath,
+//                     host:routerHost,
+//                     scheme:routerScheme,
+//                     params:[String:Any] = [:])  {
+//        let action = HBRouterAction.init(scheme, host: host, path: path)
+//        action.addEntriesFromDictonary(params)
+//        sendMessage(action: action)
+//    }
+//
+//    func sendMessage(action:HBRouterAction,params:[String:Any] = [:])  {
+////        UIViewController.topMost
+////        var loop:Bool = true
+////        while loop {
+////
+////
+////
+////
+////
+////
+////        }
 //
 //
 //
 //
 //
 //
-//        }
-        
-        
-        
-        
-        
-        
-    }
+//    }
     
     
     @discardableResult
@@ -381,7 +382,15 @@ extension HBRouter{
         return openRouterAction(action)
     }
     
+    
     @discardableResult
+    /// 打开路由
+    /// - Parameters:
+    ///   - path: 路由path
+    ///   - params: 参数
+    ///   - completion: 页面打开完成回调
+    ///   - callBack: 下一个页面回传参数Block
+    /// - Returns: 返回打开的路由对象
     public func open(path:routerPath,params:[String:Any] = [:],completion:((_ response:HBRouterResponse)->Void)? = nil,callBack:((_ value:Any?)->Void)? = nil) -> Any? {
         let action = HBRouterAction.init(path: path)
         action.openCompleteBlock = completion

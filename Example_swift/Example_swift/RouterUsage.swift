@@ -19,7 +19,7 @@ class RouterUsage {
     public  static func registerHandler(){
         HBRouter.shared().setDefault("hb", host: "router.com")
         HBRouter.shared().registeViewController(["http://","https://"], factory: RouterUsage.webViewControllerFactory)
-        HBRouter.shared().registeHander(["http://","https://"], factory: RouterUsage.openWebViewController)
+//        HBRouter.shared().registeHander(["http://","https://"], factory: RouterUsage.openWebViewController)
         HBRouter.shared().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
         HBRouter.shared().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
     }
