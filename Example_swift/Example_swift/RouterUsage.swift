@@ -40,7 +40,7 @@ class RouterUsage {
                                         targetType:.undefined)
         
         
-        RouterManager.registRouter()
+//        RouterManager.registRouter()
         BRouterManager.registRouter()
     }
     
