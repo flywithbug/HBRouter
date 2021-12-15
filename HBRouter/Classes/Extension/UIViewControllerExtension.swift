@@ -18,9 +18,10 @@ extension UIViewController{
     }
     
     //处理其他页面回传的参数
-    @objc open func handleRouterParams(_ params:[String:Any]) {
-       
-    }
+    //暂不启用
+//    @objc open func handleRouterParams(_ params:[String:Any]) {
+//
+//    }
   
   
     

@@ -13,7 +13,9 @@
 @end
 
 @implementation ViewController
-
+- (BOOL)handleRouterAction:(HBRouterAction *)action{
+    return [super handleRouterAction:action];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
