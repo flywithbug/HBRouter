@@ -1,61 +1,59 @@
 # HBRouter
 路由初始化注册管理
- `
+ ```
   //方法工厂
-//自定义跳转方法
-public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
+ //自定义跳转方法
+  public typealias  handlerFactory = (_ router: HBRouterAction) -> Any?
 
-//注册自定义返回Controller
-public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewController?
+  //注册自定义返回Controller
+  public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewController?
+  
+ //全局单例
+  public static func shared() -> HBRouter.HBRouter
+  ///默认路由host
+  public var defaultRouterHost: String { get }
 
+  /// 默认路由scheme
+  public var defaultRouterScheme: String { get }
 
- `
+  //默认导航控制器类（初始化时使用）
+  public var wrapNavgClass: UINavigationController.Type
 
+  @objc weak public var deleage: HBRouter.HBRouterDelegate?
 
-//全局单例
-public static func shared() -> HBRouter.HBRouter
-///默认路由host
-public var defaultRouterHost: String { get }
+  @objc public func setDefault(_ scheme: HBRouter.routerScheme, host: HBRouter.routerHost)
 
-/// 默认路由scheme
-public var defaultRouterScheme: String { get }
+  @objc public private(set) var routerMapping: [HBRouter.routerURLPattern : HBRouter.HBRouterTarget] { get }
 
-//默认导航控制器类（初始化时使用）
-public var wrapNavgClass: UINavigationController.Type
+  /// 路由表注册
+  /// - Parameters:
+  ///   - mapping: 路由表映射关系
+  ///   - bundleClass: 映射对象所在 bundleClass
+  public func registRouter(_ mapping: [HBRouter.routerPath : HBRouter.routerTarget], bundleClass: AnyClass? = nil)
 
-@objc weak public var deleage: HBRouter.HBRouterDelegate?
+  public func registRouter(_ mapping: [HBRouter.routerPath : HBRouter.routerTarget], bundle: HBRouter.routerBundle? = nil)
 
-@objc public func setDefault(_ scheme: HBRouter.routerScheme, host: HBRouter.routerHost)
+  public func registeRouter(_ targets: [HBRouter.HBRouterTarget])
 
-@objc public private(set) var routerMapping: [HBRouter.routerURLPattern : HBRouter.HBRouterTarget] { get }
-
-/// 路由表注册
-/// - Parameters:
-///   - mapping: 路由表映射关系
-///   - bundleClass: 映射对象所在 bundleClass
-public func registRouter(_ mapping: [HBRouter.routerPath : HBRouter.routerTarget], bundleClass: AnyClass? = nil)
-
-public func registRouter(_ mapping: [HBRouter.routerPath : HBRouter.routerTarget], bundle: HBRouter.routerBundle? = nil)
-
-public func registeRouter(_ targets: [HBRouter.HBRouterTarget])
-
-public func openController(_ action: HBRouter.HBRouterAction) -> (viewController: UIViewController?, success: Bool)?
+  public func openController(_ action: HBRouter.HBRouterAction) -> (viewController: UIViewController?, success: Bool)?
 
 
-自定义路由方法处理（用于处理jsbridge和flutter 路由相关）
-/// 自行处理openAction操作
-/// - Parameters:
-///   - urlPatterns: hb://router.com/path  hb://router.com  hb://  hb
-///   - factory:  回调方法
-override public func registeHander(_ urlPatterns: [HBRouter.routerURLPattern], factory: @escaping HBRouter.handlerFactory)
+  自定义路由方法处理（用于处理jsbridge和flutter 路由相关）
+  /// 自行处理openAction操作
+  /// - Parameters:
+  ///   - urlPatterns: hb://router.com/path  hb://router.com  hb://  hb
+  ///   - factory:  回调方法
+  override public func registeHander(_ urlPatterns: [HBRouter.routerURLPattern], factory: @escaping HBRouter.handlerFactory)
 
-override public func registerHander(_ urlPattern: HBRouter.routerURLPattern, factory: @escaping HBRouter.handlerFactory)
+  override public func registerHander(_ urlPattern: HBRouter.routerURLPattern, factory: @escaping HBRouter.handlerFactory)
 
-override public func registeViewController(_ urlPatterns: [HBRouter.routerURLPattern], factory: @escaping HBRouter.viewControllerFactory)
+  override public func registeViewController(_ urlPatterns: [HBRouter.routerURLPattern], factory: @escaping HBRouter.viewControllerFactory)
 
-override public func registerViewController(_ urlPattern: HBRouter.routerURLPattern, factory: @escaping HBRouter.viewControllerFactory)
+  override public func registerViewController(_ urlPattern: HBRouter.routerURLPattern, factory: @escaping HBRouter.viewControllerFactory)
+ ```
+### 代理协议：HBRouterDelegate
 
-代理协议：HBRouterDelegate
+```
     //router权限校验及调用生命周期
     //登录态判断及状态回调
     func loginStatus(_ action:HBRouterAction, completion: ((Bool) -> Void)?) -> Bool
@@ -80,8 +78,9 @@ override public func registerViewController(_ urlPattern: HBRouter.routerURLPatt
     func onMatchUnhandleRouterAction(_ action:HBRouterAction)
     //路由匹配成功回调
     func onMatchRouterAction(_ action:HBRouterAction, any:Any?)
-    
+```
 路由组件使用
+```
 //打开路由Action
 override public func openRouterAction(_ action: HBRouter.HBRouterAction) -> Any?
 public func open(url: URL) -> Any?
@@ -115,9 +114,10 @@ override public func closePage(path: HBRouter.routerPath) -> [UIViewController]?
 /// - Parameter urlPattern: hb://router.com/path
 /// - Returns: 返回被关闭的控制器
 override public func closePage(urlPattern: HBRouter.routerURLPattern) -> [UIViewController]?
+```
 
-路由模型：
-
+### 路由模型：
+```
 @objc public enum HBRouterOption : Int {
 
     case push = 0  //导航栈 push
@@ -128,7 +128,6 @@ override public func closePage(urlPattern: HBRouter.routerURLPattern) -> [UIView
 
     case fullScreen  // iOS13 是否强制全屏
 }
-
 
 
 //路由打开成功时返回模型对象
@@ -194,30 +193,33 @@ override public func closePage(urlPattern: HBRouter.routerURLPattern) -> [UIView
         case bridge = 3
     }
 
+```
 
 
 
 
 
+### UIViewController扩展
+```
+ //router item数据源
+ @objc public private(set) var routeAction: HBRouter.HBRouterAction?
+ //路由path
+ @objc public private(set) var routeURLPattern: String?
 
-UIViewController扩展
-//router item数据源
-@objc public private(set) var routeAction: HBRouter.HBRouterAction?
-//路由path
-@objc public private(set) var routeURLPattern: String?
+ //手动设置action
+ @objc public func setRouterAction(_ routeAction: HBRouter.HBRouterAction)  
+ /// 控制器内处理action回调
+ /// - Parameter action: action参数
+ /// - Returns: 判断是否可以打开页面 false 时，不能打开该页面
+ @objc open func handleRouterAction(_ action: HBRouter.HBRouterAction) -> Bool
 
-//手动设置action
-@objc public func setRouterAction(_ routeAction: HBRouter.HBRouterAction)  
-/// 控制器内处理action回调
-/// - Parameter action: action参数
-/// - Returns: 判断是否可以打开页面 false 时，不能打开该页面
-@objc open func handleRouterAction(_ action: HBRouter.HBRouterAction) -> Bool
+ @objc open class func needsLogin(_ action: HBRouter.HBRouterAction) -> Bool
 
-@objc open class func needsLogin(_ action: HBRouter.HBRouterAction) -> Bool
+ /// 栈内单例是否唯一：
+ /// - Parameter
+ @objc open class func isSingleton(_ action: HBRouter.HBRouterAction) -> Bool
 
-/// 栈内单例是否唯一：
-/// - Parameter
-@objc open class func isSingleton(_ action: HBRouter.HBRouterAction) -> Bool
+ //是否支持侧滑返回
+ @objc open func canSlideBack() -> Bool
 
-//是否支持侧滑返回
-@objc open func canSlideBack() -> Bool
+```
