@@ -1,9 +1,9 @@
 {
   "name": "HBRouter",
-  "version": "0.0.3",
+  "version": "0.0.4-SNAPSHOT",
   "summary": "app",
   "description": "app",
-  "homepage": "http://gitlab.hellobike.cn/Torrent/HBRouter.git",
+  "homepage": "http://gitlab.host.cn/Torrent/HBRouter.git",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,8 +12,8 @@
     "flywithbug": "flywithbug@gmail.com"
   },
   "source": {
-    "git": "http://gitlab.hellobike.cn/Torrent/HBRouter.git",
-    "tag": "0.0.3"
+    "git": "http://gitlab.host.cn/Torrent/HBRouter.git",
+    "tag": "0.0.4-SNAPSHOT"
   },
   "platforms": {
     "ios": "9.0"

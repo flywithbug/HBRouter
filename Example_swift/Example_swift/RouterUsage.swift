@@ -133,14 +133,14 @@ class RouterUsage {
     public static func bridgeDataSource() -> [HBRouterAction] {
         
         var dataSource:[HBRouterAction] = []
-        var action = HBRouterAction.init(urlPattern: "bridge://hellobike/routerActionTest")
+        var action = HBRouterAction.init(urlPattern: "bridge://host.com/routerActionTest")
         action.addValue("基础功能测试，HBRouterAction参数获取", key: "subTitle")
         action.callBackBlock = { (value) in
             Dlog("\(value ?? "---")")
         }
         dataSource.append(action)
         
-        action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest")
+        action = HBRouterAction.init(urlPattern: "bridge://host.com/navigationPushtest")
         action.animation = false
         action.addValue("原生连续跳转，关闭转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
@@ -148,7 +148,7 @@ class RouterUsage {
         }
         dataSource.append(action)
         
-        action = HBRouterAction.init(urlPattern: "bridge://hellobike/navigationPushtest?a=10")
+        action = HBRouterAction.init(urlPattern: "bridge://host.com/navigationPushtest?a=10")
         action.animation = true
         action.addValue("原生连续跳转，打开转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
@@ -156,7 +156,7 @@ class RouterUsage {
         }
         dataSource.append(action)
         
-        action = HBRouterAction.init(urlPattern: "bridge://hellobike/hbRouterPushtest?a=10")
+        action = HBRouterAction.init(urlPattern: "bridge://host.com/hbRouterPushtest?a=10")
         action.animation = false
         action.addValue("HBRouter 连续跳转测试,关闭转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
@@ -164,7 +164,7 @@ class RouterUsage {
         }
         dataSource.append(action)
         
-        action = HBRouterAction.init(urlPattern: "bridge://hellobike/hbRouterPushtest?a=10")
+        action = HBRouterAction.init(urlPattern: "bridge://host.com/hbRouterPushtest?a=10")
         action.animation = true
         action.addValue("HBRouter 连续跳转测试，打开转场动画", key: "subTitle")
         action.callBackBlock = { (value) in
@@ -172,7 +172,7 @@ class RouterUsage {
         }
         dataSource.append(action)
         
-        action = HBRouterAction.init(urlPattern: "bridge://hellobike/matchPages?a=10")
+        action = HBRouterAction.init(urlPattern: "bridge://host.com/matchPages?a=10")
         action.animation = true
         action.addValue("获取栈中页面", key: "subTitle")
         action.callBackBlock = { (value) in
