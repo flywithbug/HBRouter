@@ -1,4 +1,8 @@
 # HBRouter
+
+![image](https://user-images.githubusercontent.com/3955387/149880769-43c21105-d9a1-4eb4-9ded-e40de2f05033.png)
+
+
 路由初始化注册管理
  ```
   //方法工厂
