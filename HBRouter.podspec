@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
         app 
                        DESC
 
-  s.homepage         = 'http://gitlab.host.cn/Torrent/HBRouter.git'
+  s.homepage         = 'http://gitlab.hellobike.cn/Torrent/HBRouter.git'
   s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = { 'flywithbug' => 'flywithbug@gmail.com' }
   s.source           = { :git => 'http://gitlab.host.cn/Torrent/HBRouter.git', :tag => s.version }
