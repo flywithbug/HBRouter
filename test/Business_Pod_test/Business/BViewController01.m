@@ -17,6 +17,8 @@
     NSLog(@"from:%@",action.from);
     NSLog(@"current:%@",action.current);
 //    NSLog(@"next:%@",action.next);
+    NSLog(@"params::%@",action.params);
+
     return  [super handleRouterAction:action];
 }
 

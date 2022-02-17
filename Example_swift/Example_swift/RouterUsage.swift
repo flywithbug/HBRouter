@@ -195,6 +195,7 @@ extension RouterUsage{
     static func hbRouterPushtest(_ _action:HBRouterAction) -> Any?{
         var action = HBRouterAction.init(path: "vc_01_oc")
         action.animation = _action.animation
+        action.addValue("abc", key: "value")
         action.openCompleteBlock = { (response:HBRouterResponse) in
             Dlog("isSuccess:\(response.code == 0),value:\(response.data ?? "null")")
         }

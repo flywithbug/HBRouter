@@ -20,7 +20,8 @@
 @implementation ViewController02
 
 - (BOOL)handleRouterAction:(HBRouterAction *)action{
-    
+    NSLog(@"params::%@",action.params);
+
     
     return  [super handleRouterAction:action];
 }

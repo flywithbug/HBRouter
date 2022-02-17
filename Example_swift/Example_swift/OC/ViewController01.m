@@ -36,6 +36,7 @@
 
 
 - (BOOL)handleRouterAction:(HBRouterAction *)action{
+    NSLog(@"params::%@",action.params);
     return YES;
 }
 - (NSDictionary *)readLocalFileWithName:(NSString *)name {
