@@ -69,7 +69,21 @@ extension UserAccountManager:HBRouterDelegate {
     }
     
     func openExternal(_ action: HBRouterAction, completion: ((Bool) -> Void)?) {
-        
+        if let url = action.externalURL() {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:]) { (success) in
+                    action.openCompleteBlock?(HBRouterResponse.init(action))
+                }
+            } else {
+                if UIApplication.shared.openURL(url) {
+                    action.openCompleteBlock?(HBRouterResponse.init(action))
+                }else{
+                    action.openCompleteBlock?(HBRouterResponse.init(action,code: -1))
+                }
+            }
+        }else{
+            action.openCompleteBlock?(HBRouterResponse.init(action,code: -1))
+        }
     }
     
     func didOpenExternal(_ action: HBRouterAction) {

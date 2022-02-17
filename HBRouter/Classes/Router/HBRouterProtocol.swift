@@ -28,6 +28,8 @@ public protocol HBRouterDelegate:AnyObject {
     
     //外链打开状态
     func willOpenExternal(_ action:HBRouterAction)
+    
+    //处理外链打开逻辑，不实现本方法，则使用默认
     func openExternal(_ action:HBRouterAction, completion: ((Bool) -> Void)?)
     func didOpenExternal(_ action:HBRouterAction)
     
