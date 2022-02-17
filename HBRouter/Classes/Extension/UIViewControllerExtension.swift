@@ -17,12 +17,7 @@ extension UIViewController{
         return true
     }
     
-    //处理其他页面回传的参数
-    //暂不启用
-//    @objc open func handleRouterParams(_ params:[String:Any]) {
-//
-//    }
-  
+
   
     
     @objc open class func needsLogin(_ action:HBRouterAction) ->Bool{
@@ -39,10 +34,17 @@ extension UIViewController{
         return true
     }
     
-    @objc open func receiveMessage(_ params:[String:Any] = [:]){
-        
-    }
     
+    //暂不启用
+//    @objc open func receiveMessage(_ params:[String:Any] = [:]){
+//
+//    }
+    //处理其他页面回传的参数
+    //暂不启用
+//    @objc open func handleRouterParams(_ params:[String:Any]) {
+//
+//    }
+  
    
     
 }

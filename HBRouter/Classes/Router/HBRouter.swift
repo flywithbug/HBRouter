@@ -42,32 +42,6 @@ import UIKit
     }
     
     
-    //用于注册flutter router相关
-//    public var defaultFlutterRouterHost:String{
-//        get {
-//            return HBRouterMCache.shared().defaultFlutterRouterHost ?? "router.com"
-//        }
-//    }
-//    public  var defaultFlutterScheme:String{
-//        get {
-//            return HBRouterMCache.shared().defaultFlutterScheme ?? "flutter"
-//        }
-//    }
-    
-    
-//    public func setDefaultFlutter(_ scheme:routerScheme,host:routerHost){
-//        HBRouterMCache.shared().setDefaultFlutter(scheme, host: host)
-//    }
-    
-    /// 注册路由表 Note 
-    /// - Parameters:
-    ///   - mapping: 路由表map
-    ///   - bundleClass: 路由表所属bundle，swift组件需要传
-//    public override func registRouter(_ mapping:[routerPath:routerTarget],
-//                             bundleClass:AnyClass? = nil){
-//        super.registRouter(mapping, bundleClass: bundleClass)
-//    }
-    
     
     /// 注册路由表
     /// - Parameters:
