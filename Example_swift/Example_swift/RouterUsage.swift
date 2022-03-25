@@ -21,7 +21,11 @@ class RouterUsage {
         HBRouter.shared().registeViewController(["http://","https://"], factory: RouterUsage.webViewControllerFactory)
 //        HBRouter.shared().registeHander(["http://","https://"], factory: RouterUsage.openWebViewController)
         HBRouter.shared().registeHander(["bridge://"], factory: RouterUsage.handlerBridge)
+        
+        HBRouter.shared().registeHander(["hellobike://hellobike.com/biforest"], factory: RouterUsage.handlerBridge)
+
         HBRouter.shared().registeHander(["hb://flutter.com"], factory: RouterUsage.handlerflutter)
+        
     }
     
     public static func registRouterMapping(){

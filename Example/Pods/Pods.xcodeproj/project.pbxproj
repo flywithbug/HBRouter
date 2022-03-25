@@ -6,31 +6,26 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		BB748D3000FB8D009A5A00D5F5F07A8F /* HBRouter */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 46EB2E00000110 /* Build configuration list for PBXAggregateTarget "HBRouter" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = HBRouter;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		46EB2E000002A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00000290 /* Foundation.framework */; };
-		46EB2E000002B0 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000000F0 /* NSObjectExtension.swift */; };
-		46EB2E000002C0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000100 /* StringExtension.swift */; };
-		46EB2E000002D0 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000110 /* UINavigationControllerExtension.swift */; };
-		46EB2E000002E0 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000120 /* UIViewControllerExtension.swift */; };
-		46EB2E000002F0 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000130 /* URLExtension.swift */; };
-		46EB2E00000300 /* HBRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000150 /* HBRouter.swift */; };
-		46EB2E00000310 /* HBRouterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000160 /* HBRouterAction.swift */; };
-		46EB2E00000320 /* HBRouterDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000170 /* HBRouterDefinition.swift */; };
-		46EB2E00000330 /* HBRouterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000180 /* HBRouterDelegate.swift */; };
-		46EB2E00000340 /* HBRouterMCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000190 /* HBRouterMCache.swift */; };
-		46EB2E00000350 /* HBRouterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000001A0 /* HBRouterModels.swift */; };
-		46EB2E00000360 /* HBRouterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000001B0 /* HBRouterNavigator.swift */; };
-		46EB2E00000370 /* HBRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000001C0 /* HBRouterProtocol.swift */; };
-		46EB2E000003D0 /* HBRouter-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E000003C0 /* HBRouter-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E00000410 /* HBRouter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000400 /* HBRouter-dummy.m */; };
-		46EB2E00000430 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00000420 /* UIKit.framework */; };
-		46EB2E000004D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00000290 /* Foundation.framework */; };
-		46EB2E00000540 /* Pods-HBRouter-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E00000530 /* Pods-HBRouter-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E00000590 /* Pods-HBRouter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00000580 /* Pods-HBRouter-dummy.m */; };
+		46EB2E00000220 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00000210 /* Foundation.framework */; };
+		46EB2E00000290 /* Pods-HBRouter-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E00000280 /* Pods-HBRouter-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46EB2E000002D0 /* Pods-HBRouter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000002C0 /* Pods-HBRouter-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		46EB2E000005A0 /* PBXContainerItemProxy */ = {
+		46EB2E000002E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46EB2E00000000 /* Project object */;
 			proxyType = 1;
@@ -40,58 +35,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		46EB2E000000C0 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		46EB2E000000F0 /* NSObjectExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
-		46EB2E00000100 /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		46EB2E00000110 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
-		46EB2E00000120 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		46EB2E00000130 /* URLExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
-		46EB2E00000150 /* HBRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouter.swift; sourceTree = "<group>"; };
-		46EB2E00000160 /* HBRouterAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterAction.swift; sourceTree = "<group>"; };
-		46EB2E00000170 /* HBRouterDefinition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterDefinition.swift; sourceTree = "<group>"; };
-		46EB2E00000180 /* HBRouterDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterDelegate.swift; sourceTree = "<group>"; };
-		46EB2E00000190 /* HBRouterMCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterMCache.swift; sourceTree = "<group>"; };
-		46EB2E000001A0 /* HBRouterModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterModels.swift; sourceTree = "<group>"; };
-		46EB2E000001B0 /* HBRouterNavigator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterNavigator.swift; sourceTree = "<group>"; };
-		46EB2E000001C0 /* HBRouterProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HBRouterProtocol.swift; sourceTree = "<group>"; };
-		46EB2E000001E0 /* HBRouter.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = HBRouter.podspec; path = ../../HBRouter.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		46EB2E00000290 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		46EB2E00000390 /* HBRouter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HBRouter.debug.xcconfig; sourceTree = "<group>"; };
-		46EB2E000003A0 /* HBRouter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HBRouter.release.xcconfig; sourceTree = "<group>"; };
-		46EB2E000003B0 /* HBRouter.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = HBRouter.modulemap; sourceTree = "<group>"; };
-		46EB2E000003C0 /* HBRouter-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HBRouter-umbrella.h"; sourceTree = "<group>"; };
-		46EB2E000003E0 /* HBRouter-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "HBRouter-Info.plist"; sourceTree = "<group>"; };
-		46EB2E000003F0 /* HBRouter-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HBRouter-prefix.pch"; sourceTree = "<group>"; };
-		46EB2E00000400 /* HBRouter-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HBRouter-dummy.m"; sourceTree = "<group>"; };
-		46EB2E00000420 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		46EB2E000004F0 /* Pods-HBRouter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HBRouter.release.xcconfig"; sourceTree = "<group>"; };
-		46EB2E00000500 /* Pods-HBRouter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HBRouter.debug.xcconfig"; sourceTree = "<group>"; };
-		46EB2E00000510 /* Pods-HBRouter-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HBRouter-Info.plist"; sourceTree = "<group>"; };
-		46EB2E00000520 /* Pods-HBRouter.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-HBRouter.modulemap"; sourceTree = "<group>"; };
-		46EB2E00000530 /* Pods-HBRouter-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HBRouter-umbrella.h"; sourceTree = "<group>"; };
-		46EB2E00000550 /* Pods-HBRouter-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HBRouter-frameworks.sh"; sourceTree = "<group>"; };
-		46EB2E00000560 /* Pods-HBRouter-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HBRouter-acknowledgements.plist"; sourceTree = "<group>"; };
-		46EB2E00000570 /* Pods-HBRouter-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HBRouter-acknowledgements.markdown"; sourceTree = "<group>"; };
-		46EB2E00000580 /* Pods-HBRouter-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HBRouter-dummy.m"; sourceTree = "<group>"; };
-		A18AAD31D46977481793C17B4E45A12A /* HBRouter */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HBRouter; path = HBRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46EB2E000000C0 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		46EB2E000000D0 /* HBRouter-Swift.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "HBRouter-Swift.h"; path = "HBRouter.framework/Headers/HBRouter-Swift.h"; sourceTree = "<group>"; };
+		46EB2E000000F0 /* HBRouter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HBRouter.framework; sourceTree = "<group>"; };
+		46EB2E00000150 /* HBRouter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HBRouter.debug.xcconfig; sourceTree = "<group>"; };
+		46EB2E00000160 /* HBRouter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HBRouter.release.xcconfig; sourceTree = "<group>"; };
+		46EB2E00000210 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		46EB2E00000240 /* Pods-HBRouter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HBRouter.release.xcconfig"; sourceTree = "<group>"; };
+		46EB2E00000250 /* Pods-HBRouter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HBRouter.debug.xcconfig"; sourceTree = "<group>"; };
+		46EB2E00000260 /* Pods-HBRouter-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HBRouter-Info.plist"; sourceTree = "<group>"; };
+		46EB2E00000270 /* Pods-HBRouter.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-HBRouter.modulemap"; sourceTree = "<group>"; };
+		46EB2E00000280 /* Pods-HBRouter-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HBRouter-umbrella.h"; sourceTree = "<group>"; };
+		46EB2E000002A0 /* Pods-HBRouter-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HBRouter-acknowledgements.plist"; sourceTree = "<group>"; };
+		46EB2E000002B0 /* Pods-HBRouter-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HBRouter-acknowledgements.markdown"; sourceTree = "<group>"; };
+		46EB2E000002C0 /* Pods-HBRouter-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HBRouter-dummy.m"; sourceTree = "<group>"; };
 		B523D3F211DB0DE2C236EB6141C8F26E /* Pods-HBRouter */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-HBRouter"; path = Pods_HBRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		46EB2E00000260 /* Frameworks */ = {
+		46EB2E000001E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E000002A0 /* Foundation.framework in Frameworks */,
-				46EB2E00000430 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		46EB2E000004B0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				46EB2E000004D0 /* Foundation.framework in Frameworks */,
+				46EB2E00000220 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				46EB2E000000C0 /* Podfile */,
-				46EB2E00000090 /* Development Pods */,
 				46EB2E00000060 /* Frameworks */,
+				46EB2E00000080 /* Pods */,
 				46EB2E00000020 /* Products */,
 				46EB2E00000070 /* Targets Support Files */,
 			);
@@ -112,7 +78,6 @@
 		46EB2E00000020 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A18AAD31D46977481793C17B4E45A12A /* HBRouter */,
 				B523D3F211DB0DE2C236EB6141C8F26E /* Pods-HBRouter */,
 			);
 			name = Products;
@@ -121,8 +86,7 @@
 		46EB2E00000060 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000001E0 /* HBRouter.podspec */,
-				46EB2E00000280 /* iOS */,
+				46EB2E00000200 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -130,111 +94,67 @@
 		46EB2E00000070 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000004E0 /* Pods-HBRouter */,
+				46EB2E00000230 /* Pods-HBRouter */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		46EB2E00000090 /* Development Pods */ = {
+		46EB2E00000080 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				46EB2E000000B0 /* HBRouter */,
 			);
-			name = "Development Pods";
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		46EB2E000000B0 /* HBRouter */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000000D0 /* HBRouter */,
-				46EB2E000001D0 /* Pod */,
-				46EB2E00000380 /* Support Files */,
+				46EB2E000000D0 /* HBRouter-Swift.h */,
+				46EB2E000000E0 /* Frameworks */,
+				46EB2E00000140 /* Support Files */,
 			);
 			name = HBRouter;
-			path = ../..;
+			path = HBRouter;
 			sourceTree = "<group>";
 		};
-		46EB2E000000D0 /* HBRouter */ = {
+		46EB2E000000E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000000E0 /* Extension */,
-				46EB2E00000140 /* Router */,
+				46EB2E000000F0 /* HBRouter.framework */,
 			);
-			name = HBRouter;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		46EB2E000000E0 /* Extension */ = {
+		46EB2E00000140 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000000F0 /* NSObjectExtension.swift */,
-				46EB2E00000100 /* StringExtension.swift */,
-				46EB2E00000110 /* UINavigationControllerExtension.swift */,
-				46EB2E00000120 /* UIViewControllerExtension.swift */,
-				46EB2E00000130 /* URLExtension.swift */,
+				46EB2E00000150 /* HBRouter.debug.xcconfig */,
+				46EB2E00000160 /* HBRouter.release.xcconfig */,
 			);
-			name = Extension;
-			path = HBRouter/Classes/Extension;
+			name = "Support Files";
+			path = "../Target Support Files/HBRouter";
 			sourceTree = "<group>";
 		};
-		46EB2E00000140 /* Router */ = {
+		46EB2E00000200 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E00000150 /* HBRouter.swift */,
-				46EB2E00000160 /* HBRouterAction.swift */,
-				46EB2E00000170 /* HBRouterDefinition.swift */,
-				46EB2E00000180 /* HBRouterDelegate.swift */,
-				46EB2E00000190 /* HBRouterMCache.swift */,
-				46EB2E000001A0 /* HBRouterModels.swift */,
-				46EB2E000001B0 /* HBRouterNavigator.swift */,
-				46EB2E000001C0 /* HBRouterProtocol.swift */,
-			);
-			name = Router;
-			path = HBRouter/Classes/Router;
-			sourceTree = "<group>";
-		};
-		46EB2E000001D0 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		46EB2E00000280 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				46EB2E00000290 /* Foundation.framework */,
-				46EB2E00000420 /* UIKit.framework */,
+				46EB2E00000210 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		46EB2E00000380 /* Support Files */ = {
+		46EB2E00000230 /* Pods-HBRouter */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000003B0 /* HBRouter.modulemap */,
-				46EB2E00000400 /* HBRouter-dummy.m */,
-				46EB2E000003E0 /* HBRouter-Info.plist */,
-				46EB2E000003F0 /* HBRouter-prefix.pch */,
-				46EB2E000003C0 /* HBRouter-umbrella.h */,
-				46EB2E00000390 /* HBRouter.debug.xcconfig */,
-				46EB2E000003A0 /* HBRouter.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/HBRouter";
-			sourceTree = "<group>";
-		};
-		46EB2E000004E0 /* Pods-HBRouter */ = {
-			isa = PBXGroup;
-			children = (
-				46EB2E00000520 /* Pods-HBRouter.modulemap */,
-				46EB2E00000570 /* Pods-HBRouter-acknowledgements.markdown */,
-				46EB2E00000560 /* Pods-HBRouter-acknowledgements.plist */,
-				46EB2E00000580 /* Pods-HBRouter-dummy.m */,
-				46EB2E00000550 /* Pods-HBRouter-frameworks.sh */,
-				46EB2E00000510 /* Pods-HBRouter-Info.plist */,
-				46EB2E00000530 /* Pods-HBRouter-umbrella.h */,
-				46EB2E00000500 /* Pods-HBRouter.debug.xcconfig */,
-				46EB2E000004F0 /* Pods-HBRouter.release.xcconfig */,
+				46EB2E00000270 /* Pods-HBRouter.modulemap */,
+				46EB2E000002B0 /* Pods-HBRouter-acknowledgements.markdown */,
+				46EB2E000002A0 /* Pods-HBRouter-acknowledgements.plist */,
+				46EB2E000002C0 /* Pods-HBRouter-dummy.m */,
+				46EB2E00000260 /* Pods-HBRouter-Info.plist */,
+				46EB2E00000280 /* Pods-HBRouter-umbrella.h */,
+				46EB2E00000250 /* Pods-HBRouter.debug.xcconfig */,
+				46EB2E00000240 /* Pods-HBRouter.release.xcconfig */,
 			);
 			name = "Pods-HBRouter";
 			path = "Target Support Files/Pods-HBRouter";
@@ -243,56 +163,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		46EB2E00000240 /* Headers */ = {
+		46EB2E000001C0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E000003D0 /* HBRouter-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		46EB2E00000490 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				46EB2E00000540 /* Pods-HBRouter-umbrella.h in Headers */,
+				46EB2E00000290 /* Pods-HBRouter-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		BB748D3000FB8D009A5A00D5F5F07A8F /* HBRouter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 46EB2E00000200 /* Build configuration list for PBXNativeTarget "HBRouter" */;
-			buildPhases = (
-				46EB2E00000240 /* Headers */,
-				46EB2E00000250 /* Sources */,
-				46EB2E00000260 /* Frameworks */,
-				46EB2E00000270 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HBRouter;
-			productName = HBRouter;
-			productReference = A18AAD31D46977481793C17B4E45A12A /* HBRouter */;
-			productType = "com.apple.product-type.framework";
-		};
 		D7FDE109C7FB0C33E3139F26EEC50D9B /* Pods-HBRouter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46EB2E00000450 /* Build configuration list for PBXNativeTarget "Pods-HBRouter" */;
+			buildConfigurationList = 46EB2E00000180 /* Build configuration list for PBXNativeTarget "Pods-HBRouter" */;
 			buildPhases = (
-				46EB2E00000490 /* Headers */,
-				46EB2E000004A0 /* Sources */,
-				46EB2E000004B0 /* Frameworks */,
-				46EB2E000004C0 /* Resources */,
+				46EB2E000001C0 /* Headers */,
+				46EB2E000001D0 /* Sources */,
+				46EB2E000001E0 /* Frameworks */,
+				46EB2E000001F0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				46EB2E000005B0 /* PBXTargetDependency */,
+				46EB2E000002F0 /* PBXTargetDependency */,
 			);
 			name = "Pods-HBRouter";
 			productName = Pods_HBRouter;
@@ -328,14 +222,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		46EB2E00000270 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		46EB2E000004C0 /* Resources */ = {
+		46EB2E000001F0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -345,43 +232,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		46EB2E00000250 /* Sources */ = {
+		46EB2E000001D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E00000300 /* HBRouter.swift in Sources */,
-				46EB2E00000410 /* HBRouter-dummy.m in Sources */,
-				46EB2E00000310 /* HBRouterAction.swift in Sources */,
-				46EB2E00000320 /* HBRouterDefinition.swift in Sources */,
-				46EB2E00000330 /* HBRouterDelegate.swift in Sources */,
-				46EB2E00000340 /* HBRouterMCache.swift in Sources */,
-				46EB2E00000350 /* HBRouterModels.swift in Sources */,
-				46EB2E00000360 /* HBRouterNavigator.swift in Sources */,
-				46EB2E00000370 /* HBRouterProtocol.swift in Sources */,
-				46EB2E000002B0 /* NSObjectExtension.swift in Sources */,
-				46EB2E000002C0 /* StringExtension.swift in Sources */,
-				46EB2E000002D0 /* UINavigationControllerExtension.swift in Sources */,
-				46EB2E000002E0 /* UIViewControllerExtension.swift in Sources */,
-				46EB2E000002F0 /* URLExtension.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		46EB2E000004A0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				46EB2E00000590 /* Pods-HBRouter-dummy.m in Sources */,
+				46EB2E000002D0 /* Pods-HBRouter-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		46EB2E000005B0 /* PBXTargetDependency */ = {
+		46EB2E000002F0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = HBRouter;
 			target = BB748D3000FB8D009A5A00D5F5F07A8F /* HBRouter */;
-			targetProxy = 46EB2E000005A0 /* PBXContainerItemProxy */;
+			targetProxy = 46EB2E000002E0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -514,84 +380,48 @@
 			};
 			name = Release;
 		};
-		46EB2E00000210 /* Release */ = {
+		46EB2E00000120 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E000003A0 /* HBRouter.release.xcconfig */;
+			baseConfigurationReference = 46EB2E00000160 /* HBRouter.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				BITCODE_GENERATION_MODE = bitcode;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/HBRouter/HBRouter-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/HBRouter/HBRouter-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/HBRouter/HBRouter.modulemap";
-				PRODUCT_MODULE_NAME = HBRouter;
-				PRODUCT_NAME = HBRouter;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;
 		};
-		46EB2E00000220 /* Debug */ = {
+		46EB2E00000130 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00000390 /* HBRouter.debug.xcconfig */;
+			baseConfigurationReference = 46EB2E00000150 /* HBRouter.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				BITCODE_GENERATION_MODE = bitcode;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/HBRouter/HBRouter-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/HBRouter/HBRouter-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/HBRouter/HBRouter.modulemap";
-				PRODUCT_MODULE_NAME = HBRouter;
-				PRODUCT_NAME = HBRouter;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
 		};
-		46EB2E00000460 /* Release */ = {
+		46EB2E00000190 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E000004F0 /* Pods-HBRouter.release.xcconfig */;
+			baseConfigurationReference = 46EB2E00000240 /* Pods-HBRouter.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -629,9 +459,9 @@
 			};
 			name = Release;
 		};
-		46EB2E00000470 /* Debug */ = {
+		46EB2E000001A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00000500 /* Pods-HBRouter.debug.xcconfig */;
+			baseConfigurationReference = 46EB2E00000250 /* Pods-HBRouter.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -680,20 +510,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46EB2E00000200 /* Build configuration list for PBXNativeTarget "HBRouter" */ = {
+		46EB2E00000110 /* Build configuration list for PBXAggregateTarget "HBRouter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46EB2E00000220 /* Debug */,
-				46EB2E00000210 /* Release */,
+				46EB2E00000130 /* Debug */,
+				46EB2E00000120 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46EB2E00000450 /* Build configuration list for PBXNativeTarget "Pods-HBRouter" */ = {
+		46EB2E00000180 /* Build configuration list for PBXNativeTarget "Pods-HBRouter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46EB2E00000470 /* Debug */,
-				46EB2E00000460 /* Release */,
+				46EB2E000001A0 /* Debug */,
+				46EB2E00000190 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

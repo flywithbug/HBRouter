@@ -13,8 +13,9 @@ post_install do |installer|
 end
 
 target "Example_swift" do
-  pod 'HBRouter'  , :path => '../' #'0.0.1-SNAPSHOT'
-  
+#  pod 'HBRouter'  , :path => '../' #'0.0.1-SNAPSHOT'
+  pod 'HBRouter'  ,'0.0.2'
+
   pod 'Business_Pod_test' , :path => '../test/'
 
 

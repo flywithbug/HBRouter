@@ -108,7 +108,6 @@
 				B487A246269446F4007DDF21 /* Sources */,
 				B487A247269446F4007DDF21 /* Frameworks */,
 				B487A248269446F4007DDF21 /* Resources */,
-				140BE0518929A36E7BB9EFAB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,23 +163,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		140BE0518929A36E7BB9EFAB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HBRouter/Pods-HBRouter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HBRouter/Pods-HBRouter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HBRouter/Pods-HBRouter-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9AEACF163946942880BB81D8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

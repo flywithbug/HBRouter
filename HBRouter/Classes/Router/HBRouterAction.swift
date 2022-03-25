@@ -228,8 +228,6 @@ import UIKit
             }
             self.initt(url: _url)
         }
-        
-        
     }
     
     private func initt(url:URL){

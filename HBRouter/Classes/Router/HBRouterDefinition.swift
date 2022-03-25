@@ -30,8 +30,6 @@ import Foundation
 }
 
 
-
-
 public func Dlog(_ value: Any, _ file: String = #file, _ line: Int = #line, _ function: String = #function) {
     #if DEBUG
     var stringRepresentation: String?
