@@ -44,20 +44,19 @@ extension UserAccountManager:HBRouterDelegate {
     }
     
     func onMatchRouterAction(_ action: HBRouterAction, any: Any?) {
-
-       
+        print("onMatchRouterAction:\(action.routerURLPattern() ?? "-") ")
     }
     func shouldOpenRouter(_ action: HBRouterAction) -> Bool {
-       
+        print("shouldOpenRouter:\(action.routerURLPattern() ?? "-") ")
         return true
     }
     
     func willOpenRouter(_ action: HBRouterAction) {
-            
+        print("willOpenRouter:\(action.routerURLPattern() ?? "-") ")
     }
     
     func didOpenRouter(_ action: HBRouterAction) {
-        
+        print("didOpenRouter:\(action.routerURLPattern() ?? "-") ")
     }
     
     func shouldOpenExternal(_ action: HBRouterAction) -> Bool {
@@ -91,7 +90,8 @@ extension UserAccountManager:HBRouterDelegate {
     }
     
     func onMatchUnhandleRouterAction(_ action: HBRouterAction) {
-        
+        print("onMatchUnhandleRouterAction:\(action.routerURLPattern() ?? "-") ")
+
     }
     
     

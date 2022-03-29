@@ -256,6 +256,7 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
         if checkRouterActionAuth(action)  == false {
             return nil
         }
+        willOpenRouter(action)
         if action.openExternal && shouldOpenExternal(action) {
             willOpenExternal(action)
             openExternal(action) { [weak self] (success) in
@@ -263,9 +264,11 @@ public typealias  viewControllerFactory = (_ router:HBRouterAction) -> UIViewCon
             }
         }
         if  let _target =  handleFactory(action) {
+            didOpenRouter(action)
             return _target.target
         }
         if let val = openController(action,inside: true),val.success{
+            didOpenRouter(action)
             return val.viewController
         }
         //未处理action回调

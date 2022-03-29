@@ -18,9 +18,11 @@ public protocol HBRouterDelegate:AnyObject {
     
     //路由权限校验
     func shouldOpenRouter(_ action:HBRouterAction) -> Bool
+   
     //路由打开状态
     func willOpenRouter(_ action:HBRouterAction)
     func didOpenRouter(_ action:HBRouterAction)
+    
     
     
     //外链判断
