@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint JYMopedModule.podspec' to ensure this is a
+# Be sure to run `pod lib lint HBRouter.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -21,10 +21,10 @@ Pod::Spec.new do |s|
         app 
                        DESC
 
-  s.homepage         = 'http://gitlab.hellobike.cn/Torrent/HBRouter.git'
+  s.homepage         = 'https://github.com/flywithbug/HBRouter.git'
   s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = { 'flywithbug' => 'flywithbug@gmail.com' }
-  s.source           = { :git => 'http://gitlab.host.cn/Torrent/HBRouter.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/flywithbug/HBRouter.git', :tag => s.version }
 
   s.ios.deployment_target = '9.0'
 #  s.static_framework = true
