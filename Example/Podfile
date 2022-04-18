@@ -1,6 +1,5 @@
 
 
-source 'ssh://git@gitlab.hellobike.cn:10022/Torrent/Cocoapods_StaticBinary_iOS.git'
 
 use_frameworks!
 install! 'cocoapods', :deterministic_uuids => false
