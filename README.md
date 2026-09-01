@@ -1,3 +1,5 @@
+
+
 # HBRouter
 
 ![image](https://user-images.githubusercontent.com/3955387/149880769-43c21105-d9a1-4eb4-9ded-e40de2f05033.png)
@@ -217,7 +219,7 @@ override public func closePage(urlPattern: HBRouter.routerURLPattern) -> [UIView
  @objc open class func needsLogin(_ action: HBRouter.HBRouterAction) -> Bool
 
  /// 栈内单例是否唯一：
- /// - Parameter
+ /// - Parameter action: action参数
  @objc open class func isSingleton(_ action: HBRouter.HBRouterAction) -> Bool
 
  //是否支持侧滑返回
